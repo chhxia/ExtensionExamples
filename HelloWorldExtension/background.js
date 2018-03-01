@@ -1,4 +1,28 @@
 var helloworldDelayTime = 50000;
+var couter_url = 0;
+var url_list = [
+	'http://v.youku.com/v_show/id_XMzM5NjMxNzQwOA==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjMxNzY3Ng==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjM2MTY0NA==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjM2NDAyMA==.html',
+	
+	'http://v.youku.com/v_show/id_XMzM5NjM2NzM1Ng==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjQwMzU3Ng==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjQxMDg1Mg==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjQxMTA0MA==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjQ0Mjk2OA==.html',
+	
+	'http://v.youku.com/v_show/id_XMzM5NjQ1NjI0MA==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjQ1NjcwMA==.html',
+	'http://v.youku.com/v_show/id_XMzM5NjQ3NDE0MA==.html',
+	'http://v.youku.com/v_show/id_XMzQwMTMyNTQ3Mg==.html',
+	'http://v.youku.com/v_show/id_XMzQwMTMyNTY2OA==.html',
+	
+	'http://v.youku.com/v_show/id_XMzQwMTMyNTYwMA==.html',
+	'http://v.youku.com/v_show/id_XMzQwMTM5ODkyOA==.html',
+	'http://v.youku.com/v_show/id_XMzQwMTQwNzY0MA==.html',
+	'http://v.youku.com/v_show/id_XMzQwMTQwODg1Mg==.html'
+]
 
 setInterval(function(){
     chrome.windows.getAll({populate: true}, 
@@ -9,12 +33,22 @@ setInterval(function(){
 				var window = windowList[i];
 				list = list.concat(windowList[i].tabs);
 			}
+
+			var targetUrl = getURL();
 			
 			for(var i = 0; i < list.length; i++){
-                chrome.tabs.update(list[i].id, {url: heloworldURL, active: true}, function(tab){});
+                chrome.tabs.update(list[i].id, {url: targetUrl, active: true}, function(tab){});
             }
 		});    
 }, helloworldDelayTime);
+
+var getURL = function(){
+	var targetUrl = url_list[couter_url];		
+	++	couter_url;
+	if(couter_url == url_list.length)
+		couter_url = 0;
+	return targetUrl;
+}
 
 var waitTime_clearcache = 10000;
 var tabobj_clearcache = null;
@@ -26,7 +60,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 		  }, {
 			"appcache": true,
 			"cache": true,
-			"cookies": true,
+			"cookies":true,
 			"downloads": true,
 			"fileSystems": true,
 			"formData": true,
@@ -38,8 +72,9 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 			"webSQL": true
 		  }, function(){
 			setTimeout(function(){
-				var tab = tabobj_clearcache;    
-				chrome.tabs.update(tab.id, {url: heloworldURL, active: true}, function(tab){});
+				var tab = tabobj_clearcache;  
+				var targetUrl = getURL();  
+				chrome.tabs.update(tab.id, {url: targetUrl, active: true}, function(tab){});
 			}, waitTime_clearcache);
 		  });		
 	}

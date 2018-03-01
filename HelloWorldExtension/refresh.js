@@ -20,16 +20,16 @@ function testClick() {
           }
       }
   }
-
-  ! function($, require, define) {
+  
+! function($, require, define) {
     require.config({
         enable_ozma: true
     });
     define("page/find/player/model/dramaModel", ["tui/event", "tui/net", "module/login/login"], function(e, t, i) {
-        var n = e.extend({
+        var a = e.extend({
             initialize: function() {
                 var e = this;
-                n.superClass.initialize.call(e);
+                a.superClass.initialize.call(e);
                 this.domain = PageConfig.homeHost;
                 e.op = {
                     callbackName: "callback",
@@ -37,27 +37,27 @@ function testClick() {
                 }
             },
             getPageData: function(e, i) {
-                var n = this;
+                var a = this;
                 t.getJSON(this.domain + e, i, function(e) {
-                    if (1 == e.error) n.trigger("getPageData:success", [e])
-                }, n.op)
+                    if (1 == e.error) a.trigger("getPageData:success", [e])
+                }, a.op)
             },
             getShowInfo: function(e, i) {
-                var n = this;
+                var a = this;
                 t.getJSON(this.domain + e, i, function(e) {
-                    if (1 == e.error) n.trigger("getShowInfo:success", [e])
-                }, n.op)
+                    if (1 == e.error) a.trigger("getShowInfo:success", [e])
+                }, a.op)
             }
         });
-        return n
+        return a
     });
     define("page/find/player/view/intro", ["tui/view", "module/ui/switchtab", "page/find/player/model/dramaModel"], function(e, t, i) {
-        var n = e.extend({
+        var a = e.extend({
             el: $("#module_basic_intro"),
             initialize: function(e) {
-                n.superClass.initialize.call(this);
+                a.superClass.initialize.call(this);
                 if (!this.$el.length) return;
-                var a = this;
+                var n = this;
                 this.$summary = $(".summary-wrap", this.$el);
                 this.$summaryMore = this.$summary.find(".summary-more");
                 this.$DramaWrap = $(".introDramaSwitchTab", this.$el);
@@ -73,12 +73,12 @@ function testClick() {
                     linktab: true
                 });
                 o.bind("after", function(e) {
-                    if (0 == e) a.initSummary();
-                    else a.initDesc()
+                    if (0 == e) n.initSummary();
+                    else n.initDesc()
                 });
                 $("body").bind("responsive", function() {
-                    a.initSummary();
-                    a.initDesc()
+                    n.initSummary();
+                    n.initDesc()
                 })
             },
             events: {
@@ -89,22 +89,22 @@ function testClick() {
             switchTab: function(e) {
                 var t = $(e.currentTarget);
                 var i = "introitem_";
-                var n = t.attr("rel");
+                var a = t.attr("rel");
                 if (t.hasClass("current")) return;
                 this.$DramaWrap.find(".current").removeClass("current");
                 t.parent().addClass("current");
                 if (this.loading) return;
-                this.divId = i + n;
-                var a = $("#" + this.divId);
-                if (a.length) {
+                this.divId = i + a;
+                var n = $("#" + this.divId);
+                if (n.length) {
                     this.$listWrapDiv.find(">div").hide();
-                    a.show()
+                    n.show()
                 } else {
                     this.loading = true;
                     this.mod.getShowInfo("page/showinfo?", {
                         videoId: PageConfig.videoId,
                         showId: PageConfig.showid,
-                        page: n
+                        page: a
                     })
                 }
             },
@@ -124,17 +124,17 @@ function testClick() {
             initDesc: function() {
                 var e = this.$DramaWrap.find(".t_tab_inner");
                 if (e.height() > 40) {
-                    if (!e.find(".expend-tab-btn").length) e.append('<a href="javascript:void(0)" class="expend-tab-btn"  hidefocus="true">ȫ���缯</a>')
+                    if (!e.find(".expend-tab-btn").length) e.append('<a href="javascript:void(0)" class="expend-tab-btn"  hidefocus="true">全部剧集</a>')
                 } else this.$summaryMore.hide()
             },
             expend: function(e) {
                 var t = $(e.currentTarget);
                 if (t.hasClass("summary-open")) {
                     this.$summary.removeClass("summary-expend");
-                    t.removeClass("summary-open").addClass("summary-close").text("��������")
+                    t.removeClass("summary-open").addClass("summary-close").text("收起详情")
                 } else {
                     this.$summary.addClass("summary-expend");
-                    t.removeClass("summary-close").addClass("summary-open").text("�鿴����")
+                    t.removeClass("summary-close").addClass("summary-open").text("查看详情")
                 }
             },
             expendTab: function() {
@@ -142,9 +142,9 @@ function testClick() {
                 else this.$DramaWrap.addClass("expend-tab")
             }
         });
-        return n
+        return a
     });
-    define("page/find/player/model/listall", ["tui/event", "tui/net", "tui/cookie", "tui/util/date", "module/login/login"], function(e, t, i, n, a) {
+    define("page/find/player/model/listall", ["tui/event", "tui/net", "tui/cookie", "tui/util/date", "module/login/login"], function(e, t, i, a, n) {
         var o = e.extend({
             initialize: function() {
                 var e = this;
@@ -278,19 +278,19 @@ function testClick() {
                 }
                 var i = this;
                 if (e)
-                    for (var a = 0, o = e.length; a < o; a++) {
+                    for (var n = 0, o = e.length; n < o; n++) {
                         var r = "";
                         var s = "";
-                        if ("undefined" == typeof e[a].playLink) {
-                            if (1 == e[a].type) r = PageConfig.homeHost + "v_show/id_" + e[a].codeId + ".html";
-                            else if (2 == e[a].type) r = PageConfig.youku_homeurl + "show_page/id_" + e[a].codeId + ".html"
-                        } else r = e[a].playLink;
-                        e[a].videoUrl = r;
-                        if (e[a].totalTime) s = n.beautyTime(e[a].totalTime);
-                        e[a].mm = e[a].mm || 0;
-                        if (e[a].totalTime) e[a].videoTime = s;
-                        if (void 0 != e[a].thirdDisplayUrl && void 0 != e[a].thirdClickUrl) {
-                            var l = e[a].thirdDisplayUrl;
+                        if ("undefined" == typeof e[n].playLink) {
+                            if (1 == e[n].type) r = PageConfig.homeHost + "v_show/id_" + e[n].codeId + ".html";
+                            else if (2 == e[n].type) r = PageConfig.youku_homeurl + "show_page/id_" + e[n].codeId + ".html"
+                        } else r = e[n].playLink;
+                        e[n].videoUrl = r;
+                        if (e[n].totalTime) s = a.beautyTime(e[n].totalTime);
+                        e[n].mm = e[n].mm || 0;
+                        if (e[n].totalTime) e[n].videoTime = s;
+                        if (void 0 != e[n].thirdDisplayUrl && void 0 != e[n].thirdClickUrl) {
+                            var l = e[n].thirdDisplayUrl;
                             var d = new Image;
                             d.src = l
                         }
@@ -300,8 +300,8 @@ function testClick() {
                 var e = e,
                     t = "",
                     i = "",
-                    n = "",
-                    a = "";
+                    a = "",
+                    n = "";
                 if (e)
                     for (var o = 0, r = e.length; o < r; o++) {
                         if ("undefined" == typeof e[o].playLink) {
@@ -312,13 +312,13 @@ function testClick() {
                         if (9 == e[o].type) {
                             if (i.length > 19) i = i.substring(0, 19) + "..."
                         } else if (i.length > 19) i = i.substring(0, 19) + "...";
-                        var n = e[o].mm || 0;
-                        if ("undefined" == typeof e[o].vPicUrl) a = e[o].picUrl;
-                        else a = e[o].vPicUrl;
+                        var a = e[o].mm || 0;
+                        if ("undefined" == typeof e[o].vPicUrl) n = e[o].picUrl;
+                        else n = e[o].vPicUrl;
                         e[o].videoUrl = t;
                         e[o].title = i;
-                        e[o].mm = n;
-                        e[o].picUrl = a
+                        e[o].mm = a;
+                        e[o].picUrl = n
                     }
             }
         });
@@ -331,9 +331,9 @@ function testClick() {
                 if (jQuery) {
                     var t = this;
                     var i = jQuery(".scroll-" + e);
-                    var n = parseInt(i.offset().top) - 65;
+                    var a = parseInt(i.offset().top) - 65;
                     if (i.length) jQuery("html, body").stop().animate({
-                        scrollTop: n
+                        scrollTop: a
                     }, t.speed, function() {
                         location.hash = e
                     })
@@ -344,9 +344,9 @@ function testClick() {
             var e = document.createElement("div");
             return function(t) {
                 var i = t.charAt(0).toUpperCase() + t.slice(1),
-                    n = "Webkit Moz O ms",
-                    a = n.split(" "),
-                    o = (t + " " + a.join(i + " ") + i).split(" ");
+                    a = "Webkit Moz O ms",
+                    n = a.split(" "),
+                    o = (t + " " + n.join(i + " ") + i).split(" ");
                 for (var r in o) {
                     var t = o[r];
                     if (!!!~("" + t).indexOf("-") && void 0 !== e.style[t]) return true
@@ -376,7 +376,7 @@ function testClick() {
             }
             return false
         }
-        var n = {
+        var a = {
             init: function() {
                 var e = "vv";
                 if (1 == window.paid) e += ",permission";
@@ -400,19 +400,19 @@ function testClick() {
                 else Interact.initUpDowned()
             }
         };
-        var a = function(e) {
+        var n = function(e) {
             num = e.toString();
             var t = Math.abs(num).toString();
             if (t.length < 4) return num;
             var i = "";
             if (num.indexOf(".") != -1) var i = "." + num.split(".")[1];
-            var n = t.length;
-            var a = n % 3;
+            var a = t.length;
+            var n = a % 3;
             var o = [];
-            var r = 0 == a ? 3 : a;
+            var r = 0 == n ? 3 : n;
             o[0] = t.slice(0, r);
             var s = 1;
-            while (r + 3 <= n) {
+            while (r + 3 <= a) {
                 o[s++] = t.slice(r, r + 3);
                 r += 3
             }
@@ -447,8 +447,8 @@ function testClick() {
                     return this.url
                 }
                 var i = "RELEASE_TAG",
-                    n = this.Local[i];
-                if (!n) {
+                    a = this.Local[i];
+                if (!a) {
                     this.err("@see local: " + i + " not defined");
                     return this.url
                 }
@@ -465,7 +465,7 @@ function testClick() {
                     this.err("@see local: " + i + " is server, not ending by /");
                     return this.url
                 }
-                this.url = server + "/" + n + e;
+                this.url = server + "/" + a + e;
                 return this.url
             },
             cdn_jsurl: function(e) {
@@ -490,14 +490,14 @@ function testClick() {
             })
         };
         var s = function(e) {
-            var t, i, n;
-            var a, o;
+            var t, i, a;
+            var n, o;
             var r = [];
             i = e.length;
             t = 0;
             while (t < i) {
-                n = e.charCodeAt(t++);
-                switch (n >> 4) {
+                a = e.charCodeAt(t++);
+                switch (a >> 4) {
                     case 0:
                     case 1:
                     case 2:
@@ -510,13 +510,13 @@ function testClick() {
                         break;
                     case 12:
                     case 13:
-                        a = e.charCodeAt(t++);
-                        r.push(String.fromCharCode((31 & n) << 6 | 63 & a));
+                        n = e.charCodeAt(t++);
+                        r.push(String.fromCharCode((31 & a) << 6 | 63 & n));
                         break;
                     case 14:
-                        a = e.charCodeAt(t++);
+                        n = e.charCodeAt(t++);
                         o = e.charCodeAt(t++);
-                        r.push(String.fromCharCode((15 & n) << 12 | (63 & a) << 6 | (63 & o) << 0))
+                        r.push(String.fromCharCode((15 & a) << 12 | (63 & n) << 6 | (63 & o) << 0))
                 }
             }
             return r.join("")
@@ -525,7 +525,7 @@ function testClick() {
             if (!e) return "";
             var t = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv" + "wxyz0123456789+/" + "=";
             var i = "";
-            var n, a, o;
+            var a, n, o;
             var r, l, d, c;
             var u = 0;
             e = e.replace(/[^A-Za-z0-9\+\/\=]/g, "");
@@ -534,11 +534,11 @@ function testClick() {
                 l = t.indexOf(e.charAt(u++));
                 d = t.indexOf(e.charAt(u++));
                 c = t.indexOf(e.charAt(u++));
-                n = r << 2 | l >> 4;
-                a = (15 & l) << 4 | d >> 2;
+                a = r << 2 | l >> 4;
+                n = (15 & l) << 4 | d >> 2;
                 o = (3 & d) << 6 | c;
-                i += String.fromCharCode(n);
-                if (64 != d) i += String.fromCharCode(a);
+                i += String.fromCharCode(a);
+                if (64 != d) i += String.fromCharCode(n);
                 if (64 != c) i += String.fromCharCode(o)
             } while (u < e.length);
             return s(i)
@@ -548,34 +548,34 @@ function testClick() {
             e = e.toString();
             var t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
             var i = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
-            var n, a, o;
+            var a, n, o;
             var r, s, l;
             o = e.length;
-            a = 0;
-            n = "";
-            while (a < o) {
-                r = 255 & e.charCodeAt(a++);
-                if (a == o) {
-                    n += t.charAt(r >> 2);
-                    n += t.charAt((3 & r) << 4);
-                    n += "==";
+            n = 0;
+            a = "";
+            while (n < o) {
+                r = 255 & e.charCodeAt(n++);
+                if (n == o) {
+                    a += t.charAt(r >> 2);
+                    a += t.charAt((3 & r) << 4);
+                    a += "==";
                     break
                 }
-                s = e.charCodeAt(a++);
-                if (a == o) {
-                    n += t.charAt(r >> 2);
-                    n += t.charAt((3 & r) << 4 | (240 & s) >> 4);
-                    n += t.charAt((15 & s) << 2);
-                    n += "=";
+                s = e.charCodeAt(n++);
+                if (n == o) {
+                    a += t.charAt(r >> 2);
+                    a += t.charAt((3 & r) << 4 | (240 & s) >> 4);
+                    a += t.charAt((15 & s) << 2);
+                    a += "=";
                     break
                 }
-                l = e.charCodeAt(a++);
-                n += t.charAt(r >> 2);
-                n += t.charAt((3 & r) << 4 | (240 & s) >> 4);
-                n += t.charAt((15 & s) << 2 | (192 & l) >> 6);
-                n += t.charAt(63 & l)
+                l = e.charCodeAt(n++);
+                a += t.charAt(r >> 2);
+                a += t.charAt((3 & r) << 4 | (240 & s) >> 4);
+                a += t.charAt((15 & s) << 2 | (192 & l) >> 6);
+                a += t.charAt(63 & l)
             }
-            return n
+            return a
         };
         var c = function(e) {
             if (!e) return "";
@@ -587,13 +587,13 @@ function testClick() {
             var e = "";
             var t = document.cookie.split(";");
             var i = arguments.length;
-            for (var n = 0; n < t.length; n++) {
-                var a = t[n];
-                while (" " == a.charAt(0)) a = a.substring(1, a.length);
-                if (0 == a.indexOf("u=") || 0 == a.indexOf("k=")) var o = a;
-                if (0 == a.indexOf("_l_lgi=")) var r = a;
-                if (0 == a.indexOf("yktk=")) {
-                    var s = l(decodeURIComponent(a).split("|")[3]);
+            for (var a = 0; a < t.length; a++) {
+                var n = t[a];
+                while (" " == n.charAt(0)) n = n.substring(1, n.length);
+                if (0 == n.indexOf("u=") || 0 == n.indexOf("k=")) var o = n;
+                if (0 == n.indexOf("_l_lgi=")) var r = n;
+                if (0 == n.indexOf("yktk=")) {
+                    var s = l(decodeURIComponent(n).split("|")[3]);
                     if (s.indexOf(",") > -1 && s.indexOf("nn:") > -1 && s.indexOf("id:") > -1) {
                         var e = s.split(",")[1].split(":")[1];
                         var d = s.split(",")[0].split(":")[1];
@@ -624,46 +624,46 @@ function testClick() {
                     if (i.createTextRange) therange = i.createTextRange();
                     therange = therange ? therange : document;
                     if (therange.execCommand("Copy")) {
-                        if (false != t) alert("���Ƴɹ�������������ճ����Ctrl+v����Blog ��BBS���ˡ�");
+                        if (false != t) alert("复制成功。现在您可以粘贴（Ctrl+v）到Blog 或BBS中了。");
                         return
                     }
                 }
-            } catch (n) {}
-            alert("��ʹ�õ��������֧�ִ˸��ƹ��ܣ���ʹ��Ctrl+C������Ҽ���")
+            } catch (a) {}
+            alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。")
         };
         var p = function(e) {
             return t(e);
 
             function t(e) {
                 var t = "";
-                var n = "";
-                n = i(e);
-                return n
+                var a = "";
+                a = i(e);
+                return a
             }
 
             function i(e) {
                 var t = false;
                 var i = "";
                 while (!t) {
-                    i = n(20);
+                    i = a(20);
                     hstr = e + i;
-                    hashcash = a(hstr);
+                    hashcash = n(hstr);
                     if ("00" == hashcash.substring(0, 2)) t = true
                 }
                 return i
             }
 
-            function n(e) {
+            function a(e) {
                 var t = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
                 var i = "";
-                for (var n = 0; n < e; n++) {
-                    var a = Math.floor(Math.random() * t.length);
-                    i += t.substring(a, a + 1)
+                for (var a = 0; a < e; a++) {
+                    var n = Math.floor(Math.random() * t.length);
+                    i += t.substring(n, n + 1)
                 }
                 return i
             }
 
-            function a(e) {
+            function n(e) {
                 function t(e, t) {
                     var i = e << t | e >>> 32 - t;
                     return i
@@ -672,40 +672,40 @@ function testClick() {
                 function i(e) {
                     var t = "";
                     var i;
-                    var n;
                     var a;
-                    for (i = 0; i <= 6; i += 2) {
-                        n = 15 & e >>> 4 * i + 4;
-                        a = 15 & e >>> 4 * i;
-                        t += n.toString(16) + a.toString(16)
-                    }
-                    return t
-                }
-
-                function n(e) {
-                    var t = "";
-                    var i;
                     var n;
-                    for (i = 7; i >= 0; i--) {
+                    for (i = 0; i <= 6; i += 2) {
+                        a = 15 & e >>> 4 * i + 4;
                         n = 15 & e >>> 4 * i;
-                        t += n.toString(16)
+                        t += a.toString(16) + n.toString(16)
                     }
                     return t
                 }
 
                 function a(e) {
+                    var t = "";
+                    var i;
+                    var a;
+                    for (i = 7; i >= 0; i--) {
+                        a = 15 & e >>> 4 * i;
+                        t += a.toString(16)
+                    }
+                    return t
+                }
+
+                function n(e) {
                     e = e.replace(/\r\n/g, "\n");
                     var t = "";
                     for (var i = 0; i < e.length; i++) {
-                        var n = e.charCodeAt(i);
-                        if (n < 128) t += String.fromCharCode(n);
-                        else if (n > 127 && n < 2048) {
-                            t += String.fromCharCode(192 | n >> 6);
-                            t += String.fromCharCode(128 | 63 & n)
+                        var a = e.charCodeAt(i);
+                        if (a < 128) t += String.fromCharCode(a);
+                        else if (a > 127 && a < 2048) {
+                            t += String.fromCharCode(192 | a >> 6);
+                            t += String.fromCharCode(128 | 63 & a)
                         } else {
-                            t += String.fromCharCode(224 | n >> 12);
-                            t += String.fromCharCode(128 | 63 & n >> 6);
-                            t += String.fromCharCode(128 | 63 & n)
+                            t += String.fromCharCode(224 | a >> 12);
+                            t += String.fromCharCode(128 | 63 & a >> 6);
+                            t += String.fromCharCode(128 | 63 & a)
                         }
                     }
                     return t
@@ -718,86 +718,86 @@ function testClick() {
                 var u = 2562383102;
                 var f = 271733878;
                 var p = 3285377520;
-                var h, m, v, g, y;
-                var _;
-                e = a(e);
-                var b = e.length;
+                var h, g, m, v, y;
+                var b;
+                e = n(e);
+                var w = e.length;
                 var k = new Array;
-                for (r = 0; r < b - 3; r += 4) {
+                for (r = 0; r < w - 3; r += 4) {
                     s = e.charCodeAt(r) << 24 | e.charCodeAt(r + 1) << 16 | e.charCodeAt(r + 2) << 8 | e.charCodeAt(r + 3);
                     k.push(s)
                 }
-                switch (b % 4) {
+                switch (w % 4) {
                     case 0:
                         r = 2147483648;
                         break;
                     case 1:
-                        r = 8388608 | e.charCodeAt(b - 1) << 24;
+                        r = 8388608 | e.charCodeAt(w - 1) << 24;
                         break;
                     case 2:
-                        r = 32768 | (e.charCodeAt(b - 2) << 24 | e.charCodeAt(b - 1) << 16);
+                        r = 32768 | (e.charCodeAt(w - 2) << 24 | e.charCodeAt(w - 1) << 16);
                         break;
                     case 3:
-                        r = 128 | (e.charCodeAt(b - 3) << 24 | e.charCodeAt(b - 2) << 16 | e.charCodeAt(b - 1) << 8)
+                        r = 128 | (e.charCodeAt(w - 3) << 24 | e.charCodeAt(w - 2) << 16 | e.charCodeAt(w - 1) << 8)
                 }
                 k.push(r);
                 while (14 != k.length % 16) k.push(0);
-                k.push(b >>> 29);
-                k.push(4294967295 & b << 3);
+                k.push(w >>> 29);
+                k.push(4294967295 & w << 3);
                 for (o = 0; o < k.length; o += 16) {
                     for (r = 0; r < 16; r++) l[r] = k[o + r];
                     for (r = 16; r <= 79; r++) l[r] = t(l[r - 3] ^ l[r - 8] ^ l[r - 14] ^ l[r - 16], 1);
                     h = d;
-                    m = c;
-                    v = u;
-                    g = f;
+                    g = c;
+                    m = u;
+                    v = f;
                     y = p;
                     for (r = 0; r <= 19; r++) {
-                        _ = 4294967295 & t(h, 5) + (m & v | ~m & g) + y + l[r] + 1518500249;
-                        y = g;
-                        g = v;
-                        v = t(m, 30);
-                        m = h;
-                        h = _
+                        b = 4294967295 & t(h, 5) + (g & m | ~g & v) + y + l[r] + 1518500249;
+                        y = v;
+                        v = m;
+                        m = t(g, 30);
+                        g = h;
+                        h = b
                     }
                     for (r = 20; r <= 39; r++) {
-                        _ = 4294967295 & t(h, 5) + (m ^ v ^ g) + y + l[r] + 1859775393;
-                        y = g;
-                        g = v;
-                        v = t(m, 30);
-                        m = h;
-                        h = _
+                        b = 4294967295 & t(h, 5) + (g ^ m ^ v) + y + l[r] + 1859775393;
+                        y = v;
+                        v = m;
+                        m = t(g, 30);
+                        g = h;
+                        h = b
                     }
                     for (r = 40; r <= 59; r++) {
-                        _ = 4294967295 & t(h, 5) + (m & v | m & g | v & g) + y + l[r] + 2400959708;
-                        y = g;
-                        g = v;
-                        v = t(m, 30);
-                        m = h;
-                        h = _
+                        b = 4294967295 & t(h, 5) + (g & m | g & v | m & v) + y + l[r] + 2400959708;
+                        y = v;
+                        v = m;
+                        m = t(g, 30);
+                        g = h;
+                        h = b
                     }
                     for (r = 60; r <= 79; r++) {
-                        _ = 4294967295 & t(h, 5) + (m ^ v ^ g) + y + l[r] + 3395469782;
-                        y = g;
-                        g = v;
-                        v = t(m, 30);
-                        m = h;
-                        h = _
+                        b = 4294967295 & t(h, 5) + (g ^ m ^ v) + y + l[r] + 3395469782;
+                        y = v;
+                        v = m;
+                        m = t(g, 30);
+                        g = h;
+                        h = b
                     }
                     d = 4294967295 & d + h;
-                    c = 4294967295 & c + m;
-                    u = 4294967295 & u + v;
-                    f = 4294967295 & f + g;
+                    c = 4294967295 & c + g;
+                    u = 4294967295 & u + m;
+                    f = 4294967295 & f + v;
                     p = 4294967295 & p + y
                 }
-                var _ = n(d) + n(c) + n(u) + n(f) + n(p);
-                return _.toLowerCase()
+                var b = a(d) + a(c) + a(u) + a(f) + a(p);
+                return b.toLowerCase()
             }
         };
         return {
             smoothScroll: e,
-            getVideoPageInfo: n,
-            numberFormat: a,
+            getVideoPageInfo: a,
+            numberFormat: n,
             cdn: o,
             html2Escape: r,
             supportStyle: t,
@@ -809,11 +809,11 @@ function testClick() {
             copyToClipboard: f
         }
     });
-    define("page/find/player/view/stars", ["tui/view", "tui/art", "tui/common", "tui/lazyImageLoader", "page/find/player/model/listall", "tui/slide2", "tui/util/str"], function(e, t, i, n, a, o, r) {
+    define("page/find/player/view/stars", ["tui/view", "tui/art", "tui/common", "tui/lazyImageLoader", "page/find/player/model/listall", "tui/slide2", "tui/util/str"], function(e, t, i, a, n, o, r) {
         "use strict";
         return e.extend({
             initialize: function(e) {
-                this._model = new a;
+                this._model = new n;
                 this.modelEvents(this._model, "model");
                 this._model.getStar({
                     vid: PageConfig.videoId,
@@ -835,12 +835,12 @@ function testClick() {
                 var t = this;
                 var i = $(e.currentTarget);
                 if (i.hasClass("current")) return;
-                var n = i.attr("personid");
+                var a = i.attr("personid");
                 i.addClass("current").siblings("li").removeClass("current");
-                var a = t.find('.tab-h ul[personid="' + n + '"]');
-                a.show().siblings(".tab-h ul").hide();
-                a.find("li").removeClass("current").eq(0).addClass("current");
-                t.toggleTabc(n)
+                var n = t.find('.tab-h ul[personid="' + a + '"]');
+                n.show().siblings(".tab-h ul").hide();
+                n.find("li").removeClass("current").eq(0).addClass("current");
+                t.toggleTabc(a)
             },
             toggleTabc: function(e, t) {
                 var i = this.find('.tab-c[personid="' + e + '"]');
@@ -848,11 +848,11 @@ function testClick() {
                 i.find(".modPSlide").trigger("slider:show")
             },
             "{model} getStar:success": function(e) {
-                var a = this;
-                var s = '\n<div class="mod modSwitch"  mid=\'005\'>\n<h2>������� </h2>\n<div class="h">\n<!-- ��Ա -->\n<ul class="head_tab">\n<% data.forEach(function(t, i){%> \n<li class="<%=(i=== 0 ? \'current\': \'\')%> <%=(i==4?\'last\':\'\')%>" personid="<%=t.personid%>">\n<div class="pic">\n<a href="<%=t.starUrl%>" target="_blank"><img class="lazyImg" alt="<%=t.thumburl.replace(/^http:\\/\\//,\'//\')%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif"></a>\n</div>\n<ul class="info">\n<li class="name">\n<a href="<%=t.starUrl%>" title="<%=t.personname%>" target="_blank"><%=t.personname%></a>\n</li>            \n<%if(t.character.length){%>\n<li class="area" title="<%=t.character%>">\n<%=t.character%>\n</li>\n<%}%>\n</ul>\n</li>\n<%})%>  \n</ul>\n<div class="clear"></div>\n</div>\n<div class="c">\n<% data.forEach(function(star,i1){ %> \n<% star.showes.forEach(function(ul, i2){ %> \n<%if(i1==0 && i2==0) {%>\n<div class="tab-c" style="display: block;"  personid="<%=star.personid%>">\n<%}else {%>\n<div class="tab-c" style="display: none;"  personid="<%=star.personid%>">\n<%}%>\n<div name="m_pos" id="m_star<%=i1%><%=i2%>" modshow="1">\n<div class="yk-row yk-row-sm">\n<div class="modPSlide mod_pslide " id="mdstar<%=i1%><%=i2%>">\n<div class="mbtn prev" style="display: none;">\n<a href="#" class="iconfont" title="��һ��"></a>\n</div>\n<div class="mbtn next" style="display: block;">\n<a href="#" class="iconfont" title="��һ��"></a>\n</div>\n<ul class="panel" style="left: 0px;">   \n<% ul.forEach(function(t, i){ %> \n<li class="yk-col4" data-sn="<%=i2%>-<%=i%>">\n<div class="yk-pack pack-film">\n<div class="p-thumb">\n<a href="<%=t.url%>"  title="<%=t.name%>"  target="_blank"></a>\n<i class="bg"></i>\n<%if(i< 10){%>\n<img class="lazyImg" alt="<%=t.thumburl.replace(/^http:\\/\\//,\'//\')%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<%}else{%>\n<img class="lazyLoad" alt="<%=t.thumburl.replace(/^http:\\/\\//,\'//\')%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<%}%>\n<!-- ��Ա��ȯ -->\n<%if ((t.paid == "1" || t.paid == "2" ) && t.showid != \'60327\') {%>\n<%var rttext = t.paid == "1" ? "��Ա���" : "��Ա��ȯ";%>\n<div class="p-thumb-tagrt">\n<span class="vip-free"><%=rttext%></span>\n</div>\n<%}%>\n</div>  \n<!-- ���� -->\n<ul class="info-list">\n<li class="title short-title">\n<%  var title = t.name;\nif (title.length > 17) \ntitle = title.substring(0, 17) + \'...\';%>\n<a href="<%=t.url%>" target="_blank" ><%=title%></a>\n</li>\n<% if (t.desc){ %>                \n<li class="subtitle">\n<%  var subtitle = t.desc;\nif (subtitle.length > 17) \nsubtitle = subtitle.substring(0, 17) + \'...\';%>\n<span><%=subtitle%></span>\n</li>\n<%}%>\n</ul>\n</div>\n</li>\n<%})%> \n</ul>\n</div>\n</div>\n</div>\n</div>\n<%})%> \n<%})%> \n</div>\n</div>';
+                var n = this;
+                var s = '\n<div class="mod modSwitch"  mid=\'005\'>\n<h2>相关明星 </h2>\n<div class="h">\n<!-- 演员 -->\n<ul class="head_tab">\n<% data.forEach(function(t, i){%> \n<li class="<%=(i=== 0 ? \'current\': \'\')%> <%=(i==4?\'last\':\'\')%>" personid="<%=t.personid%>">\n<div class="pic">\n<a href="<%=t.starUrl%>" target="_blank"><img class="lazyImg" alt="<%=t.thumburl.replace(/^http:\\/\\//,\'//\')%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif"></a>\n</div>\n<ul class="info">\n<li class="name">\n<a href="<%=t.starUrl%>" title="<%=t.personname%>" target="_blank"><%=t.personname%></a>\n</li>            \n<%if(t.character.length){%>\n<li class="area" title="<%=t.character%>">\n<%=t.character%>\n</li>\n<%}%>\n</ul>\n</li>\n<%})%>  \n</ul>\n<div class="clear"></div>\n</div>\n<div class="c">\n<% data.forEach(function(star,i1){ %> \n<% star.showes.forEach(function(ul, i2){ %> \n<%if(i1==0 && i2==0) {%>\n<div class="tab-c" style="display: block;"  personid="<%=star.personid%>">\n<%}else {%>\n<div class="tab-c" style="display: none;"  personid="<%=star.personid%>">\n<%}%>\n<div name="m_pos" id="m_star<%=i1%><%=i2%>" modshow="1">\n<div class="yk-row yk-row-sm">\n<div class="modPSlide mod_pslide " id="mdstar<%=i1%><%=i2%>">\n<div class="mbtn prev" style="display: none;">\n<a href="#" class="iconfont" title="上一组"></a>\n</div>\n<div class="mbtn next" style="display: block;">\n<a href="#" class="iconfont" title="下一组"></a>\n</div>\n<ul class="panel" style="left: 0px;">   \n<% ul.forEach(function(t, i){ %> \n<li class="yk-col4" data-sn="<%=i2%>-<%=i%>">\n<div class="yk-pack pack-film">\n<div class="p-thumb">\n<a href="<%=t.url%>"  title="<%=t.name%>"  target="_blank"></a>\n<i class="bg"></i>\n<%if(i< 10){%>\n<img class="lazyImg" alt="<%=t.thumburl.replace(/^http:\\/\\//,\'//\')%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<%}else{%>\n<img class="lazyLoad" alt="<%=t.thumburl.replace(/^http:\\/\\//,\'//\')%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<%}%>\n<!-- 会员用券 -->\n<%if ((t.paid == "1" || t.paid == "2" ) && t.showid != \'60327\') {%>\n<%var rttext = t.paid == "1" ? "会员免费" : "会员用券";%>\n<div class="p-thumb-tagrt">\n<span class="vip-free"><%=rttext%></span>\n</div>\n<%}%>\n</div>  \n<!-- 标题 -->\n<ul class="info-list">\n<li class="title short-title">\n<%  var title = t.name;\nif (title.length > 17) \ntitle = title.substring(0, 17) + \'...\';%>\n<a href="<%=t.url%>" target="_blank" ><%=title%></a>\n</li>\n<% if (t.desc){ %>                \n<li class="subtitle">\n<%  var subtitle = t.desc;\nif (subtitle.length > 17) \nsubtitle = subtitle.substring(0, 17) + \'...\';%>\n<span><%=subtitle%></span>\n</li>\n<%}%>\n</ul>\n</div>\n</li>\n<%})%> \n</ul>\n</div>\n</div>\n</div>\n</div>\n<%})%> \n<%})%> \n</div>\n</div>';
                 var l = t.compile(s)({
                     data: e.stars,
-                    searchDomain: a.searchDomain,
+                    searchDomain: n.searchDomain,
                     youku_homeurl: PageConfig.youku_homeurl,
                     encodeUid: i.encodeUid,
                     str: r,
@@ -860,11 +860,11 @@ function testClick() {
                     numberFormat: i.numberFormat
                 });
                 if (l) {
-                    a.$el.html(l);
-                    o(a.$el);
+                    n.$el.html(l);
+                    o(n.$el);
                     setTimeout(function() {
-                        n({
-                            imgs: a.find(".lazyImg"),
+                        a({
+                            imgs: n.find(".lazyImg"),
                             size: 150
                         })
                     }, 500)
@@ -930,7 +930,7 @@ function testClick() {
                 mid: "1002"
             }
         };
-        var n = {
+        var a = {
             opt: {
                 playmode: PageConfig.playmode,
                 catid: PageConfig.catId,
@@ -945,12 +945,12 @@ function testClick() {
                 });
                 $(window).bind("scroll", t(this.checkShow.bind(this), 300));
                 $(document).on("mousedown", "a,input,button", function(t) {
-                    var n, a, o, r, s;
-                    n = $(t.target);
-                    a = n.closest("[mid]");
-                    if (!a.length) return;
-                    s = n.closest("[data-sn]");
-                    r = a.attr("mid");
+                    var a, n, o, r, s;
+                    a = $(t.target);
+                    n = a.closest("[mid]");
+                    if (!n.length) return;
+                    s = a.closest("[data-sn]");
+                    r = n.attr("mid");
                     o = i[r] || {};
                     o.mid_sn = s.length ? s.data("sn") : -1;
                     o = $.extend(e.opt, o);
@@ -958,14 +958,14 @@ function testClick() {
                 })
             },
             checkShow: function(e, t) {
-                var n = this;
+                var a = this;
                 if (!t) t = $("body");
                 $("[mid]", t).each(function() {
                     var e = $(this),
-                        t, a;
-                    if (!n.checkPosition(e)) return;
+                        t, n;
+                    if (!a.checkPosition(e)) return;
                     t = $(this).attr("mid");
-                    n.showLog($.extend(n.opt, i[t]));
+                    a.showLog($.extend(a.opt, i[t]));
                     e.attr("modShow", 1)
                 })
             },
@@ -986,7 +986,7 @@ function testClick() {
                 return true
             }
         };
-        return n
+        return a
     });
     define("tui/encrypt/md5", [], function() {
         function e(e, t) {
@@ -1010,38 +1010,38 @@ function testClick() {
             d = i(d, r, s, l, t[13], 12, -40341101);
             l = i(l, d, r, s, t[14], 17, -1502002290);
             s = i(s, l, d, r, t[15], 22, 1236535329);
-            r = n(r, s, l, d, t[1], 5, -165796510);
-            d = n(d, r, s, l, t[6], 9, -1069501632);
-            l = n(l, d, r, s, t[11], 14, 643717713);
-            s = n(s, l, d, r, t[0], 20, -373897302);
-            r = n(r, s, l, d, t[5], 5, -701558691);
-            d = n(d, r, s, l, t[10], 9, 38016083);
-            l = n(l, d, r, s, t[15], 14, -660478335);
-            s = n(s, l, d, r, t[4], 20, -405537848);
-            r = n(r, s, l, d, t[9], 5, 568446438);
-            d = n(d, r, s, l, t[14], 9, -1019803690);
-            l = n(l, d, r, s, t[3], 14, -187363961);
-            s = n(s, l, d, r, t[8], 20, 1163531501);
-            r = n(r, s, l, d, t[13], 5, -1444681467);
-            d = n(d, r, s, l, t[2], 9, -51403784);
-            l = n(l, d, r, s, t[7], 14, 1735328473);
-            s = n(s, l, d, r, t[12], 20, -1926607734);
-            r = a(r, s, l, d, t[5], 4, -378558);
-            d = a(d, r, s, l, t[8], 11, -2022574463);
-            l = a(l, d, r, s, t[11], 16, 1839030562);
-            s = a(s, l, d, r, t[14], 23, -35309556);
-            r = a(r, s, l, d, t[1], 4, -1530992060);
-            d = a(d, r, s, l, t[4], 11, 1272893353);
-            l = a(l, d, r, s, t[7], 16, -155497632);
-            s = a(s, l, d, r, t[10], 23, -1094730640);
-            r = a(r, s, l, d, t[13], 4, 681279174);
-            d = a(d, r, s, l, t[0], 11, -358537222);
-            l = a(l, d, r, s, t[3], 16, -722521979);
-            s = a(s, l, d, r, t[6], 23, 76029189);
-            r = a(r, s, l, d, t[9], 4, -640364487);
-            d = a(d, r, s, l, t[12], 11, -421815835);
-            l = a(l, d, r, s, t[15], 16, 530742520);
-            s = a(s, l, d, r, t[2], 23, -995338651);
+            r = a(r, s, l, d, t[1], 5, -165796510);
+            d = a(d, r, s, l, t[6], 9, -1069501632);
+            l = a(l, d, r, s, t[11], 14, 643717713);
+            s = a(s, l, d, r, t[0], 20, -373897302);
+            r = a(r, s, l, d, t[5], 5, -701558691);
+            d = a(d, r, s, l, t[10], 9, 38016083);
+            l = a(l, d, r, s, t[15], 14, -660478335);
+            s = a(s, l, d, r, t[4], 20, -405537848);
+            r = a(r, s, l, d, t[9], 5, 568446438);
+            d = a(d, r, s, l, t[14], 9, -1019803690);
+            l = a(l, d, r, s, t[3], 14, -187363961);
+            s = a(s, l, d, r, t[8], 20, 1163531501);
+            r = a(r, s, l, d, t[13], 5, -1444681467);
+            d = a(d, r, s, l, t[2], 9, -51403784);
+            l = a(l, d, r, s, t[7], 14, 1735328473);
+            s = a(s, l, d, r, t[12], 20, -1926607734);
+            r = n(r, s, l, d, t[5], 4, -378558);
+            d = n(d, r, s, l, t[8], 11, -2022574463);
+            l = n(l, d, r, s, t[11], 16, 1839030562);
+            s = n(s, l, d, r, t[14], 23, -35309556);
+            r = n(r, s, l, d, t[1], 4, -1530992060);
+            d = n(d, r, s, l, t[4], 11, 1272893353);
+            l = n(l, d, r, s, t[7], 16, -155497632);
+            s = n(s, l, d, r, t[10], 23, -1094730640);
+            r = n(r, s, l, d, t[13], 4, 681279174);
+            d = n(d, r, s, l, t[0], 11, -358537222);
+            l = n(l, d, r, s, t[3], 16, -722521979);
+            s = n(s, l, d, r, t[6], 23, 76029189);
+            r = n(r, s, l, d, t[9], 4, -640364487);
+            d = n(d, r, s, l, t[12], 11, -421815835);
+            l = n(l, d, r, s, t[15], 16, 530742520);
+            s = n(s, l, d, r, t[2], 23, -995338651);
             r = o(r, s, l, d, t[0], 6, -198630844);
             d = o(d, r, s, l, t[7], 10, 1126891415);
             l = o(l, d, r, s, t[14], 15, -1416354905);
@@ -1064,45 +1064,45 @@ function testClick() {
             e[3] = f(d, e[3])
         }
 
-        function t(e, t, i, n, a, o) {
-            t = f(f(t, e), f(n, o));
-            return f(t << a | t >>> 32 - a, i)
+        function t(e, t, i, a, n, o) {
+            t = f(f(t, e), f(a, o));
+            return f(t << n | t >>> 32 - n, i)
         }
 
-        function i(e, i, n, a, o, r, s) {
-            return t(i & n | ~i & a, e, i, o, r, s)
+        function i(e, i, a, n, o, r, s) {
+            return t(i & a | ~i & n, e, i, o, r, s)
         }
 
-        function n(e, i, n, a, o, r, s) {
-            return t(i & a | n & ~a, e, i, o, r, s)
+        function a(e, i, a, n, o, r, s) {
+            return t(i & n | a & ~n, e, i, o, r, s)
         }
 
-        function a(e, i, n, a, o, r, s) {
-            return t(i ^ n ^ a, e, i, o, r, s)
+        function n(e, i, a, n, o, r, s) {
+            return t(i ^ a ^ n, e, i, o, r, s)
         }
 
-        function o(e, i, n, a, o, r, s) {
-            return t(n ^ (i | ~a), e, i, o, r, s)
+        function o(e, i, a, n, o, r, s) {
+            return t(a ^ (i | ~n), e, i, o, r, s)
         }
 
         function r(t) {
             if (/[\x80-\xFF]/.test(t)) t = unescape(encodeURI(t));
             txt = "";
             var i = t.length,
-                n = [1732584193, -271733879, -1732584194, 271733878],
-                a;
-            for (a = 64; a <= t.length; a += 64) e(n, s(t.substring(a - 64, a)));
-            t = t.substring(a - 64);
+                a = [1732584193, -271733879, -1732584194, 271733878],
+                n;
+            for (n = 64; n <= t.length; n += 64) e(a, s(t.substring(n - 64, n)));
+            t = t.substring(n - 64);
             var o = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-            for (a = 0; a < t.length; a++) o[a >> 2] |= t.charCodeAt(a) << (a % 4 << 3);
-            o[a >> 2] |= 128 << (a % 4 << 3);
-            if (a > 55) {
-                e(n, o);
-                for (a = 0; a < 16; a++) o[a] = 0
+            for (n = 0; n < t.length; n++) o[n >> 2] |= t.charCodeAt(n) << (n % 4 << 3);
+            o[n >> 2] |= 128 << (n % 4 << 3);
+            if (n > 55) {
+                e(a, o);
+                for (n = 0; n < 16; n++) o[n] = 0
             }
             o[14] = 8 * i;
-            e(n, o);
-            return n
+            e(a, o);
+            return a
         }
 
         function s(e) {
@@ -1140,7 +1140,7 @@ function testClick() {
             load: function(e) {
                 var t = 0;
                 var i = e.success;
-                var n = e.error;
+                var a = e.error;
                 delete e.success;
                 delete e.error;
                 e.success = function(t) {
@@ -1153,7 +1153,7 @@ function testClick() {
                 e.error = function(i) {
                     t++;
                     if (t <= 0) $.ajax(e);
-                    else n && n.apply(this, Array.prototype.slice.call(arguments))
+                    else a && a.apply(this, Array.prototype.slice.call(arguments))
                 };
                 e.cache = "undefined" === typeof e.cache || e.cache;
                 $.ajax(e)
@@ -1247,85 +1247,85 @@ function testClick() {
                 if (!e) return "";
                 e = e.toString();
                 var i = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-                var n = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
-                var a, o, r;
+                var a = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
+                var n, o, r;
                 var s, l, d;
                 r = e.length;
                 o = 0;
-                a = "";
+                n = "";
                 while (o < r) {
                     s = 255 & e.charCodeAt(o++);
                     if (o == r) {
-                        a += i.charAt(s >> 2);
-                        a += i.charAt((3 & s) << 4);
-                        a += "==";
+                        n += i.charAt(s >> 2);
+                        n += i.charAt((3 & s) << 4);
+                        n += "==";
                         break
                     }
                     l = e.charCodeAt(o++);
                     if (o == r) {
-                        a += i.charAt(s >> 2);
-                        a += i.charAt((3 & s) << 4 | (240 & l) >> 4);
-                        a += i.charAt((15 & l) << 2);
-                        a += "=";
+                        n += i.charAt(s >> 2);
+                        n += i.charAt((3 & s) << 4 | (240 & l) >> 4);
+                        n += i.charAt((15 & l) << 2);
+                        n += "=";
                         break
                     }
                     d = e.charCodeAt(o++);
-                    a += i.charAt(s >> 2);
-                    a += i.charAt((3 & s) << 4 | (240 & l) >> 4);
-                    a += i.charAt((15 & l) << 2 | (192 & d) >> 6);
-                    a += i.charAt(63 & d)
+                    n += i.charAt(s >> 2);
+                    n += i.charAt((3 & s) << 4 | (240 & l) >> 4);
+                    n += i.charAt((15 & l) << 2 | (192 & d) >> 6);
+                    n += i.charAt(63 & d)
                 }
-                return a
+                return n
             }
         }
     });
     define("tui/easing2", [], function(e, t) {
         jQuery.easing["jswing"] = jQuery.easing["swing"];
         jQuery.extend(jQuery.easing, {
-            easeOutCubic: function(e, t, i, n, a) {
-                t /= a;
+            easeOutCubic: function(e, t, i, a, n) {
+                t /= n;
                 t--;
-                return n * (t * t * t + 1) + i
+                return a * (t * t * t + 1) + i
             },
-            easeOutQuart: function(e, t, i, n, a) {
-                t /= a;
+            easeOutQuart: function(e, t, i, a, n) {
+                t /= n;
                 t--;
-                return -n * (t * t * t * t - 1) + i
+                return -a * (t * t * t * t - 1) + i
             },
-            easeOutQuint: function(e, t, i, n, a) {
-                t /= a;
+            easeOutQuint: function(e, t, i, a, n) {
+                t /= n;
                 t--;
-                return n * (t * t * t * t * t + 1) + i
+                return a * (t * t * t * t * t + 1) + i
             },
-            easeOutCirc: function(e, t, i, n, a) {
-                t /= a;
+            easeOutCirc: function(e, t, i, a, n) {
+                t /= n;
                 t--;
-                return n * Math.sqrt(1 - t * t) + i
+                return a * Math.sqrt(1 - t * t) + i
             },
-            easeOutSine: function(e, t, i, n, a) {
-                return n * Math.sin(t / a * (Math.PI / 2)) + i
+            easeOutSine: function(e, t, i, a, n) {
+                return a * Math.sin(t / n * (Math.PI / 2)) + i
             },
-            easeOutExpo: function(e, t, i, n, a) {
-                return n * (-Math.pow(2, -10 * t / a) + 1) + i
+            easeOutExpo: function(e, t, i, a, n) {
+                return a * (-Math.pow(2, -10 * t / n) + 1) + i
             },
-            mcsEaseOut: function(e, t, i, n, a) {
-                var o = (t /= a) * t,
+            mcsEaseOut: function(e, t, i, a, n) {
+                var o = (t /= n) * t,
                     r = o * t;
-                return i + n * (.499999999999997 * r * o + -2.5 * o * o + 5.5 * r + -6.5 * o + 4 * t)
+                return i + a * (.499999999999997 * r * o + -2.5 * o * o + 5.5 * r + -6.5 * o + 4 * t)
             },
-            draggerRailEase: function(e, t, i, n, a) {
-                t /= a / 2;
-                if (t < 1) return n / 2 * t * t * t + i;
+            draggerRailEase: function(e, t, i, a, n) {
+                t /= n / 2;
+                if (t < 1) return a / 2 * t * t * t + i;
                 t -= 2;
-                return n / 2 * (t * t * t + 2) + i
+                return a / 2 * (t * t * t + 2) + i
             }
         })
     });
     define("tui/scrollbar2", ["tui/event", "tui/drag", "tui/art", "tui/easing2"], function(e, t, i) {
-        var n = e.extend({
-            initialize: function(e, a) {
-                a = a || {};
-                n.superClass.initialize.apply(this, arguments);
+        var a = e.extend({
+            initialize: function(e, n) {
+                n = n || {};
+                a.superClass.initialize.apply(this, arguments);
                 var o = this;
                 var r = {
                     horizontalScroll: false,
@@ -1353,7 +1353,7 @@ function testClick() {
                     keyPressEnable: false,
                     keyPressDelta: 60
                 };
-                $.extend(true, o, r, a);
+                $.extend(true, o, r, n);
                 $.extend(true, o, {
                     arrowAnimate: {
                         enable: o.animate,
@@ -1380,10 +1380,10 @@ function testClick() {
                         duration: o.duration,
                         easing: o.easing
                     }
-                }, a);
+                }, n);
                 var s = $(e);
                 var l = o.prefix && "" != o.prefix ? o.prefix + "_" : "";
-                var d = o.barContainerNode ? $(o.barContainerNode) : $(i.compile(a.template || '<div class="<%=prefix%>scrollbar_container"><a class="<%=prefix%>scrollbar_prev" href="#"><i></i></a><div class="<%=prefix%>scrollbar_track"><span class="<%=prefix%>scrollbar_dragger"></span></div><a class="<%=prefix%>scrollbar_next" href="#"><i></i></a></div>')({
+                var d = o.barContainerNode ? $(o.barContainerNode) : $(i.compile(n.template || '<div class="<%=prefix%>scrollbar_container"><a class="<%=prefix%>scrollbar_prev" href="#"><i></i></a><div class="<%=prefix%>scrollbar_track"><span class="<%=prefix%>scrollbar_dragger"></span></div><a class="<%=prefix%>scrollbar_next" href="#"><i></i></a></div>')({
                     prefix: l
                 }));
                 var c = o.draggerNode ? $(o.draggerNode) : d.find("." + l + "scrollbar_dragger");
@@ -1392,10 +1392,10 @@ function testClick() {
                 var p = o.arrowNextNode ? $(o.arrowNextNode) : d.find("." + l + "scrollbar_next");
                 var h = o.targetNode || s;
                 if (!o.barContainerNode) h[o.renderMethod](d);
-                var m = new t(c, {
+                var g = new t(c, {
                     limit: true
                 });
-                m.bind("drag:move", function(e, t) {
+                g.bind("drag:move", function(e, t) {
                     o.scrollTo(o.horizontalScroll ? e : t, true, o.draggerAnimate)
                 });
                 s.bind("scroll", function(e) {
@@ -1408,36 +1408,36 @@ function testClick() {
                     f.hide();
                     p.hide()
                 } else {
-                    var v;
+                    var m;
                     f.mousedown(function(e) {
                         e.preventDefault();
                         o.scrollTo(o.getScrollPosition() - o.arrowDelta, false, o.arrowAnimate);
-                        v = setTimeout(function() {
-                            if (v) clearInterval(v);
-                            v = setInterval(function() {
+                        m = setTimeout(function() {
+                            if (m) clearInterval(m);
+                            m = setInterval(function() {
                                 o.scrollTo(o.getScrollPosition() - o.arrowDelta, false, o.arrowAnimate)
                             }, 30)
                         }, 500)
                     }).mouseleave(function() {
-                        if (v) clearInterval(v)
+                        if (m) clearInterval(m)
                     }).mouseup(function() {
-                        if (v) clearInterval(v)
+                        if (m) clearInterval(m)
                     }).click(function(e) {
                         e.preventDefault()
                     });
                     p.mousedown(function(e) {
                         e.preventDefault();
                         o.scrollTo(o.getScrollPosition() + o.arrowDelta, false, o.arrowAnimate);
-                        v = setTimeout(function() {
-                            if (v) clearInterval(v);
-                            v = setInterval(function() {
+                        m = setTimeout(function() {
+                            if (m) clearInterval(m);
+                            m = setInterval(function() {
                                 o.scrollTo(o.getScrollPosition() + o.arrowDelta, false, o.arrowAnimate)
                             }, 30)
                         }, 500)
                     }).mouseleave(function() {
-                        if (v) clearInterval(v)
+                        if (m) clearInterval(m)
                     }).mouseup(function() {
-                        if (v) clearInterval(v)
+                        if (m) clearInterval(m)
                     }).click(function(e) {
                         e.preventDefault()
                     })
@@ -1507,37 +1507,37 @@ function testClick() {
                 return this.container[0][this.horizontalScroll ? "scrollLeft" : "scrollTop"]
             },
             scrollTo: function(e, t, i) {
-                var n = this;
-                var a = n.horizontalScroll;
-                var o = t ? e : e * (n._trackSize - n._draggerSize) / (n._contentSize - n._containerSize);
-                var r = !t ? e : (e * n._contentSize - e * n._containerSize) / (n._trackSize - n._draggerSize);
-                o = Math.min(n._trackSize - n._draggerSize, Math.max(0, o));
-                if (a) r = Math.min(r, n.horizontalMaxSize - n._containerSize);
+                var a = this;
+                var n = a.horizontalScroll;
+                var o = t ? e : e * (a._trackSize - a._draggerSize) / (a._contentSize - a._containerSize);
+                var r = !t ? e : (e * a._contentSize - e * a._containerSize) / (a._trackSize - a._draggerSize);
+                o = Math.min(a._trackSize - a._draggerSize, Math.max(0, o));
+                if (n) r = Math.min(r, a.horizontalMaxSize - a._containerSize);
                 if (true === i || i && false !== i.enable) {
                     var s = {};
                     var l = {};
-                    s[a ? "scrollLeft" : "scrollTop"] = r ? r : 0;
-                    l[a ? "left" : "top"] = o;
+                    s[n ? "scrollLeft" : "scrollTop"] = r ? r : 0;
+                    l[n ? "left" : "top"] = o;
                     if (true === i) i = {
-                        duration: n.duration,
-                        easing: n.easing
+                        duration: a.duration,
+                        easing: a.easing
                     };
-                    n.container.stop().animate(s, i);
-                    n.draggerNode.stop().animate(l, i)
+                    a.container.stop().animate(s, i);
+                    a.draggerNode.stop().animate(l, i)
                 } else {
-                    n.container[a ? "scrollLeft" : "scrollTop"](r ? r : 0);
-                    n.draggerNode.css(a ? "left" : "top", o)
+                    a.container[n ? "scrollLeft" : "scrollTop"](r ? r : 0);
+                    a.draggerNode.css(n ? "left" : "top", o)
                 }
             },
             scrollToElement: function(e, t) {
                 e = $(e);
                 t = t || {};
                 var i = void 0 != t.animate ? t.animate : this.animate;
-                var n = this.horizontalScroll;
+                var a = this.horizontalScroll;
                 if (e.length) {
-                    var a = this.container[n ? "scrollLeft" : "scrollTop"]() + e.offset()[n ? "left" : "top"] - this.container.offset()[n ? "left" : "top"];
-                    if (t.pos) a -= t.pos;
-                    this.scrollTo(a, false, i)
+                    var n = this.container[a ? "scrollLeft" : "scrollTop"]() + e.offset()[a ? "left" : "top"] - this.container.offset()[a ? "left" : "top"];
+                    if (t.pos) n -= t.pos;
+                    this.scrollTo(n, false, i)
                 }
             },
             update: function() {
@@ -1567,50 +1567,50 @@ function testClick() {
                 this.trigger("hide")
             }
         });
-        return n
+        return a
     });
-    define("page/find/player/dmpool/staractivity", ["tui/view", "tui/art", "tui/scrollbar2", "page/find/player/dmpool/model", "module/responsive"], function(e, t, i, n, a) {
-        var o = '<%for(var i = 0; i < onePageBslen; i++){%>\n<div class="item-one clearfix <%if(type && type==\'starpool\'){%>starpool-one<%}%>" data-uid="<%=list[i].uids%>" data-objid="<%=list[i].objId%>">\n<div class="list_len clearfix">\n<%if(type && type!=\'starpool\'){%><a class="time" href="javascript:ykPlyr.PlayerSeek(\'<%=list[i].seekTime%>\');" title="����ս���<%=list[i].timePoint%>"><%=list[i].timePoint%></a><%}%>\n<span class="idoln">\n<%var starst=false;%>\n<%for(var tag in utag){%>\n<%if(list[i].uids==utag[tag].uid || list[i].uids==utag[tag].xuid){ starst=true;%> \n<a href="http://i.youku.com/i/id_<%=utag[tag].uid%>" target="_blank"><img src="<%=utag[tag].headImg%>" class="idol-img"/><b class="idolname" title="<%=utag[tag].name%>"><%=utag[tag].name%></b></a>\n<%}%>\n<%}%>\n</span>\n<!--<span class="afterDelTxt">��ɾ��</span>-->\n<span class="item bsp-list-limitArea <%if(starst && type!=\'starpool\'){%>oneIdolList <%}%>" title="<%=list[i].listBsCont%>"><%=list[i].listBsCont%></span>\n</div>\n<div class="details"  title="<%=list[i].listBsCont%>"><p><%=list[i].listBsCont%></p></div>\n<div class="btnsframe">\n<%if(type && type==\'all\'){%><span class="comp-bs" data-objid="<%=list[i].objId%>">�ٱ�</span><%}%>\n<span  class="del-bs" data-objid="<%=list[i].objId%>" style="<%if(type && type==\'star\'){%>margin-right: 15px; <%}%><%if(isdz){%>display:block;<%}%>">ɾ��</span>\n</div>\n</div>\n<%}%>';
+    define("page/find/player/dmpool/staractivity", ["tui/view", "tui/art", "tui/scrollbar2", "page/find/player/dmpool/model", "module/responsive"], function(e, t, i, a, n) {
+        var o = '<%for(var i = 0; i < onePageBslen; i++){%>\n<div class="item-one clearfix <%if(type && type==\'starpool\'){%>starpool-one<%}%>" data-uid="<%=list[i].uids%>" data-objid="<%=list[i].objId%>">\n<div class="list_len clearfix">\n<%if(type && type!=\'starpool\'){%><a class="time" href="javascript:ykPlyr.PlayerSeek(\'<%=list[i].seekTime%>\');" title="点击空降到<%=list[i].timePoint%>"><%=list[i].timePoint%></a><%}%>\n<span class="idoln">\n<%var starst=false;%>\n<%for(var tag in utag){%>\n<%if(list[i].uids==utag[tag].uid || list[i].uids==utag[tag].xuid){ starst=true;%> \n<a href="http://i.youku.com/i/id_<%=utag[tag].uid%>" target="_blank"><img src="<%=utag[tag].headImg%>" class="idol-img"/><b class="idolname" title="<%=utag[tag].name%>"><%=utag[tag].name%></b></a>\n<%}%>\n<%}%>\n</span>\n<!--<span class="afterDelTxt">已删除</span>-->\n<span class="item bsp-list-limitArea <%if(starst && type!=\'starpool\'){%>oneIdolList <%}%>" title="<%=list[i].listBsCont%>"><%=list[i].listBsCont%></span>\n</div>\n<div class="details"  title="<%=list[i].listBsCont%>"><p><%=list[i].listBsCont%></p></div>\n<div class="btnsframe">\n<%if(type && type==\'all\'){%><span class="comp-bs" data-objid="<%=list[i].objId%>">举报</span><%}%>\n<span  class="del-bs" data-objid="<%=list[i].objId%>" style="<%if(type && type==\'star\'){%>margin-right: 15px; <%}%><%if(isdz){%>display:block;<%}%>">删除</span>\n</div>\n</div>\n<%}%>';
         var r = e.extend({
             initialize: function(e) {
                 var t = this;
                 t.utag = t.options.utag;
-                for (var i in t.utag) t.utag[i].xuid = n.encodeUid(t.utag[i].uid);
+                for (var i in t.utag) t.utag[i].xuid = a.encodeUid(t.utag[i].uid);
                 this.dmSatrLoad(t.options.starpoolPage)
             },
             dmSatrLoad: function(e) {
                 var t = this;
                 $("#bs_idol span:eq(0)").show().click();
                 if (0 == e.statusSt) {
-                    var i = '<div class="star_st1"><div style="margin-bottom: 10px;">' + e.description + '</div><div><img style="width:100%;" src="' + e.picurl + '"></div><div class="fix staractiveBtn"><a href="javascript:;" class="starFormBtn starFormshare dmnone" >�� ��</a> <a href="' + e.sharedPageUrl + '" class="starFormBtn starFormtie" target="_blank">ȥ����</a></div></div>';
+                    var i = '<div class="star_st1"><div style="margin-bottom: 10px;">' + e.description + '</div><div><img style="width:100%;" src="' + e.picurl + '"></div><div class="fix staractiveBtn"><a href="javascript:;" class="starFormBtn starFormshare dmnone" >分 享</a> <a href="' + e.sharedPageUrl + '" class="starFormBtn starFormtie" target="_blank">去看帖</a></div></div>';
                     $("#bsp-alllist-wrap0").html(i)
                 } else if (1 == e.statusSt) {
-                    var n = '<div class="star_st2"><div class="dmpolltxt">���ǵ�Ļ�����У����ϻ���</div><div class="dmpollicon"></div><div class="fix staractiveBtn"><a href="javascript:;" class="starFormBtn dmnone" >�� ��</a></div></div>';
-                    $("#bsp-alllist-wrap0").html(n);
+                    var a = '<div class="star_st2"><div class="dmpolltxt">明星弹幕蓄力中，马上回来</div><div class="dmpollicon"></div><div class="fix staractiveBtn"><a href="javascript:;" class="starFormBtn dmnone" >分 享</a></div></div>';
+                    $("#bsp-alllist-wrap0").html(a);
                     t.ScrollbarFn();
                     t.scrollupdate()
                 }
             },
             dmSatradd: function(e) {
                 var i = this;
-                var n = [];
-                for (var a in e) n.push({
-                    listBsCont: e[a].content,
-                    uids: e[a].uid,
-                    objId: e[a].id,
-                    timePoint: i.timeConver(e[a].playat),
-                    seekTime: parseInt(e[a].playat / 1e3)
+                var a = [];
+                for (var n in e) a.push({
+                    listBsCont: e[n].content,
+                    uids: e[n].uid,
+                    objId: e[n].id,
+                    timePoint: i.timeConver(e[n].playat),
+                    seekTime: parseInt(e[n].playat / 1e3)
                 });
                 var r = {
-                    list: n,
+                    list: a,
                     Varnext: 0,
                     onePageBslen: e.length
                 };
                 var s = false;
                 $("#bsp-alllist-wrap0 .item-one").each(function(e) {
                     var t = $(this).attr("data-objid");
-                    for (var i in n)
-                        if (t == n[i].id) {
+                    for (var i in a)
+                        if (t == a[i].id) {
                             s = true;
                             return
                         }
@@ -1631,13 +1631,13 @@ function testClick() {
                 var t = e / 1e3;
                 if (t < 3600) {
                     var i = parseInt(t / 60),
-                        n = Math.floor(t % 60);
-                    return (i >= 10 ? i : "0" + i) + ":" + (n >= 10 ? n : "0" + n)
+                        a = Math.floor(t % 60);
+                    return (i >= 10 ? i : "0" + i) + ":" + (a >= 10 ? a : "0" + a)
                 } else {
-                    var a = parseInt(t / 3600),
+                    var n = parseInt(t / 3600),
                         o = parseInt(t % 3600 / 60),
                         r = Math.floor(t % 3600 % 60);
-                    return (a >= 10 ? a : "0" + a) + ":" + (o >= 10 ? o : "0" + o) + ":" + (r >= 10 ? r : "0" + r)
+                    return (n >= 10 ? n : "0" + n) + ":" + (o >= 10 ? o : "0" + o) + ":" + (r >= 10 ? r : "0" + r)
                 }
             },
             ScrollbarFn: function() {
@@ -1650,15 +1650,15 @@ function testClick() {
                 this.$el.bind("list:update0", function() {
                     e.scroll.update()
                 });
-                a.bind("player:responsive", function() {
+                n.bind("player:responsive", function() {
                     e.scroll.update()
                 })
             }
         });
         return r
     });
-    define("page/find/player/dmpool/starlist", ["tui/view", "tui/art", "tui/scrollbar2", "page/find/player/dmpool/model", "module/responsive"], function(e, t, i, n, a) {
-        var o = '<%for(var key in list){%>\n<%for(var i = 0; i < list[key].length; i++){%>\n<div class="item-one clearfix label<%=list[key][i].uids%>" data-uid="<%=list[key][i].uids%>" data-objid="<%=list[key][i].objId%>">\n<div class="list_len clearfix">\n<a class="time" href="javascript:ykPlyr.PlayerSeek(\'<%=list[key][i].seekTime%>\');" title="����ս���<%=list[key][i].timePoint%>"><%=list[key][i].timePoint%></a>\n<span class="idoln">\n<%var starst=false;%>\n<%for(var tag in utag){%>\n<%if(list[key][i].uids==utag[tag].uid){ starst=true;%> \n<a href="http://i.youku.com/i/id_<%=utag[tag].uid%>" target="_blank"><img src="<%=utag[tag].headImg%>" class="idol-img"/><b class="idolname" title="<%=utag[tag].name%>"><%=utag[tag].name%></b></a>\n<%}%>\n<%}%>\n</span>\n<!--<span class="afterDelTxt">��ɾ��</span>-->\n<span class="item bsp-list-limitArea <%if(starst){%>oneIdolList <%}%>" title="<%=list[key][i].listBsCont%>"><%=list[key][i].listBsCont%></span>\n</div>\n<div class="details"  title="<%=list[key][i].listBsCont%>"><p><%=list[key][i].listBsCont%></p></div>\n<div class="btnsframe">\n<%if(type && type==\'all\'){%><span class="comp-bs" data-objid="<%=list[key][i].objId%>">�ٱ�</span><%}%>\n<span  class="del-bs" data-objid="<%=list[key][i].objId%>" style="<%if(type && type==\'star\'){%>margin-right: 15px; <%}%> <%if(isdz){%>display:block;<%}%>">ɾ��</span>\n</div>\n</div>\n<%}%>\n<%}%>';
+    define("page/find/player/dmpool/starlist", ["tui/view", "tui/art", "tui/scrollbar2", "page/find/player/dmpool/model", "module/responsive"], function(e, t, i, a, n) {
+        var o = '<%for(var key in list){%>\n<%for(var i = 0; i < list[key].length; i++){%>\n<div class="item-one clearfix label<%=list[key][i].uids%>" data-uid="<%=list[key][i].uids%>" data-objid="<%=list[key][i].objId%>">\n<div class="list_len clearfix">\n<a class="time" href="javascript:ykPlyr.PlayerSeek(\'<%=list[key][i].seekTime%>\');" title="点击空降到<%=list[key][i].timePoint%>"><%=list[key][i].timePoint%></a>\n<span class="idoln">\n<%var starst=false;%>\n<%for(var tag in utag){%>\n<%if(list[key][i].uids==utag[tag].uid){ starst=true;%> \n<a href="http://i.youku.com/i/id_<%=utag[tag].uid%>" target="_blank"><img src="<%=utag[tag].headImg%>" class="idol-img"/><b class="idolname" title="<%=utag[tag].name%>"><%=utag[tag].name%></b></a>\n<%}%>\n<%}%>\n</span>\n<!--<span class="afterDelTxt">已删除</span>-->\n<span class="item bsp-list-limitArea <%if(starst){%>oneIdolList <%}%>" title="<%=list[key][i].listBsCont%>"><%=list[key][i].listBsCont%></span>\n</div>\n<div class="details"  title="<%=list[key][i].listBsCont%>"><p><%=list[key][i].listBsCont%></p></div>\n<div class="btnsframe">\n<%if(type && type==\'all\'){%><span class="comp-bs" data-objid="<%=list[key][i].objId%>">举报</span><%}%>\n<span  class="del-bs" data-objid="<%=list[key][i].objId%>" style="<%if(type && type==\'star\'){%>margin-right: 15px; <%}%> <%if(isdz){%>display:block;<%}%>">删除</span>\n</div>\n</div>\n<%}%>\n<%}%>';
         var r = e.extend({
             initialize: function(e) {
                 var t = this;
@@ -1675,13 +1675,13 @@ function testClick() {
                 var t = e / 1e3;
                 if (t < 3600) {
                     var i = parseInt(t / 60),
-                        n = Math.floor(t % 60);
-                    return (i >= 10 ? i : "0" + i) + ":" + (n >= 10 ? n : "0" + n)
+                        a = Math.floor(t % 60);
+                    return (i >= 10 ? i : "0" + i) + ":" + (a >= 10 ? a : "0" + a)
                 } else {
-                    var a = parseInt(t / 3600),
+                    var n = parseInt(t / 3600),
                         o = parseInt(t % 3600 / 60),
                         r = Math.floor(t % 3600 % 60);
-                    return (a >= 10 ? a : "0" + a) + ":" + (o >= 10 ? o : "0" + o) + ":" + (r >= 10 ? r : "0" + r)
+                    return (n >= 10 ? n : "0" + n) + ":" + (o >= 10 ? o : "0" + o) + ":" + (r >= 10 ? r : "0" + r)
                 }
             },
             load: function() {
@@ -1689,11 +1689,11 @@ function testClick() {
                 if (e.options.utag.length > 0) {
                     var i = 0;
                     e.items = [];
-                    for (var n = 0; n < e.options.utag.length; n++) e.getUlistFn(e.options.utag[n].uid, function(n) {
+                    for (var a = 0; a < e.options.utag.length; a++) e.getUlistFn(e.options.utag[a].uid, function(a) {
                         i++;
-                        e._mergeItem(n.list);
+                        e._mergeItem(a.list);
                         if (i == e.options.utag.length) {
-                            var a = $.extend({
+                            var n = $.extend({
                                 type: "star",
                                 uid: e.options.uid,
                                 isdz: e.options.isdz
@@ -1701,7 +1701,7 @@ function testClick() {
                                 utag: e.options.utag,
                                 list: e.items
                             });
-                            var r = t.compile(o)(a);
+                            var r = t.compile(o)(n);
                             $("#bsp-alllist-wrap2").append(r);
                             e.ScrollbarFn()
                         }
@@ -1711,27 +1711,27 @@ function testClick() {
             _mergeItem: function(e) {
                 var t = this;
                 e.forEach(function(e, i) {
-                    var n = e.seekTime;
-                    t.items[n] || (t.items[n] = []);
-                    t.items[n].push(e)
+                    var a = e.seekTime;
+                    t.items[a] || (t.items[a] = []);
+                    t.items[a].push(e)
                 })
             },
             getUlistFn: function(e, t) {
                 $(".bs_loadImg_box").eq(2).addClass("bs_loadImg");
                 var i = this;
-                var a = {
+                var n = {
                     iid: this.options.iid,
                     ct: 1001,
                     uid: e
                 };
                 var o = [];
-                n.getUlist(a, function(e) {
-                    for (var n = 0; n < e.result.length; n++) o.push({
-                        listBsCont: e.result[n].content,
-                        uids: e.result[n].uid,
-                        objId: e.result[n].id,
-                        timePoint: i.timeConver(e.result[n].playat),
-                        seekTime: parseInt(e.result[n].playat / 1e3)
+                a.getUlist(n, function(e) {
+                    for (var a = 0; a < e.result.length; a++) o.push({
+                        listBsCont: e.result[a].content,
+                        uids: e.result[a].uid,
+                        objId: e.result[a].id,
+                        timePoint: i.timeConver(e.result[a].playat),
+                        seekTime: parseInt(e.result[a].playat / 1e3)
                     });
                     t({
                         list: o,
@@ -1745,7 +1745,7 @@ function testClick() {
                 this.$el.bind("list:update2", function() {
                     e.scroll.update()
                 });
-                a.bind("player:responsive", function() {
+                n.bind("player:responsive", function() {
                     e.scroll.update()
                 })
             },
@@ -1759,9 +1759,9 @@ function testClick() {
         });
         return r
     });
-    define("page/find/player/dmpool/dmpool", ["tui/view", "tui/art", "tui/scrollbar2", "page/find/player/dmpool/model", "page/find/player/dmpool/starlist", "page/find/player/dmpool/staractivity", "module/login/login", "tui/encrypt/md5", "module/responsive"], function(e, t, i, n, a, o, r, s, l) {
-        var d = '<div class="bspoolClose">������ص�Ļ�б�</div>\n<div class="bspoolTit">\n<div id="bs_selected_label_layer" onselectstart="return false">\n<div class="bs_idol_l clearfix" id="bs_idol">\n<%for(var i = 0; i < idols.length; i++){%>\n<span data-id="label<%=idols[i].uid%>" data-uid="<%=idols[i].uid%>" title="<%=idols[i].name%>"   <%if(idols[i].dis==0){%> style="display:none;"<%}%> <%if(idols[i].dis==1){%> class="active"<%}%> ><%=idols[i].name%></span>\n<%}%>\n<div class="bs_data" id="bs_data">\n����<%=totalCounts%>����\n</div>\n</div>\n</div>\n</div>\n<div class="scroll-area scroll-resize-height">\n<div class="scroller-box dmnone">\n<div class="scroller scroller_pool bsp-cont scroll-resize-height" >\n<div class="scroller-container">\n<div class="bsp-all-list hoverOneItem">\n<div id="bsp-alllist-wrap0">\n</div>\n<div class="bs_loadImg_box"></div>\n</div>\n</div>\n</div>\n</div>\n<div class="scroller-box">\n<div class="scroller scroller_pool bsp-cont scroll-resize-height">\n<div class="scroller-container">\n<div class="bsp-all-list hoverOneItem">\n<div id="bsp-alllist-wrap1">\n</div>\n<div class="bs_loadImg_box"></div>\n</div>\n</div>\n<%if(totalCounts == 0 && onePageBslen ==0){%>\n<div class="zerodm_show_bg"></div>\n<%}%>\n</div>\n</div>\n<div class="scroller-box dmnone">\n<div class="scroller scroller_pool bsp-cont scroll-resize-height " >\n<div class="scroller-container">\n<div class="bsp-all-list hoverOneItem">\n<div id="bsp-alllist-wrap2">\n</div>\n<div class="bs_loadImg_box"></div>\n</div>\n</div>\n</div>\n</div>\n</div>\n';
-        var c = '<%for(var i = 0; i < onePageBslen; i++){%>\n<div class="item-one clearfix <%if(type && type==\'starpool\'){%>starpool-one<%}%>" data-uid="<%=list[i].uids%>" data-objid="<%=list[i].objId%>">\n<div class="list_len clearfix">\n<%if(type && type!=\'starpool\'){%><a class="time" href="javascript:ykPlyr.PlayerSeek(\'<%=list[i].seekTime%>\');" title="����ս���<%=list[i].timePoint%>"><%=list[i].timePoint%></a><%}%>\n<span class="idoln">\n<%var starst=false;%>\n<%for(var tag in utag){%>\n<%if(list[i].uids==utag[tag].uid || list[i].uids==utag[tag].xuid){ starst=true;%> \n<a href="http://i.youku.com/i/id_<%=utag[tag].uid%>" target="_blank"><img src="<%=utag[tag].headImg%>" class="idol-img"/><b class="idolname" title="<%=utag[tag].name%>"><%=utag[tag].name%></b></a>\n<%}%>\n<%}%>\n</span>\n<!--<span class="afterDelTxt">��ɾ��</span>-->\n<span class="item bsp-list-limitArea <%if(starst && type!=\'starpool\'){%>oneIdolList <%}%>" title="<%=list[i].listBsCont%>"><%=list[i].listBsCont%></span>\n</div>\n<div class="details"  title="<%=list[i].listBsCont%>"><p><%=list[i].listBsCont%></p></div>\n<div class="btnsframe">\n<%if(type && type==\'all\'){%><span class="comp-bs" data-objid="<%=list[i].objId%>">�ٱ�</span><%}%>\n<span  class="del-bs" data-objid="<%=list[i].objId%>" style="<%if(type && type==\'star\'){%>margin-right: 15px; <%}%><%if(isdz){%>display:block;<%}%>">ɾ��</span>\n</div>\n</div>\n<%}%>';
+    define("page/find/player/dmpool/dmpool", ["tui/view", "tui/art", "tui/scrollbar2", "page/find/player/dmpool/model", "page/find/player/dmpool/starlist", "page/find/player/dmpool/staractivity", "module/login/login", "tui/encrypt/md5", "module/responsive"], function(e, t, i, a, n, o, r, s, l) {
+        var d = '<div class="bspoolClose">点击隐藏弹幕列表</div>\n<div class="bspoolTit">\n<div id="bs_selected_label_layer" onselectstart="return false">\n<div class="bs_idol_l clearfix" id="bs_idol">\n<%for(var i = 0; i < idols.length; i++){%>\n<span data-id="label<%=idols[i].uid%>" data-uid="<%=idols[i].uid%>" title="<%=idols[i].name%>"   <%if(idols[i].dis==0){%> style="display:none;"<%}%> <%if(idols[i].dis==1){%> class="active"<%}%> ><%=idols[i].name%></span>\n<%}%>\n<div class="bs_data" id="bs_data">\n（共<%=totalCounts%>发）\n</div>\n</div>\n</div>\n</div>\n<div class="scroll-area scroll-resize-height">\n<div class="scroller-box dmnone">\n<div class="scroller scroller_pool bsp-cont scroll-resize-height" >\n<div class="scroller-container">\n<div class="bsp-all-list hoverOneItem">\n<div id="bsp-alllist-wrap0">\n</div>\n<div class="bs_loadImg_box"></div>\n</div>\n</div>\n</div>\n</div>\n<div class="scroller-box">\n<div class="scroller scroller_pool bsp-cont scroll-resize-height">\n<div class="scroller-container">\n<div class="bsp-all-list hoverOneItem">\n<div id="bsp-alllist-wrap1">\n</div>\n<div class="bs_loadImg_box"></div>\n</div>\n</div>\n<%if(totalCounts == 0 && onePageBslen ==0){%>\n<div class="zerodm_show_bg"></div>\n<%}%>\n</div>\n</div>\n<div class="scroller-box dmnone">\n<div class="scroller scroller_pool bsp-cont scroll-resize-height " >\n<div class="scroller-container">\n<div class="bsp-all-list hoverOneItem">\n<div id="bsp-alllist-wrap2">\n</div>\n<div class="bs_loadImg_box"></div>\n</div>\n</div>\n</div>\n</div>\n</div>\n';
+        var c = '<%for(var i = 0; i < onePageBslen; i++){%>\n<div class="item-one clearfix <%if(type && type==\'starpool\'){%>starpool-one<%}%>" data-uid="<%=list[i].uids%>" data-objid="<%=list[i].objId%>">\n<div class="list_len clearfix">\n<%if(type && type!=\'starpool\'){%><a class="time" href="javascript:ykPlyr.PlayerSeek(\'<%=list[i].seekTime%>\');" title="点击空降到<%=list[i].timePoint%>"><%=list[i].timePoint%></a><%}%>\n<span class="idoln">\n<%var starst=false;%>\n<%for(var tag in utag){%>\n<%if(list[i].uids==utag[tag].uid || list[i].uids==utag[tag].xuid){ starst=true;%> \n<a href="http://i.youku.com/i/id_<%=utag[tag].uid%>" target="_blank"><img src="<%=utag[tag].headImg%>" class="idol-img"/><b class="idolname" title="<%=utag[tag].name%>"><%=utag[tag].name%></b></a>\n<%}%>\n<%}%>\n</span>\n<!--<span class="afterDelTxt">已删除</span>-->\n<span class="item bsp-list-limitArea <%if(starst && type!=\'starpool\'){%>oneIdolList <%}%>" title="<%=list[i].listBsCont%>"><%=list[i].listBsCont%></span>\n</div>\n<div class="details"  title="<%=list[i].listBsCont%>"><p><%=list[i].listBsCont%></p></div>\n<div class="btnsframe">\n<%if(type && type==\'all\'){%><span class="comp-bs" data-objid="<%=list[i].objId%>">举报</span><%}%>\n<span  class="del-bs" data-objid="<%=list[i].objId%>" style="<%if(type && type==\'star\'){%>margin-right: 15px; <%}%><%if(isdz){%>display:block;<%}%>">删除</span>\n</div>\n</div>\n<%}%>';
         var u = false;
         document.domain = "youku.com";
         var f = e.extend({
@@ -1782,11 +1782,11 @@ function testClick() {
                 };
                 if (window.dmpollevent) {
                     window.dmpollevent.on("starpoolPage", function(e) {
-                        console.log("���ǵ�Ļ������:", e);
+                        console.log("明星弹幕场配置:", e);
                         t.starpoolPage = e
                     });
                     window.dmpollevent.on("addstarpool", function(e) {
-                        console.log("������ǵ�Ļ:", e);
+                        console.log("添加明星弹幕:", e);
                         if (t.staractivity) t.staractivity.dmSatradd(e);
                         else t.starpoollist.push(e)
                     })
@@ -1805,23 +1805,23 @@ function testClick() {
                 var t = this;
                 var i = $(e.currentTarget);
                 this.$el.find("#bspoolBox").hide(200);
-                $("#playerBox .yk_danmpoolOff").removeClass("on").find("span").text("��Ļ�б�δ����")
+                $("#playerBox .yk_danmpoolOff").removeClass("on").find("span").text("弹幕列表未开启")
             },
             dm_delFn: function(e) {
                 var t = this;
                 var i = $(e.currentTarget);
                 if (t.options.isdz) {
-                    var a = {
+                    var n = {
                         uid: this.options.uid,
                         iid: t.options.iid,
                         ct: t.options.ct,
                         objId: i.attr("data-objid") || 0
                     };
-                    n.getdel(a, function(e) {
+                    a.getdel(n, function(e) {
                         console.log(e)
                     });
-                    console.log("owenɾ��")
-                } else console.log("�û�ɾ��")
+                    console.log("owen删除")
+                } else console.log("用户删除")
             },
             dm_comFn: function(e) {
                 var t = this;
@@ -1829,9 +1829,9 @@ function testClick() {
                 if (!this.options.uid) r.login(function() {
                     if ("function" == typeof e) e()
                 });
-                var a = i.offset().top - 120,
+                var n = i.offset().top - 120,
                     o = i.offset().left - 70;
-                var l = '<div class="comp-frame"  style="top: ' + a + "px;left: " + o + 'px;"><ul><li data-type="nosen" type="1">ˢ��/������</li><li data-type="nohor" type="2">����/����г</li><li data-type="spoiler" type="3">��͸/��</li><li data-type="adver" type="4">���/����</li></ul></div>';
+                var l = '<div class="comp-frame"  style="top: ' + n + "px;left: " + o + 'px;"><ul><li data-type="nosen" type="1">刷屏/无意义</li><li data-type="nohor" type="2">辱骂/不和谐</li><li data-type="spoiler" type="3">剧透/误导</li><li data-type="adver" type="4">广告/其他</li></ul></div>';
                 var d = i.parents(".item-one").attr("data-uid");
                 var c = i.parents(".item-one").find(".details").text();
                 if ($("body .comp-box").length <= 0) $('<div class="comp-box"></div>').appendTo($("body")[0]).html(l);
@@ -1840,11 +1840,11 @@ function testClick() {
                     $("body").find(".comp-frame").remove()
                 });
                 $("body .comp-frame").find("li").on("click", function(e) {
-                    var a = $(e.currentTarget);
+                    var n = $(e.currentTarget);
                     $("body .comp-frame").hide();
                     var o = {
-                        reason: a.text(),
-                        type: a.attr("type"),
+                        reason: n.text(),
+                        type: n.attr("type"),
                         dmid: i.attr("data-objid"),
                         uid: t.options.uid,
                         iid: t.options.iid,
@@ -1854,9 +1854,9 @@ function testClick() {
                         time: (new Date).getTime(),
                         sign: s("Ef9/4e4d^@g9a2M3g" + (new Date).getTime() + t.options.uid + t.options.uid + i.attr("data-objid"))
                     };
-                    n.getReport(o, function(e) {
+                    a.getReport(o, function(e) {
                         if (1 == e.code) {
-                            t.$el.append('<div class="jubao" style="position:absolute;left:48%;top:48%;background:#000;border-radius:3px;padding:10px;z-index:9999999;color:#fff;">�ٱ��ɹ�</div>');
+                            t.$el.append('<div class="jubao" style="position:absolute;left:48%;top:48%;background:#000;border-radius:3px;padding:10px;z-index:9999999;color:#fff;">举报成功</div>');
                             setTimeout(function(e) {
                                 $(".jubao").fadeOut()
                             }, 3e3)
@@ -1869,9 +1869,9 @@ function testClick() {
                 var i = $(e.currentTarget);
                 $("#bs_idol span").removeClass("active");
                 i.addClass("active");
-                var n = i.attr("data-uid");
-                $(".scroller-box", this.el).removeClass("dmnone").hide().eq(n).show();
-                if (2 == n && !t.Starlist && t.labeldata.utag.length > 0) t.Starlist = new a($.extend({}, t.options, t.labeldata))
+                var a = i.attr("data-uid");
+                $(".scroller-box", this.el).removeClass("dmnone").hide().eq(a).show();
+                if (2 == a && !t.Starlist && t.labeldata.utag.length > 0) t.Starlist = new n($.extend({}, t.options, t.labeldata))
             },
             dm_itemFnin: function(e) {
                 var t = this;
@@ -1894,15 +1894,15 @@ function testClick() {
                 var e = this;
                 this.getpoolFn(0, function(i) {
                     e.listdata = i;
-                    var n = $.extend({
+                    var a = $.extend({
                         type: "all",
                         uid: e.options.uid,
                         isdz: e.options.isdz
                     }, i, e.labeldata);
                     e.$el.append('<div id="bspoolBox"></div>');
-                    $("#bspoolBox").html(t.compile(d)(n)).show(200);
-                    var a = t.compile(c)(n);
-                    $("#bsp-alllist-wrap1").append(a);
+                    $("#bspoolBox").html(t.compile(d)(a)).show(200);
+                    var n = t.compile(c)(a);
+                    $("#bsp-alllist-wrap1").append(n);
                     e.ScrollbarFn();
                     e.scrollupdate();
                     e.dmSatrLoad()
@@ -1932,10 +1932,10 @@ function testClick() {
                     begin: e
                 });
                 $(".bs_loadImg_box").eq(1).addClass("bs_loadImg");
-                var a;
+                var n;
                 var o = this;
                 var r = [];
-                n.getPool(i, function(e) {
+                a.getPool(i, function(e) {
                     if (e.data.length > 0) {
                         for (var i = 0; i < e.data.length; i++) r.push({
                             listBsCont: e.data[i].content,
@@ -1944,14 +1944,14 @@ function testClick() {
                             timePoint: o.timeConver(e.data[i].playat),
                             seekTime: parseInt(e.data[i].playat / 1e3)
                         });
-                        a = e.next;
-                        $("#bspoolBox").data("mat", a)
+                        n = e.next;
+                        $("#bspoolBox").data("mat", n)
                     }
                     $(".bs_loadImg_box").eq(1).removeClass("bs_loadImg");
                     t({
                         totalCounts: e.count,
                         list: r,
-                        Varnext: a,
+                        Varnext: n,
                         onePageBslen: e.data.length
                     })
                 })
@@ -1960,46 +1960,46 @@ function testClick() {
                 var t = e / 1e3;
                 if (t < 3600) {
                     var i = parseInt(t / 60),
-                        n = Math.floor(t % 60);
-                    return (i >= 10 ? i : "0" + i) + ":" + (n >= 10 ? n : "0" + n)
+                        a = Math.floor(t % 60);
+                    return (i >= 10 ? i : "0" + i) + ":" + (a >= 10 ? a : "0" + a)
                 } else {
-                    var a = parseInt(t / 3600),
+                    var n = parseInt(t / 3600),
                         o = parseInt(t % 3600 / 60),
                         r = Math.floor(t % 3600 % 60);
-                    return (a >= 10 ? a : "0" + a) + ":" + (o >= 10 ? o : "0" + o) + ":" + (r >= 10 ? r : "0" + r)
+                    return (n >= 10 ? n : "0" + n) + ":" + (o >= 10 ? o : "0" + o) + ":" + (r >= 10 ? r : "0" + r)
                 }
             },
             getInfoFn: function(e) {
                 var t, i = [],
-                    a;
-                n.getInfo(this.arrlist, function(n) {
-                    if (1 == n.code) {
-                        t = n.count;
-                        if (n.utag.length > 0) {
-                            a = n.utag;
+                    n;
+                a.getInfo(this.arrlist, function(a) {
+                    if (1 == a.code) {
+                        t = a.count;
+                        if (a.utag.length > 0) {
+                            n = a.utag;
                             i.push({
-                                name: "�Ǽݵ�",
+                                name: "星驾到",
                                 uid: "0",
                                 dis: "0"
                             });
                             i.push({
-                                name: "ȫ��",
+                                name: "全部",
                                 uid: "1",
                                 dis: "1"
                             });
                             i.push({
-                                name: "����",
+                                name: "明星",
                                 uid: "2",
                                 dis: "2"
                             })
                         } else i.push({
-                            name: "��Ļ�б�",
+                            name: "弹幕列表",
                             uid: "1",
                             dis: "1"
                         })
-                    } else console.log("iid����");
+                    } else console.log("iid错误");
                     e({
-                        utag: a,
+                        utag: n,
                         totalCounts: t,
                         idols: i
                     })
@@ -2007,25 +2007,25 @@ function testClick() {
             },
             ScrollbarFn: function() {
                 var e = this;
-                var n = false;
+                var a = false;
                 this.scroll = new i($(".scroller_pool", this.el).eq(1), {
                     draggerMinLength: 30
                 });
                 this.scroll.bind("scroll:end", function() {
-                    if (n) return;
-                    n = true;
+                    if (a) return;
+                    a = true;
                     setTimeout(function() {
-                        n = false
+                        a = false
                     }, 3e3);
                     var i = $("#bspoolBox").data("mat");
                     if (!!i) e.getpoolFn(i, function(i) {
-                        var n = $.extend({
+                        var a = $.extend({
                             type: "all",
                             uid: e.options.uid,
                             isdz: e.options.isdz
                         }, i, e.labeldata);
-                        var a = t.compile(c)(n);
-                        $("#bsp-alllist-wrap1").append(a);
+                        var n = t.compile(c)(a);
+                        $("#bsp-alllist-wrap1").append(n);
                         $("#bspoolBox").data("mat", i.Varnext);
                         e.$el.trigger("list:update1")
                     })
@@ -2052,13 +2052,13 @@ function testClick() {
             })
         }
     });
-    define("page/find/player/view/sub", ["tui/view", "tui/art", "tui/util/num", "module/login/login", "page/find/player/model/listall"], function(e, t, i, n, a) {
+    define("page/find/player/view/sub", ["tui/view", "tui/art", "tui/util/num", "module/login/login", "page/find/player/model/listall"], function(e, t, i, a, n) {
         var o = e.extend({
             el: $(".player-container"),
             initialize: function(e) {
                 var t = this;
                 if (!this.$el.length) return;
-                this.mod = new a;
+                this.mod = new n;
                 this.mod.bind("getSubInfo:success", this.render.bind(this));
                 this.mod.bind("sub:error", this.subError.bind(this));
                 this.mod.bind("createSub:success", this.subedcb.bind(this));
@@ -2090,9 +2090,9 @@ function testClick() {
             subed: function(e) {
                 var t = this;
                 if (t.locked) return;
-                n.login(function() {
+                a.login(function() {
                     t.locked = true;
-                    n.checkLogin(function() {
+                    a.checkLogin(function() {
                         t.mod.createSub({
                             follow: PageConfig.videoOwner_en,
                             addtion: "1_1"
@@ -2103,7 +2103,7 @@ function testClick() {
             unsub: function(e) {
                 var t = this;
                 if (t.locked) return;
-                n.login(function() {
+                a.login(function() {
                     t.locked = true;
                     t.mod.destroySub({
                         follow: PageConfig.videoOwner_en,
@@ -2113,23 +2113,23 @@ function testClick() {
             },
             subedcb: function() {
                 this.locked = false;
-                $(".v-sub-action", this.$el).removeClass("v-sub-action").addClass("v-sub-done").html("�Ѷ���");
+                $(".v-sub-action", this.$el).removeClass("v-sub-action").addClass("v-sub-done").html("已订阅");
                 window.YK_CPA && YK_CPA.trackReg()
             },
             unSubedcb: function() {
                 this.locked = false;
-                $(".v-sub-done", this.$el).removeClass("v-sub-done").addClass("v-sub-action").html("+����")
+                $(".v-sub-done", this.$el).removeClass("v-sub-done").addClass("v-sub-action").html("+订阅")
             },
             subError: function() {
                 this.locked = false
             },
             render: function(e) {
-                var a = this,
+                var n = this,
                     o, r;
-                var s = '<%data.thumb=data.thumb||\'//static.youku.com/v1.0.153/user/img/head/64/999.jpg\'%>\n<dl class="dayu-info">\n<dt>\n<a href="<%=data.url%>" target="_blank" >\n<img src="<%=data.thumb%>">\n</a>\n</dt>\n<dd>\n<h2>		\n<a href="<%=data.url%>" class="sub-name" target="_blank"><%=data.title%></a>\n<%if(data.verified==1&&data.disable){%>\n<span class="dyh-icon"></span>\n<%}%>\n</h2>\n</dd>\n<dd><%=data.vvCount%>��Ƶ������ 	  <%=data.subcount%>��˿</dd>\n<dd>\n<%if(data.isSelf){%>\n<a class="create-center" target="_blank" href="//i.youku.com/u/creative_center">��������</a>\n<%}else{%>		\n<%if(data.subscribed){%>			\n<a class="v-sub-btn v-sub-done"  data-img="<%=data.thumb%>"  href="javascript:void(0);">�Ѷ���</a>\n<%}else{%>\n<a class="v-sub-btn v-sub-action" data-img="<%=data.thumb%>" href="javascript:void(0);">+����</a>\n<%}%>\n<%}%>					\n</dd>\n</dl>\n';
-                var l = '<%data.thumb=data.thumb||\'//static.youku.com/v1.0.153/user/img/head/64/999.jpg\'%>\n<%if(!data.isSelf){%>\n<a href="<%=data.url%>" target="_blank" >\n<img width="28" height="28" src="<%=data.thumb%>"><%=data.title%>\n</a>\n<%if(data.subscribed){%>			\n<a class="v-sub-btn v-sub-done"  data-img="<%=data.thumb%>"  href="javascript:void(0);">�Ѷ���</a>\n<%}else{%>\n<a class="v-sub-btn v-sub-action" data-img="<%=data.thumb%>" href="javascript:void(0);">+����</a>\n<%}%>		\n<%}%>						\n';
+                var s = '<%data.thumb=data.thumb||\'//static.youku.com/v1.0.153/user/img/head/64/999.jpg\'%>\n<dl class="dayu-info">\n<dt>\n<a href="<%=data.url%>" target="_blank" >\n<img src="<%=data.thumb%>">\n</a>\n</dt>\n<dd>\n<h2>		\n<a href="<%=data.url%>" class="sub-name" target="_blank"><%=data.title%></a>\n<%if(data.verified==1&&data.disable){%>\n<span class="dyh-icon"></span>\n<%}%>\n</h2>\n</dd>\n<dd><%=data.vvCount%>视频播放量 	  <%=data.subcount%>粉丝</dd>\n<dd>\n<%if(data.isSelf){%>\n<a class="create-center" target="_blank" href="//i.youku.com/u/creative_center">创作中心</a>\n<%}else{%>		\n<%if(data.subscribed){%>			\n<a class="v-sub-btn v-sub-done"  data-img="<%=data.thumb%>"  href="javascript:void(0);">已订阅</a>\n<%}else{%>\n<a class="v-sub-btn v-sub-action" data-img="<%=data.thumb%>" href="javascript:void(0);">+订阅</a>\n<%}%>\n<%}%>					\n</dd>\n</dl>\n';
+                var l = '<%data.thumb=data.thumb||\'//static.youku.com/v1.0.153/user/img/head/64/999.jpg\'%>\n<%if(!data.isSelf){%>\n<a href="<%=data.url%>" target="_blank" >\n<img width="28" height="28" src="<%=data.thumb%>"><%=data.title%>\n</a>\n<%if(data.subscribed){%>			\n<a class="v-sub-btn v-sub-done"  data-img="<%=data.thumb%>"  href="javascript:void(0);">已订阅</a>\n<%}else{%>\n<a class="v-sub-btn v-sub-action" data-img="<%=data.thumb%>" href="javascript:void(0);">+订阅</a>\n<%}%>		\n<%}%>						\n';
                 e.isSelf = false;
-                if (n.uid() == PageConfig.videoOwner) e.isSelf = true;
+                if (a.uid() == PageConfig.videoOwner) e.isSelf = true;
                 if ($("#module_basic_dayu_sub").length) {
                     e.subcount = i.field(e.subcount);
                     e.vvCount = i.field(e.vvCount);
@@ -2150,10 +2150,10 @@ function testClick() {
         return o
     });
     define("page/find/player/model/interactionBottom", ["tui/event", "tui/net", "tui/cookie"], function(e, t, i) {
-        var n = e.extend({
+        var a = e.extend({
             initialize: function() {
                 var e = this;
-                n.superClass.initialize.call(e);
+                a.superClass.initialize.call(e);
                 this.domain = PageConfig.homeHost;
                 e.op = {
                     callbackName: "callback",
@@ -2201,18 +2201,18 @@ function testClick() {
                 })
             }
         });
-        return n
+        return a
     });
     define("page/find/player/view/iku", ["tui/class", "tui/cookie", "tui/browser"], function(e, t, i) {
-        var n = "";
-        var a = PageConfig.homeHost;
+        var a = "";
+        var n = PageConfig.homeHost;
 
         function o() {
             $.ajax({
-                url: a + "user/authCode",
+                url: n + "user/authCode",
                 dataType: "jsonp",
                 success: function(e) {
-                    if (!e.error && e.data && e.data.authCode) n = e.data.authCode + "|"
+                    if (!e.error && e.data && e.data.authCode) a = e.data.authCode + "|"
                 }
             })
         }
@@ -2246,7 +2246,7 @@ function testClick() {
                 if ("undefined" == typeof window.ikuNewExecute) this.loadIkuJs();
                 setTimeout(function() {
                     var i = 0;
-                    var a = !e.callback ? "" : e.callback;
+                    var n = !e.callback ? "" : e.callback;
                     var o = !e.secne ? "" : e.secne;
                     var r = e.from;
                     var s = e.action;
@@ -2269,7 +2269,7 @@ function testClick() {
                         if (c) {
                             u = !u ? "mp4" : u;
                             var p = "//v.youku.com/v_show/id_" + c + ".html";
-                            l = "iku://|video|" + p + "|quality=" + u + "|ykss=" + d + "|" + n
+                            l = "iku://|video|" + p + "|quality=" + u + "|ykss=" + d + "|" + a
                         } else i = 0
                     } else if ("show" == s) {
                         var h = "";
@@ -2284,7 +2284,7 @@ function testClick() {
                         if (e.sid) h = e.sid;
                         if (h) {
                             u = !u ? "mp4" : u;
-                            l = "iku://|vshow|download|" + h + "|quality=" + u + "|ykss=" + d + "|" + n
+                            l = "iku://|vshow|download|" + h + "|quality=" + u + "|ykss=" + d + "|" + a
                         } else i = 0
                     } else if ("play" == s) {
                         var c = "";
@@ -2296,7 +2296,7 @@ function testClick() {
                             c = "" != c ? c : window.videoId2
                         }
                         if (e.sid) c = e.sid;
-                        if (c) l = "iku://|play|web|videoid|playerror|" + c + "|ykss=" + d + "|" + n;
+                        if (c) l = "iku://|play|web|videoid|playerror|" + c + "|ykss=" + d + "|" + a;
                         else i = 0
                     } else if ("adddesktop" == s) {
                         var h = "";
@@ -2311,35 +2311,35 @@ function testClick() {
                         if (e.sid) h = e.sid;
                         if (h) {
                             u = !u ? "mp4" : u;
-                            l = "iku://|vshow|shortcut|" + h + "|quality=" + u + "|ykss=" + d + "|" + n
+                            l = "iku://|vshow|shortcut|" + h + "|quality=" + u + "|ykss=" + d + "|" + a
                         } else i = 0
                     }
-                    var m = function(e) {
+                    var g = function(e) {
                         i = -1;
                         var t = "//iku.youku.com/pc/index?tp=v&ori=ykplay&id=" + window.videoId2;
                         if (u) t += "&q=" + u;
-                        var n = "";
-                        if ("undefined" == typeof e || false == e || "" == e || e.indexOf("//iku.youku.com") == -1) n = t;
-                        else n = e;
-                        var a = document.createElement("iframe");
-                        a.width = 0;
-                        a.height = 0;
-                        a.src = n;
-                        document.body.appendChild(a);
+                        var a = "";
+                        if ("undefined" == typeof e || false == e || "" == e || e.indexOf("//iku.youku.com") == -1) a = t;
+                        else a = e;
+                        var n = document.createElement("iframe");
+                        n.width = 0;
+                        n.height = 0;
+                        n.src = a;
+                        document.body.appendChild(n);
                         setTimeout(function() {
-                            document.body.removeChild(a)
+                            document.body.removeChild(n)
                         }, 1e4)
                     };
-                    var v = function(e) {
+                    var m = function(e) {
                         i = 1
                     };
-                    if ("Microsoft Internet Explorer" == window.navigator.appName && ("MSIE 6." == navigator.appVersion.match(/MSIE 6./i) || "MSIE 7." == navigator.appVersion.match(/MSIE 7./i))) ikuNewExecute(l, o, v, m);
+                    if ("Microsoft Internet Explorer" == window.navigator.appName && ("MSIE 6." == navigator.appVersion.match(/MSIE 6./i) || "MSIE 7." == navigator.appVersion.match(/MSIE 7./i))) ikuNewExecute(l, o, m, g);
                     else {
-                        var g = ikuNewExecute(l, o);
-                        if ("ok" != g) m(g);
-                        else v(g)
+                        var v = ikuNewExecute(l, o);
+                        if ("ok" != v) g(v);
+                        else m(v)
                     }
-                    if ("function" === typeof a) a(i);
+                    if ("function" === typeof n) n(i);
                     else return i
                 }, 200)
             }
@@ -2347,7 +2347,7 @@ function testClick() {
         var s = new r;
         return s
     });
-    define("page/find/player/view/interactionBottom", ["tui/view", "tui/event", "tui/common", "tui/cookie", "tui/art", "tui/browser", "module/login/login", "page/find/player/view/iku", "page/find/player/model/interactionBottom"], function(e, t, i, n, a, o, r, s, l) {
+    define("page/find/player/view/interactionBottom", ["tui/view", "tui/event", "tui/common", "tui/cookie", "tui/art", "tui/browser", "module/login/login", "page/find/player/view/iku", "page/find/player/model/interactionBottom"], function(e, t, i, a, n, o, r, s, l) {
         var d = e.extend({
             faved: false,
             fav_process: false,
@@ -2383,9 +2383,9 @@ function testClick() {
             _addQQShareParam: function() {
                 var e = i.get_username("all");
                 var t = e.userid > 0 ? e.userid : 0;
-                var n = "//mini.cron.youku.com/web/www/qq_share/qq_cback.php?userId=" + t;
-                var a = $("#s_qq_haoyou1").attr("href");
-                $("#s_qq_haoyou1").attr("href", a + "&callback=" + n)
+                var a = "//mini.cron.youku.com/web/www/qq_share/qq_cback.php?userId=" + t;
+                var n = $("#s_qq_haoyou1").attr("href");
+                $("#s_qq_haoyou1").attr("href", n + "&callback=" + a)
             },
             _setQRCode: function() {
                 $(".J-phone-qrcode-img").attr("src", this._getQRCodeURL())
@@ -2397,10 +2397,10 @@ function testClick() {
             },
             getVideoPageInfoCallback: function(e) {
                 var t = e.data;
-                var n = $(".fn-fave", this.$el);
-                if (n.length && t.favo) {
+                var a = $(".fn-fave", this.$el);
+                if (a.length && t.favo) {
                     this.faved = true;
-                    n.html('<a target="_blank" class="faved" href="//faxian.youku.com/favorite"><i class="fn-icon"></i> ���ղ�</a>')
+                    a.html('<a target="_blank" class="faved" href="//faxian.youku.com/favorite"><i class="fn-icon"></i> 已收藏</a>')
                 }
                 this.tcode = t.ss;
                 this.scode = i.hcbt(this.tcode)
@@ -2483,12 +2483,12 @@ function testClick() {
                 t.fav_process = false;
                 if (0 == e || e == -2) {
                     t.faved = true;
-                    $(".fn-fave", this.$el).html('<a target="_blank" class="faved" href="//faxian.youku.com/favorite"><i class="fn-icon"></i> ���ղ�</a>')
+                    $(".fn-fave", this.$el).html('<a target="_blank" class="faved" href="//faxian.youku.com/favorite"><i class="fn-icon"></i> 已收藏</a>')
                 }
             },
-            showDimcode: function(e, t, i, n) {
-                var a = this.getWatchTime();
-                this.parseWatchTime(a)
+            showDimcode: function(e, t, i, a) {
+                var n = this.getWatchTime();
+                this.parseWatchTime(n)
             },
             getWatchTime: function() {
                 var e = 0;
@@ -2503,36 +2503,36 @@ function testClick() {
                 var t = parseInt(e / 3600);
                 e %= 3600;
                 var i = parseInt(e / 60);
-                var n = e % 60;
-                var a = "";
-                if (t) a += t + "Сʱ";
-                if (i) a += i + "��";
-                a += n + "��";
-                $("#phone_dimcode_watch_time").html("�ѹۿ��� " + a)
+                var a = e % 60;
+                var n = "";
+                if (t) n += t + "小时";
+                if (i) n += i + "分";
+                n += a + "秒";
+                $("#phone_dimcode_watch_time").html("已观看到 " + n)
             },
             renderDownloadPanel: function(e) {
-                var t = '<% if(mac){%>\n<div class="fn-panel-header">\n<span class="fn-panel-title"> ������Ƶ������ </span>\n</div>\n<div class="fn-panel-body">\n<div class="fn-panel-bd">\n<i class="fn-icon-download-app"></i>\n<p>�ſ�MAC�ͻ��ˣ���������������</p>\n<a id="fn_pc_download" href="javascript:void(0);" class="fn-btn">����MAC�ͻ���</a>\n</div>\n</div>\n<div class="fn-panel-bottom"><%=title%></div>\n<%}else{%>\n<div class="fn-panel-header">\n<span class="fn-panel-title"> ������Ƶ������ </span>\n</div>\n<div class="fn-panel-body">\n<div class="fn-panel-bd">\n<i class="fn-icon-app-video"></i>\n<p>������PC�ͻ���������Ƶ</p>\n<a href="javascript:void(0);" id="fnDownloadVideo" class="mr10 fn-btn fn-btn-download-video">���ر���Ƶ</a>\n<a href="javascript:void(0);" id="fnDownloadVideoAll" class="fn-btn">����ȫ��</a>\n</div>\n</div>\n<div class="fn-panel-bottom arrow-left"><%=title%></div>\n<%}%>';
+                var t = '<% if(mac){%>\n<div class="fn-panel-header">\n<span class="fn-panel-title"> 下载视频到电脑 </span>\n</div>\n<div class="fn-panel-body">\n<div class="fn-panel-bd">\n<i class="fn-icon-download-app"></i>\n<p>优酷MAC客户端，畅享倍速免广告体验</p>\n<a id="fn_pc_download" href="javascript:void(0);" class="fn-btn">下载MAC客户端</a>\n</div>\n</div>\n<div class="fn-panel-bottom"><%=title%></div>\n<%}else{%>\n<div class="fn-panel-header">\n<span class="fn-panel-title"> 下载视频到电脑 </span>\n</div>\n<div class="fn-panel-body">\n<div class="fn-panel-bd">\n<i class="fn-icon-app-video"></i>\n<p>将启用PC客户端下载视频</p>\n<a href="javascript:void(0);" id="fnDownloadVideo" class="mr10 fn-btn fn-btn-download-video">下载本视频</a>\n<a href="javascript:void(0);" id="fnDownloadVideoAll" class="fn-btn">下载全集</a>\n</div>\n</div>\n<div class="fn-panel-bottom arrow-left"><%=title%></div>\n<%}%>';
                 var i = $(".title-wrap h1").text();
                 if ($(".fn-btn-vip", this.$el).length && e) {
-                    var n = a.compile(t)({
+                    var a = n.compile(t)({
                         mac: o.mac,
                         title: i
                     });
-                    $(".fn-download .fn-panel", this.$el).html(n)
+                    $(".fn-download .fn-panel", this.$el).html(a)
                 }
             },
             _downPCLoading: function() {},
             _downPCCallback: function(e) {
-                if (e >= 0) document.getElementById("panel_down_notice").innerHTML = "<div><p>����δ��װ�ͻ��ˣ���������Ϊ������</p><p>�����ɹ���װ���ٵ���·���ť������Ƶ</p></div>"
+                if (e >= 0) document.getElementById("panel_down_notice").innerHTML = "<div><p>您尚未安装客户端，我们正在为您下载</p><p>请您成功安装后，再点击下方按钮下载视频</p></div>"
             }
         });
         return d
     });
     define("page/find/player/model/cms", ["tui/event", "tui/net", "module/domain"], function(e, t, i) {
-        var n = e.extend({
+        var a = e.extend({
             initialize: function() {
                 var e = this;
-                n.superClass.initialize.call(e);
+                a.superClass.initialize.call(e);
                 this.domain = "//cmstool.youku.com/";
                 e.op = {
                     callbackName: "callback",
@@ -2546,9 +2546,9 @@ function testClick() {
                 }, i.op)
             }
         });
-        return n
+        return a
     });
-    define("page/find/player/view/cms", ["tui/view", "tui/common", "tui/cookie", "tui/net", "tui/slide2", "module/stat/common", "page/find/player/model/cms"], function(e, t, i, n, a, o, r) {
+    define("page/find/player/view/cms", ["tui/view", "tui/common", "tui/cookie", "tui/net", "tui/slide2", "module/stat/common", "page/find/player/model/cms"], function(e, t, i, a, n, o, r) {
         var s = e.extend({
             initialize: function() {
                 var e = this;
@@ -2562,19 +2562,19 @@ function testClick() {
             cmsModuleHtmlCallback: function(e, t) {
                 var i = this;
                 if (t) {
-                    var n = $("#module_cms_" + e);
-                    if (n.length > 0) try {
+                    var a = $("#module_cms_" + e);
+                    if (a.length > 0) try {
                         t = t.replace(/http:/, "");
-                        n.html(t);
-                        n.trigger("cms:loaded");
-                        this.initCms(n)
-                    } catch (a) {
-                        n.html("")
+                        a.html(t);
+                        a.trigger("cms:loaded");
+                        this.initCms(a)
+                    } catch (n) {
+                        a.html("")
                     }
                 }
             },
             initCms: function(e) {
-                if (e.find(".cms-slider").length) a(e)
+                if (e.find(".cms-slider").length) n(e)
             },
             doEachOperation: function() {
                 var e = this.cmsdata;
@@ -2588,7 +2588,7 @@ function testClick() {
                 $("div[id^='module_cms_']").each(function() {
                     var e = $(this).attr("id").replace("module_cms_", "");
                     var t = "//module.youku.com/" + e + ".html";
-                    n.getScript(t)
+                    a.getScript(t)
                 })
             },
             diswindowOperation: function() {
@@ -2612,11 +2612,11 @@ function testClick() {
                 else if (t.topic) t = t.topic;
                 else if (t.video) t = t.video;
                 var i = (new Date).valueOf();
-                var n = 1e3 * t.begintime;
-                var a = 1e3 * t.expiretime;
+                var a = 1e3 * t.begintime;
+                var n = 1e3 * t.expiretime;
                 var o = window.screen.width || document.body.clientWidth;
                 var r = $("#yk-player-curtain");
-                if (i >= n && i <= a && r.length > 0) {
+                if (i >= a && i <= n && r.length > 0) {
                     r.html('<img mid="1001" src="' + t.windowicon + '">');
                     $(document).trigger("goldlog:exp", r);
                     r.show();
@@ -2631,10 +2631,10 @@ function testClick() {
                 var e = this.cmsdata;
                 if ("undefined" == typeof e || "undefined" == typeof e.data || !e.data.broadcast) return;
                 var i = e.data.broadcast;
-                var n = $("#show_vv_broadcast");
-                if (!n.length || !i.content) return;
-                n.html('<a  target="_blank"  mid="1002"  href="' + i.link + '">' + t.html2Escape(i.content) + "</a>").show();
-                $(document).trigger("goldlog:exp", n)
+                var a = $("#show_vv_broadcast");
+                if (!a.length || !i.content) return;
+                a.html('<a  target="_blank"  mid="1002"  href="' + i.link + '">' + t.html2Escape(i.content) + "</a>").show();
+                $(document).trigger("goldlog:exp", a)
             },
             init: function() {
                 this._model.getCmstool({
@@ -2654,7 +2654,7 @@ function testClick() {
         });
         return s
     });
-    define("page/find/player/view/listall", ["tui/view", "tui/art", "tui/common", "tui/cookie", "tui/net", "tui/slide2", "tui/util/num", "tui/lazyImageLoader", "module/login/login", "page/find/player/model/listall"], function(e, t, i, n, a, o, r, s, l, d) {
+    define("page/find/player/view/listall", ["tui/view", "tui/art", "tui/common", "tui/cookie", "tui/net", "tui/slide2", "tui/util/num", "tui/lazyImageLoader", "module/login/login", "page/find/player/model/listall"], function(e, t, i, a, n, o, r, s, l, d) {
         var c = e.extend({
             initialize: function() {
                 var e = this;
@@ -2665,8 +2665,8 @@ function testClick() {
                 this._model.bind("getRelation:fail", this.listCallbackFail.bind(this));
                 l.one("checklogin", function() {
                     var t = {
-                        guid: n("__ysuid"),
-                        utdid: n("cna"),
+                        guid: a("__ysuid"),
+                        utdid: a("cna"),
                         vid: PageConfig.videoId,
                         sid: PageConfig.showid,
                         cate: PageConfig.catId,
@@ -2708,7 +2708,7 @@ function testClick() {
                     var e = $(this);
                     var t = [e.attr("_ck"), e.attr("_reck")];
                     t.forEach(function(e) {
-                        if (e) a.getRequest(e)
+                        if (e) n.getRequest(e)
                     })
                 })
             },
@@ -2716,8 +2716,8 @@ function testClick() {
                 $("#" + e).remove()
             },
             relationCallback: function(e) {
-                var n = '<!-- ����Ƽ��б� -->\n<div class="mod" mid=\'009\'>\n<div class="h">\n<h2 class="">��ؾ�����Ƶ</h2> \n</div>\n<div class="c">\n<div class="rows">\n<div class="row tuiguang" id="ab_v_61208"></div>\n<div class="row tuiguang" id="ab_v_61209"></div>\n<% data.forEach(function(t, i){ %>   \n<%if (t.mm == 1 && typeof(t.thirdDisplayUrl) !== "undefined" && typeof(t.thirdClickUrl) !== "undefined"){%> \n<div class="item item-cover tuiguang" data-sn="<%=i%>"  thirdDisplayUrl="<%=t.thirdDisplayUrl%>" thirdClickUrl="<%=t.thirdClickUrl%>">\n<%}else{%>\n<div class="item item-cover" data-sn="<%=i%>">\n<%}%>\n<a class="cover" href="<%=t.videoUrl%>" target="_blank">\n<img alt="<%=t.picUrl.replace(/^http:\\/\\//,\'//\')%>" class="lazyImg" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<span class="c-time"><i class="bg"></i><span><%=t.videoTime%></span></span>				\n</a>\n<div class="title">\n<% var tt = t.title || \'�ſ��Ƽ���Ƶ\';%>\n<a href="<%=t.videoUrl%>" target="_blank" title="<%=tt%>" _ck="<%=t.clickLogUrl%>" _reck="<%=t.recClickLogUrl%>"><%=tt%></a>						\n</div>\n<div class="status"><span><%=num(t.playAmount)%>�β���</span></div>	\n</div>\n<% }); %> \n<div class="row tuiguang" id="ab_v_61210"></div>\n<div class="row tuiguang" id="ab_v_61211"></div>\n<div class="row tuiguang" id="ab_v_61212"></div>\n<div class="clear"></div>		\n</div>\n</div>\n</div>';
-                var a = t.compile(n)({
+                var a = '<!-- 相关推荐列表 -->\n<div class="mod" mid=\'009\'>\n<div class="h">\n<h2 class="">相关精彩视频</h2> \n</div>\n<div class="c">\n<div class="rows">\n<div class="row tuiguang" id="ab_v_61208"></div>\n<div class="row tuiguang" id="ab_v_61209"></div>\n<% data.forEach(function(t, i){ %>   \n<%if (t.mm == 1 && typeof(t.thirdDisplayUrl) !== "undefined" && typeof(t.thirdClickUrl) !== "undefined"){%> \n<div class="item item-cover tuiguang" data-sn="<%=i%>"  thirdDisplayUrl="<%=t.thirdDisplayUrl%>" thirdClickUrl="<%=t.thirdClickUrl%>">\n<%}else{%>\n<div class="item item-cover" data-sn="<%=i%>">\n<%}%>\n<a class="cover" href="<%=t.videoUrl%>" target="_blank">\n<img alt="<%=t.picUrl.replace(/^http:\\/\\//,\'//\')%>" class="lazyImg" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<span class="c-time"><i class="bg"></i><span><%=t.videoTime%></span></span>				\n</a>\n<div class="title">\n<% var tt = t.title || \'优酷推荐视频\';%>\n<a href="<%=t.videoUrl%>" target="_blank" title="<%=tt%>" _ck="<%=t.clickLogUrl%>" _reck="<%=t.recClickLogUrl%>"><%=tt%></a>						\n</div>\n<div class="status"><span><%=num(t.playAmount)%>次播放</span></div>	\n</div>\n<% }); %> \n<div class="row tuiguang" id="ab_v_61210"></div>\n<div class="row tuiguang" id="ab_v_61211"></div>\n<div class="row tuiguang" id="ab_v_61212"></div>\n<div class="clear"></div>		\n</div>\n</div>\n</div>';
+                var n = t.compile(a)({
                     data: e.data,
                     num: r.field,
                     searchDomain: this.searchDomain,
@@ -2726,8 +2726,8 @@ function testClick() {
                     encodeURI: encodeURI,
                     numberFormat: i.numberFormat
                 });
-                if (a) {
-                    $("#module_basic_relation").html(a);
+                if (n) {
+                    $("#module_basic_relation").html(n);
                     s({
                         imgs: $("#module_basic_relation").find(".lazyImg"),
                         size: 150
@@ -2744,9 +2744,9 @@ function testClick() {
                 this.trigger("relationlist:loaded")
             },
             likeShowCallback: function(e) {
-                var n = $("#module_basic_relationleft");
-                var a = '<div class="mod modSwitch"  mid=\'004\'>\n<div class="h">\n<h2 class="moduletitle">����ܻ�ϲ����Щ��Ŀ</h2>\n</div>\n<div class="c">\n<div class="tab-c" style="display: block;">\n<div name="m_pos" id="m_likeshow">\n<div class="yk-row yk-row-sm">\n<div class="modPSlide mod_pslide " id="mdlikeshow">\n<div class="mbtn prev" style="display: none;">\n<a href="#" class="iconfont" title="��һ��"></a>\n</div>\n<div class="mbtn next" style="display: block;">\n<a href="#" class="iconfont" title="��һ��"></a>\n</div>\n<ul class="panel">\n<% data.forEach(function(t, i){ %> \n<li class="yk-col4 mr1" data-sn="<%=i%>">\n<div class="yk-pack pack-film">\n<div class="p-thumb">\n<a href="<%=t.videoUrl%>" target="_blank" title="<%=t.title%>" _ck="<%=t.clickLogUrl%>" _reck="<%=t.recClickLogUrl%>" ></a>\n<i class="bg"></i>\n<%if(i< 6){%>\n<img src="<%=t.picUrl.replace(/^http:\\/\\//,\'//\')%>">\n<%}else{%>\n<img class="lazyLoad" alt="<%=t.picUrl%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<%}%>\n<!-- ��ѡ�Ǳ� -->\n<%if (t.mm == 1){%>\n<div class="p-thumb-taglt">\n<i class="ico-ischoice"></i>\n</div>\n<%}%>\n<!-- ��Ա��ȯ -->\n<%if (t.pay_state == "1" || t.pay_state == "2") {%>\n<%var rttext = t.pay_state == "1" ? "��Ա���" : "��Ա��ȯ";%>\n<div class="p-thumb-tagrt">\n<span class="vip-free"><%=rttext%></span>\n</div>\n<%}%>\n</div>\n<!-- ���� -->\n<ul class="info-list">\n<li class="title short-title">\n<a href="<%=t.videoUrl%>" target="_blank" _ck="<%=t.clickLogUrl%>" _reck="<%=t.recClickLogUrl%>"><%=t.title%></a>\n</li>\n<% if (t.subTitle){ %>                \n<li class="subtitle">\n<span><%=t.subTitle%></span>\n</li>\n<% }  %>\n</ul>\n</div>\n</li>\n<%})%>  \n</ul>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>';
-                var r = t.compile(a)({
+                var a = $("#module_basic_relationleft");
+                var n = '<div class="mod modSwitch"  mid=\'004\'>\n<div class="h">\n<h2 class="moduletitle">你可能还喜欢这些节目</h2>\n</div>\n<div class="c">\n<div class="tab-c" style="display: block;">\n<div name="m_pos" id="m_likeshow">\n<div class="yk-row yk-row-sm">\n<div class="modPSlide mod_pslide " id="mdlikeshow">\n<div class="mbtn prev" style="display: none;">\n<a href="#" class="iconfont" title="上一组"></a>\n</div>\n<div class="mbtn next" style="display: block;">\n<a href="#" class="iconfont" title="下一组"></a>\n</div>\n<ul class="panel">\n<% data.forEach(function(t, i){ %> \n<li class="yk-col4 mr1" data-sn="<%=i%>">\n<div class="yk-pack pack-film">\n<div class="p-thumb">\n<a href="<%=t.videoUrl%>" target="_blank" title="<%=t.title%>" _ck="<%=t.clickLogUrl%>" _reck="<%=t.recClickLogUrl%>" ></a>\n<i class="bg"></i>\n<%if(i< 6){%>\n<img src="<%=t.picUrl.replace(/^http:\\/\\//,\'//\')%>">\n<%}else{%>\n<img class="lazyLoad" alt="<%=t.picUrl%>" src="//static.youku.com/v1.0.1098/index/img/sprite.gif">\n<%}%>\n<!-- 精选角标 -->\n<%if (t.mm == 1){%>\n<div class="p-thumb-taglt">\n<i class="ico-ischoice"></i>\n</div>\n<%}%>\n<!-- 会员用券 -->\n<%if (t.pay_state == "1" || t.pay_state == "2") {%>\n<%var rttext = t.pay_state == "1" ? "会员免费" : "会员用券";%>\n<div class="p-thumb-tagrt">\n<span class="vip-free"><%=rttext%></span>\n</div>\n<%}%>\n</div>\n<!-- 标题 -->\n<ul class="info-list">\n<li class="title short-title">\n<a href="<%=t.videoUrl%>" target="_blank" _ck="<%=t.clickLogUrl%>" _reck="<%=t.recClickLogUrl%>"><%=t.title%></a>\n</li>\n<% if (t.subTitle){ %>                \n<li class="subtitle">\n<span><%=t.subTitle%></span>\n</li>\n<% }  %>\n</ul>\n</div>\n</li>\n<%})%>  \n</ul>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>';
+                var r = t.compile(n)({
                     data: e.data,
                     searchDomain: this.searchDomain,
                     youku_homeurl: PageConfig.youku_homeurl,
@@ -2755,9 +2755,9 @@ function testClick() {
                     numberFormat: i.numberFormat
                 });
                 if (r) {
-                    n.html(r);
+                    a.html(r);
                     this.clickLogSender("#module_basic_relationleft");
-                    o(n)
+                    o(a)
                 }
             }
         });
@@ -2831,20 +2831,20 @@ function testClick() {
         };
         e.addScript = function(t) {
             var i = new RegExp("@" + 3 + "@", "g");
-            var n = new RegExp("@" + 4 + "@", "g");
-            var a = new RegExp("@" + 5 + "@", "g");
+            var a = new RegExp("@" + 4 + "@", "g");
+            var n = new RegExp("@" + 5 + "@", "g");
             var o = new RegExp("@" + 6 + "@", "g");
             var r = new RegExp("@" + 7 + "@", "g");
             var s = new RegExp("@" + 8 + "@", "g");
-            t = t.replace(i, "//lstat.youku.com/nstay.php").replace(n, "//e.stat.youku.com/hot/click").replace(a, "//r.l.youku.com/recclick").replace(o, "//p.l.youku.com/ugctagclick").replace(r, "//r.l.youku.com/rec_at_click").replace(s, "//r.l.youku.com/recpclick");
+            t = t.replace(i, "//lstat.youku.com/nstay.php").replace(a, "//e.stat.youku.com/hot/click").replace(n, "//r.l.youku.com/recclick").replace(o, "//p.l.youku.com/ugctagclick").replace(r, "//r.l.youku.com/rec_at_click").replace(s, "//r.l.youku.com/recpclick");
             t += "&=" + Math.floor(1e6 * Math.random());
             e._addScript(t)
         };
-        e.log = function(t, i, n) {
+        e.log = function(t, i, a) {
             if ("number" != typeof t) return;
-            var a = n ? n : 0;
+            var n = a ? a : 0;
             var o = "";
-            if (0 == a) {
+            if (0 == n) {
                 var r = document.cookie;
                 var s = r.split("; ");
                 for (var l = 0; l < s.length; l++) {
@@ -2865,22 +2865,22 @@ function testClick() {
                 if (4 == t) document.cookie = "__utmarea=" + i.substring(8, i.length) + ";path=/;domain=youku.com";
                 o += "?" + i + "^"
             }
-            if (0 == a) document.cookie = e.logCookieKey + "=" + escape(o) + ";path=/;domain=youku.com";
+            if (0 == n) document.cookie = e.logCookieKey + "=" + escape(o) + ";path=/;domain=youku.com";
             else e.addScript(o)
         };
         e.readLogCookie = function() {
             var t = document.cookie;
             var i = t.split("; ");
-            var n = "";
+            var a = "";
             found = 0;
-            for (var a = 0; a < i.length; a++) {
-                var o = i[a].split("=");
+            for (var n = 0; n < i.length; n++) {
+                var o = i[n].split("=");
                 if (e.logCookieKey == o[0]) {
                     found = 1;
                     if ("invalid" == o[1]) break;
-                    n = unescape(i[a].substring(e.logCookieKey.length + 1, i[a].length));
-                    requestUrl = n.substring(0, n.length - 1).split("^");
-                    for (var a = 0; a < requestUrl.length; a++) e.addScript(requestUrl[a]);
+                    a = unescape(i[n].substring(e.logCookieKey.length + 1, i[n].length));
+                    requestUrl = a.substring(0, a.length - 1).split("^");
+                    for (var n = 0; n < requestUrl.length; n++) e.addScript(requestUrl[n]);
                     document.cookie = e.logCookieKey + "=invalid" + ";path=/;domain=youku.com";
                     break
                 }
@@ -2893,7 +2893,7 @@ function testClick() {
             appQrcodeisshow: true,
             initialize: function() {
                 var e = this;
-                var t = '<div id="sideTool" class="right-sideBar">\n<ul class="yk-toolbar-service js-toolbar" id="toolbarservice" data-stat-role="ck">\n<li class="bigImg yk-toolbar-draw js-draw" id="lotteryToolbarBig"  style="display: none;"></li>\n<li class="yk-toolbar-draw js-draw" id="lotteryToolbar"  style="display: none;"></li>\n<li class="yk-toolbar-group">\n<a class="toolbar icon-5" id="icongroupqrcode" title="��ά��">\n<div class="yk-toolbar-group-item js-dest-qrcode" id="iconitemqrcode"></div>\n<div class="qrcode-popup yk-toolbar-group-panel-li" id="showAppQrcode" style="display: none;">\n<div class="qrcode-arrow"></div>\n<p>�����ֻ��ͻ���</p>\n<img src="//r1.ykimg.com/0510000058D0FEA1ADC0AE058F099020" width="100"/>\n<span>΢��ɨһɨ</span><span>��Ƶ��ʱ��</span>\n</div>\n</a>			\n</li>\n<li class="yk-toolbar-group" id="icongroupquestion" style="display: none;">\n<a class="toolbar icon-6" id="ToolbarQuestionLink" href="#" target="_blank" title="�ʾ�"><div class="yk-toolbar-group-item js-dest-question" id="iconitemquestion" data-stat-role="ck"></div></a>\n</li>		\n<li class="yk-toolbar-group" id="icongroupgotop" style="display: none;">\n<a class="toolbar icon-2"><div class="yk-toolbar-group-item js-dest-goTop" data-stat-role="ck" id="iconitemgotop"></div></a>\n</li>\n<!-- 		<li class="yk-toolbar-group" id="lightoff">\n<a class="toolbar icon-4"><div class="yk-toolbar-group-item js-dest-lightOn" id="iconitemlighton" data-stat-role="ck" title="�ص�"></div></a>\n</li> -->\n<li class="yk-toolbar-group" id="icongroupfeedback">\n<a class="toolbar icon-3" href="//csc.youku.com/feedback-web/web/subtype_16" target="_blank" title="����"><div class="yk-toolbar-group-item js-dest-feedback" id="iconitemfeedback" data-stat-role="ck"></div></a>\n</li>\n</ul>\n</div>\n<!-- <div id="light_switch" style="display: none;">\n<div id="playshow_mask" style="display: block;"></div>\n<div class="sideTool sideTool_dark" id="sideToolDark" style="display: block;">\n<div class="handle" id="lighton"><a class="icon-light-off" href="javascript:;" title="����"></a></div>\n</div>\n</div> -->';
+                var t = '<div id="sideTool" class="right-sideBar">\n<ul class="yk-toolbar-service js-toolbar" id="toolbarservice" data-stat-role="ck">\n<li class="bigImg yk-toolbar-draw js-draw" id="lotteryToolbarBig"  style="display: none;"></li>\n<li class="yk-toolbar-draw js-draw" id="lotteryToolbar"  style="display: none;"></li>\n<li class="yk-toolbar-group">\n<a class="toolbar icon-5" id="icongroupqrcode" title="二维码">\n<div class="yk-toolbar-group-item js-dest-qrcode" id="iconitemqrcode"></div>\n<div class="qrcode-popup yk-toolbar-group-panel-li" id="showAppQrcode" style="display: none;">\n<div class="qrcode-arrow"></div>\n<p>下载手机客户端</p>\n<img src="//r1.ykimg.com/0510000058D0FEA1ADC0AE058F099020" width="100"/>\n<span>微信扫一扫</span><span>视频随时看</span>\n</div>\n</a>			\n</li>\n<li class="yk-toolbar-group" id="icongroupquestion" style="display: none;">\n<a class="toolbar icon-6" id="ToolbarQuestionLink" href="#" target="_blank" title="问卷"><div class="yk-toolbar-group-item js-dest-question" id="iconitemquestion" data-stat-role="ck"></div></a>\n</li>		\n<li class="yk-toolbar-group" id="icongroupgotop" style="display: none;">\n<a class="toolbar icon-2"><div class="yk-toolbar-group-item js-dest-goTop" data-stat-role="ck" id="iconitemgotop"></div></a>\n</li>\n<!-- 		<li class="yk-toolbar-group" id="lightoff">\n<a class="toolbar icon-4"><div class="yk-toolbar-group-item js-dest-lightOn" id="iconitemlighton" data-stat-role="ck" title="关灯"></div></a>\n</li> -->\n<li class="yk-toolbar-group" id="icongroupfeedback">\n<a class="toolbar icon-3" href="//csc.youku.com/feedback-web/web/subtype_16" target="_blank" title="反馈"><div class="yk-toolbar-group-item js-dest-feedback" id="iconitemfeedback" data-stat-role="ck"></div></a>\n</li>\n</ul>\n</div>\n<!-- <div id="light_switch" style="display: none;">\n<div id="playshow_mask" style="display: block;"></div>\n<div class="sideTool sideTool_dark" id="sideToolDark" style="display: block;">\n<div class="handle" id="lighton"><a class="icon-light-off" href="javascript:;" title="开灯"></a></div>\n</div>\n</div> -->';
                 $("body").append($(t));
                 this.$el = $("#sideTool");
                 $("#sideBar").remove();
@@ -2912,22 +2912,22 @@ function testClick() {
                 "click .right-sidepopup .popup_img": "clickPopup"
             },
             popupLog: function(e, t, i) {
-                var n = "show" == e ? "//gm.mmstat.com/yt/show.index.module" : "//gm.mmstat.com/yt/click.index.module";
-                if ("show" == e) n += "?mid=" + t + "&mname=" + i + "&etime=" + (new Date).getTime();
-                else n += "?mid=" + t + "&mname=" + i + "&etime=" + (new Date).getTime();
-                Net.getRequest(n)
+                var a = "show" == e ? "//gm.mmstat.com/yt/show.index.module" : "//gm.mmstat.com/yt/click.index.module";
+                if ("show" == e) a += "?mid=" + t + "&mname=" + i + "&etime=" + (new Date).getTime();
+                else a += "?mid=" + t + "&mname=" + i + "&etime=" + (new Date).getTime();
+                Net.getRequest(a)
             },
             getPopup: function() {
                 var e = this;
                 var t = 1 * new Date;
                 Net.getJSON("//hudong.alicdn.com/api/data/v2/a06eee90bd8044e480e4499b85f60cc5.js?t=" + 1 * new Date, {}, function(i) {
                     if (i.isShow || "57700" == PageConfig.showid || "774932586" == PageConfig.videoId) {
-                        var n = i.data[0];
-                        var a = '<div class="right-sidepopup"><a href="<%=data.url%>" class="popup_img" target="_blank"><img src="<%=data.image%>" /></a><span class="popup-close-icon"></span></div>';
+                        var a = i.data[0];
+                        var n = '<div class="right-sidepopup"><a href="<%=data.url%>" class="popup_img" target="_blank"><img src="<%=data.image%>" /></a><span class="popup-close-icon"></span></div>';
                         if (!$(".right-sidepopup").length)
-                            if (t >= n.start && t <= n.end) {
-                                var o = Art.compile(a)({
-                                    data: n
+                            if (t >= a.start && t <= a.end) {
+                                var o = Art.compile(n)({
+                                    data: a
                                 });
                                 if (!Cookie("PopupStatus")) {
                                     e.popupLog("show", "1013", "popup");
@@ -2983,8 +2983,8 @@ function testClick() {
             },
             showQrcode: function(e) {
                 var t = this,
-                    i, n;
-                var a = $("#showAppQrcode");
+                    i, a;
+                var n = $("#showAppQrcode");
                 var o = [{
                     right: "0px",
                     opacity: 0
@@ -2995,14 +2995,14 @@ function testClick() {
                 if (1 == this.QrStatus) {
                     if ("close" == e) return;
                     i = o[0];
-                    n = o[1]
+                    a = o[1]
                 } else {
                     i = o[1];
-                    n = o[0]
+                    a = o[0]
                 }
-                a.css(i);
-                a.show().animate(n, 300, function() {
-                    if (t.QrStatus == -1) a.hide();
+                n.css(i);
+                n.show().animate(a, 300, function() {
+                    if (t.QrStatus == -1) n.hide();
                     t.QrStatus = t.QrStatus * -1
                 });
                 return false
@@ -3031,14 +3031,14 @@ function testClick() {
                 var e = Login.uid();
                 var t = this;
                 var i = "//ykatr.youku.com/atr/related/packed_list.json",
-                    n = 1,
-                    a = Cookie("__ysuid"),
+                    a = 1,
+                    n = Cookie("__ysuid"),
                     o = 1,
                     r = 16,
                     s = 1,
                     l = "ykqz_toolbar";
                 var d;
-                i += "?site=" + n + "&guid=" + a + "&apptype=" + o + "&module=" + r + "&pl=" + s + "&oc=" + l;
+                i += "?site=" + a + "&guid=" + n + "&apptype=" + o + "&module=" + r + "&pl=" + s + "&oc=" + l;
                 i += "&uid=" + Login.uid();
                 if ("undefined" != typeof PageConfig.playmode) {
                     d = 1;
@@ -3083,10 +3083,10 @@ function testClick() {
                     var t = e.data[0];
                     var i = t.clickLogUrl;
                     $("#lotteryToolbar").show();
-                    var n = '<div id="lotteryLeft" class="ykDraw-panel ykDraw-panel-reward" style="position:relative;width:100%;height:100%;"><a href="' + t.playLink + '" target="_blank" style="cursor:pointer;position:absolute;width:100%;height:100%;background:url(' + t.picUrl + ') no-repeat;background-position:0 -40px;margin-top:10px;"></a><span id="lotteryHand" class="ykDraw-p-itemykDraw-p-item-close" style="cursor:pointer;position:absolute;width:13px;height:13px;left:0px;top:0px;background:url(' + t.picUrl + ') no-repeat;background-position:-42px 0;"></span></div></div></div>';
-                    var a = '<div class="yk-toolbar-draw js-draw"><div class="yk-toolbar-group yk-toolbar-group-draw"><div class="ykDraw-mark" id="lotteryRight"><a href="' + t.playLink + '" target="_blank" style="position:relative;display:block;height:38px;"><span class="ykDraw-m-item ykDraw-m-item-bag" style="background:url(' + t.picUrl + ') no-repeat;width:100%;height:100%;background-position:0 0;z-index:1;display:block;margin:0 auto;"></span></a></div>';
-                    $("#lotteryToolbarBig").html(n);
-                    $("#lotteryToolbar").html(a);
+                    var a = '<div id="lotteryLeft" class="ykDraw-panel ykDraw-panel-reward" style="position:relative;width:100%;height:100%;"><a href="' + t.playLink + '" target="_blank" style="cursor:pointer;position:absolute;width:100%;height:100%;background:url(' + t.picUrl + ') no-repeat;background-position:0 -40px;margin-top:10px;"></a><span id="lotteryHand" class="ykDraw-p-itemykDraw-p-item-close" style="cursor:pointer;position:absolute;width:13px;height:13px;left:0px;top:0px;background:url(' + t.picUrl + ') no-repeat;background-position:-42px 0;"></span></div></div></div>';
+                    var n = '<div class="yk-toolbar-draw js-draw"><div class="yk-toolbar-group yk-toolbar-group-draw"><div class="ykDraw-mark" id="lotteryRight"><a href="' + t.playLink + '" target="_blank" style="position:relative;display:block;height:38px;"><span class="ykDraw-m-item ykDraw-m-item-bag" style="background:url(' + t.picUrl + ') no-repeat;width:100%;height:100%;background-position:0 0;z-index:1;display:block;margin:0 auto;"></span></a></div>';
+                    $("#lotteryToolbarBig").html(a);
+                    $("#lotteryToolbar").html(n);
                     $("#lotteryToolbar").show();
                     if ("yes" != Cookie("runIcon_day") && window.screen.width >= 1440) $("#lotteryToolbarBig").show();
                     if (null == Cookie("runIcon_day") || "undefined" == Cookie("runIcon_day")) this.appQrcodeisshow = false;
@@ -3097,7 +3097,7 @@ function testClick() {
                 var t = e;
                 if (t) var i;
 
-                function n(e) {
+                function a(e) {
                     if (t) {
                         var i = new Image;
                         i.src = t + "&optype=" + e
@@ -3106,12 +3106,12 @@ function testClick() {
                 $("#lotteryLeft").bind("click", function() {
                     i = 6;
                     Log.log(1, "tp=1&cp=4010337&cpp=1000940");
-                    n(i)
+                    a(i)
                 });
                 $("#lotteryRight").bind("click", function() {
                     i = 8;
                     Log.log(1, "tp=1&cp=4010338&cpp=1000940");
-                    n(i)
+                    a(i)
                 });
                 $("#lotteryHand").bind("click", function(e) {
                     $("#lotteryToolbarBig").hide();
@@ -3119,7 +3119,7 @@ function testClick() {
                     Cookie("runIcon_day", "yes", 1);
                     i = 9;
                     Log.log(1, "tp=1&cp=4009622&cpp=1000217");
-                    n(i);
+                    a(i);
                     return false
                 })
             },
@@ -3186,9 +3186,9 @@ function testClick() {
                             Log.log(1, "tp=1&cp=4009622&cpp=1000217");
                             var t = new Date;
                             var i = t.getDate().toString();
-                            var n = t.getMonth().toString();
-                            var a = t.getFullYear().toString();
-                            var o = a + n + i;
+                            var a = t.getMonth().toString();
+                            var n = t.getFullYear().toString();
+                            var o = n + a + i;
                             Cookie("lottery_day", o, 1);
                             var r = e || window.event;
                             if (r.stopPropagation) r.stopPropagation();
@@ -3264,23 +3264,23 @@ function testClick() {
         });
         return new i
     });
-    define("module/stat/jserror", ["tui/net", "module/global"], function(e, t, i, n) {
-        var a = encodeURIComponent;
-        var o = a(location.href);
-        var r = a(navigator.userAgent);
+    define("module/stat/jserror", ["tui/net", "module/global"], function(e, t, i, a) {
+        var n = encodeURIComponent;
+        var o = n(location.href);
+        var r = n(navigator.userAgent);
         var s = window.ERROR_RAND || .01;
         var l = {};
-        var d = function(i, n, d) {
+        var d = function(i, a, d) {
             if (!d) i = "custom: " + i;
-            n = n || s;
-            if (Math.random() < n) {
+            a = a || s;
+            if (Math.random() < a) {
                 if (l[i]) return;
-                e.getRequest("//stats.tudou.com/e/page/js/fail/?v=1&s=" + [a(i), o, t.juid + "_" + t.uid, r].join("|"));
+                e.getRequest("//stats.tudou.com/e/page/js/fail/?v=1&s=" + [n(i), o, t.juid + "_" + t.uid, r].join("|"));
                 l[i] = true
             }
         };
         d.addVersion = function(e) {
-            o = a(e + ":" + location.href)
+            o = n(e + ":" + location.href)
         };
         if (Math.random() < s) window.onerror = function(e) {
             setTimeout(function() {
@@ -3299,34 +3299,34 @@ function testClick() {
 
         function i(e) {
             var t = e instanceof o ? [] : {};
-            e.each(function(e, n) {
-                if (n instanceof o || n instanceof a) t[e] = i(n);
-                else t[e] = n
+            e.each(function(e, a) {
+                if (a instanceof o || a instanceof n) t[e] = i(a);
+                else t[e] = a
             });
             return t
         }
 
-        function n(e, t, i) {
-            var a = Array.isArray(e) ? new i(e) : new t(e);
-            a.each(function(e, o) {
+        function a(e, t, i) {
+            var n = Array.isArray(e) ? new i(e) : new t(e);
+            n.each(function(e, o) {
                 if (Array.isArray(o) || $.isPlainObject(o)) {
-                    o = n(o, t, i);
-                    a._data[e] = o;
-                    if (o instanceof i || o instanceof t) o._parent = a
+                    o = a(o, t, i);
+                    n._data[e] = o;
+                    if (o instanceof i || o instanceof t) o._parent = n
                 }
             });
-            return a
+            return n
         }
-        var a = e.extend({
+        var n = e.extend({
             model: null,
             list: null,
             initialize: function(e) {
                 var i = this;
-                a.superClass.initialize.call(i);
+                n.superClass.initialize.call(i);
                 i._parent = null;
                 e = e ? t(e) : {};
                 i._data = i.defaults ? $.extend({}, i.defaults, e) : e;
-                null == i.model && (i.model = a);
+                null == i.model && (i.model = n);
                 null == i.list && (i.list = o)
             },
             each: function(e) {
@@ -3336,8 +3336,8 @@ function testClick() {
             },
             key: function(e) {
                 var t;
-                this.each(function(i, n) {
-                    if (n === e) {
+                this.each(function(i, a) {
+                    if (a === e) {
                         t = i;
                         return false
                     }
@@ -3382,37 +3382,37 @@ function testClick() {
             },
             _set: function(e, t) {
                 var i = this;
-                var n = void 0 === i.get(e) ? "add" : "update";
-                var a = i.get(e);
+                var a = void 0 === i.get(e) ? "add" : "update";
+                var n = i.get(e);
                 var t = i._toModel(t);
-                if (t === a) return;
+                if (t === n) return;
                 i._data[e] = t;
-                return i._bindEvent(n, e, t, a)
+                return i._bindEvent(a, e, t, n)
             },
             _replace: function(e, t) {
                 var i = this;
-                var n, a;
+                var a, n;
                 var o = [];
                 if (t) {
-                    n = i.size();
-                    a = "concat"
+                    a = i.size();
+                    n = "concat"
                 } else {
-                    n = 0;
-                    a = "replace";
+                    a = 0;
+                    n = "replace";
                     i._data = Array.isArray(i._data) ? [] : {}
                 }
                 $.each(e, function(e, t) {
-                    o.push(i._data[n + e] = i._toModel(t))
+                    o.push(i._data[a + e] = i._toModel(t))
                 });
                 setTimeout(function() {
-                    i.trigger(a, [e, o])
+                    i.trigger(n, [e, o])
                 }, 0);
                 return i._bindChangeEvent()
             },
             _toModel: function(e) {
                 var t = this;
-                if (Array.isArray(e) || $.isPlainObject(e)) e = n(e, t.model, t.list);
-                if (e instanceof o || e instanceof a) e._parent = t;
+                if (Array.isArray(e) || $.isPlainObject(e)) e = a(e, t.model, t.list);
+                if (e instanceof o || e instanceof n) e._parent = t;
                 return e
             },
             _bindChangeEvent: function() {
@@ -3429,15 +3429,15 @@ function testClick() {
             },
             _bindEvent: function(e, t) {
                 var i = this;
-                var n = $.makeArray(arguments).slice(2);
-                i.trigger(e + ":" + t, n);
-                i.trigger("change:" + t, n);
-                i.trigger(e, [t].concat(n));
+                var a = $.makeArray(arguments).slice(2);
+                i.trigger(e + ":" + t, a);
+                i.trigger("change:" + t, a);
+                i.trigger(e, [t].concat(a));
                 if (i._parent) i._parent._bindUpdateEvent(i);
                 return i
             }
         });
-        var o = a.extend({
+        var o = n.extend({
             initialize: function(e) {
                 var i = this;
                 o.superClass.initialize.call(i);
@@ -3454,17 +3454,17 @@ function testClick() {
             },
             where: function(e, t) {
                 var i = this;
-                var n = [];
-                i.each(function(i, a) {
+                var a = [];
+                i.each(function(i, n) {
                     var o = 0;
                     var r = 0;
                     $.each(e, function(e, i) {
-                        if (t && a.get(e) === i || !t && a.get(e) == i) o++;
+                        if (t && n.get(e) === i || !t && n.get(e) == i) o++;
                         r++
                     });
-                    if (o === r) n.push(a)
+                    if (o === r) a.push(n)
                 });
-                return n
+                return a
             },
             push: function(e) {
                 return this._insert(this.size(), e, "push")
@@ -3489,20 +3489,20 @@ function testClick() {
                 return this._bindChangeEvent()
             },
             _insert: function(e, t, i) {
-                var n = this;
-                n._data.splice(e, 0, void 0);
-                n._set(e, t);
-                n.trigger(i, [e, t]);
-                return n._bindChangeEvent()
+                var a = this;
+                a._data.splice(e, 0, void 0);
+                a._set(e, t);
+                a.trigger(i, [e, t]);
+                return a._bindChangeEvent()
             }
         });
-        a.List = o;
-        return a
+        n.List = o;
+        return n
     });
     define("tui/ajaxModel", ["tui/model", "module/stat/jserror"], function(e, t) {
         var i = {};
 
-        function n(e) {
+        function a(e) {
             var t = {
                 type: "get",
                 url: "",
@@ -3520,15 +3520,15 @@ function testClick() {
             return $.ajax(e)
         }
 
-        function a(e) {
-            $.each(e, function(t, n) {
-                var a = n;
-                if ("object" != $.type(n) || !n.url) return;
+        function n(e) {
+            $.each(e, function(t, a) {
+                var n = a;
+                if ("object" != $.type(a) || !a.url) return;
                 e[t] = function() {
                     var e = this;
-                    var n = arguments;
-                    var r = $.extend(true, {}, a || {}, {
-                        data: n[0] || {}
+                    var a = arguments;
+                    var r = $.extend(true, {}, n || {}, {
+                        data: a[0] || {}
                     });
                     var s = Array.isArray(e._data);
                     var l;
@@ -3541,12 +3541,12 @@ function testClick() {
                     if (c && d - c < 1e3) u = false;
                     if (false === r.requestGap) u = true;
                     i[l] = d;
-                    if (u || "retry" == n[n.length - 1]) o.call(this, r, t, n)
+                    if (u || "retry" == a[a.length - 1]) o.call(this, r, t, a)
                 }
             })
         }
 
-        function o(e, i, a) {
+        function o(e, i, n) {
             var o = this;
             var r = e.url;
             if ("object" !== $.type(e.data)) return;
@@ -3556,24 +3556,24 @@ function testClick() {
             var c = function(e) {
                 return [true, e]
             };
-            a = $.makeArray(a);
-            n(e).done(function(n) {
-                n = e.convert ? e.convert.call(o, n, a[0]) : c(n);
-                if (true === n[0]) {
-                    n[1] = n[1] || {};
-                    l = o._toModel(n[1]);
+            n = $.makeArray(n);
+            a(e).done(function(a) {
+                a = e.convert ? e.convert.call(o, a, n[0]) : c(a);
+                if (true === a[0]) {
+                    a[1] = a[1] || {};
+                    l = o._toModel(a[1]);
                     if (e.toModel) o._data = l._data;
-                    o.fire(i + ":success", [n[1]].concat(a))
+                    o.fire(i + ":success", [a[1]].concat(n))
                 } else {
-                    o.fire(i + ":error", [n[1]].concat(a));
-                    t("ConditionException::" + d + "::" + n)
+                    o.fire(i + ":error", [a[1]].concat(n));
+                    t("ConditionException::" + d + "::" + a)
                 }
-            }).fail(function(e, n, r) {
-                var l = n || r;
-                var c = "retry" != a[a.length - 1];
+            }).fail(function(e, a, r) {
+                var l = a || r;
+                var c = "retry" != n[n.length - 1];
                 if (c) {
                     t("FirstAutoRetry::" + d + "::" + l + "::" + s);
-                    o[i].apply(o, a.concat(["retry"]))
+                    o[i].apply(o, n.concat(["retry"]))
                 } else t("retryError::" + d + "::" + l + "::" + s);
                 o.fire(i + ":error", [{
                     status: l,
@@ -3586,18 +3586,18 @@ function testClick() {
             getIndex: function(e) {
                 var t = this;
                 var i;
-                t.each(function(t, n) {
-                    $.each(e, function(e, a) {
-                        if (n.get(e) === a) i = t
+                t.each(function(t, a) {
+                    $.each(e, function(e, n) {
+                        if (a.get(e) === n) i = t
                     })
                 });
                 return i
             }
         });
         var s = function(t, i) {
-            a(t);
-            var n = e.extend.call(this, t, i);
-            return n
+            n(t);
+            var a = e.extend.call(this, t, i);
+            return a
         };
         r.extend = s;
         r.List.extend = s;
@@ -3606,11 +3606,11 @@ function testClick() {
     define("page/find/player/model/feePaymentPro", ["tui/ajaxModel"], function(e) {
         var t = PageConfig.homeHost;
         var i = "//nc.youku.com/";
-        var n = "https://account.youku.com/";
-        var a = e.extend({
+        var a = "https://account.youku.com/";
+        var n = e.extend({
             initialize: function(e) {
                 var t = this;
-                a.superClass.initialize.call(t)
+                n.superClass.initialize.call(t)
             },
             getFeeInfo: {
                 url: t + "fee/feeinfo?&timestamp=" + (new Date).getTime(),
@@ -3638,7 +3638,7 @@ function testClick() {
                 convert: o
             },
             getStatusLogin: {
-                url: n + "qrcode/loginByCode.json?buid=youku" + "&template=&pid=" + PageConfig.pid + "&timestamp=" + (new Date).getTime(),
+                url: a + "qrcode/loginByCode.json?buid=youku" + "&template=&pid=" + PageConfig.pid + "&timestamp=" + (new Date).getTime(),
                 jsonp: "jsonpCallback",
                 convert: r
             }
@@ -3652,9 +3652,9 @@ function testClick() {
         function r(e) {
             return [true, e]
         }
-        return a
+        return n
     });
-    define("page/find/player/view/feePaymentPro", ["tui/net", "tui/view", "tui/art", "module/login/login", "page/find/player/model/feePaymentPro"], function(e, t, i, n, a) {
+    define("page/find/player/view/feePaymentPro", ["tui/net", "tui/view", "tui/art", "module/login/login", "page/find/player/model/feePaymentPro"], function(e, t, i, a, n) {
         var o = t.extend({
             el: $(".vip-sell-wrap"),
             qPayRoundTime: 1e4,
@@ -3662,7 +3662,7 @@ function testClick() {
             initialize: function() {
                 var e = this;
                 o.superClass.initialize.call(this);
-                this.mod = new a;
+                this.mod = new n;
                 this.modelEvents(this.mod);
                 this.init();
                 window.XloginEvent && XloginEvent.bind("Xlogin:loginSuccess", function() {
@@ -3711,7 +3711,7 @@ function testClick() {
                 this.init()
             },
             "{mod} getConsumeTicket:success": function(e) {
-                if (true == e.data) this.$el.html('<p class="vip-pay-status"><i class="bg-icon bg-pay-sucess"></i>֧���ɹ���<a href="javascript:window.location.reload(true);">ˢ��ҳ��</a> ���ɹۿ�</p>')
+                if (true == e.data) this.$el.html('<p class="vip-pay-status"><i class="bg-icon bg-pay-sucess"></i>支付成功！<a href="javascript:window.location.reload(true);">刷新页面</a> 即可观看</p>')
             },
             "{mod} getFeeShow:success": function(e) {
                 if (true == e.data) window.location.reload(true)
@@ -3761,7 +3761,7 @@ function testClick() {
             },
             getPayStatus: function() {
                 var e = this;
-                if (n.isLogin()) {
+                if (a.isLogin()) {
                     if ("mov" == this.payStatus) this.mod.getFeeShow({
                         vid: PageConfig.videoId2,
                         showid: PageConfig.showid,
@@ -3780,11 +3780,11 @@ function testClick() {
         });
         return o
     });
-    define("page/find/player/view/pages", ["tui/view", "tui/art", "page/find/player/model/dramaModel"], function(e, t, n) {
-        var a = e.extend({
+    define("page/find/player/view/pages", ["tui/view", "tui/art", "page/find/player/model/dramaModel"], function(e, t, a) {
+        var n = e.extend({
             el: $("#Dramalist_wrap"),
             initialize: function(e) {
-                a.superClass.initialize.call(this);
+                n.superClass.initialize.call(this);
                 var t = this;
                 this.loading = false;
                 this.$listWrapDiv = $(".drama-content", this.el);
@@ -3797,7 +3797,7 @@ function testClick() {
                     var l = o.numTypePageNum;
                     this.renderDramaTab(l, r, s)
                 }
-                this.mod = new n;
+                this.mod = new a;
                 this.mod.bind("getPageData:success", this.rendPageDate.bind(this));
                 if (3 != PageConfig.playmode) {
                     this.$listWrapDiv.html("");
@@ -3824,18 +3824,18 @@ function testClick() {
                 $(".drama-tab").removeClass("tab-expand");
                 this.addListContents("page" + t.attr("rel"))
             },
-            renderDramaTab: function(e, n, a) {
+            renderDramaTab: function(e, a, n) {
                 var o = [];
                 var r = [];
-                var s = Math.ceil(a / n);
+                var s = Math.ceil(n / a);
                 var l = '<div class="drama-tab	">\n<dt>\n<% list.forEach(function(t, i){ %>\n<%if(i<3){%>\n<span >\n<a href="javascript:void(0);" class="<%if(cur[2]==(i+1)){%>current-tab<%}%>" rel="<%=t[2]%>" ><%=t[0]%>-<%=t[1]%></a>\n</span>\n<%}%>\n<%if (i==3){ %>\n<%if(cur[2]<4 || cur.length==0){%>\n<span txt="<%=txt%>" class="tab-more">\n<%=txt%>\n</span>	\n<%} else {%>\n<span txt="<%=txt%>"  class="tab-more active">\n<%=cur[0]%>-<%=cur[1]%>\n</span>	\n<%}%>\n<%}%>\n<% }); %> 						\n</dt>\n<dd class="drama-more-wrap">\n<% list.forEach(function(t, i){ %>\n<%if(i>=3){%>\n<span >\n<a href="javascript:void(0);" class="<%if(cur[2]==(i+1)){%>current-tab<%}%>" rel="<%=t[2]%>" ><%=t[0]%>-<%=t[1]%></a>\n</span>\n<%}%>\n<% }); %> 												\n</dd>									\n</div>';
-                var d = 97 == PageConfig.catId ? "����缯" : "������Ƶ";
+                var d = 97 == PageConfig.catId ? "更多剧集" : "更多视频";
                 if ($(".drama-tab", this.$el).length) return;
                 for (i = 1; i <= s; i++) {
                     var c = [];
-                    c.push((i - 1) * n + 1);
-                    if (i == s) c.push(a);
-                    else c.push(i * n);
+                    c.push((i - 1) * a + 1);
+                    if (i == s) c.push(n);
+                    else c.push(i * a);
                     c.push(i);
                     o.push(c);
                     if (i == e) r = c
@@ -3862,9 +3862,9 @@ function testClick() {
                         i.show();
                         this.trigger("pages:change", [])
                     } else {
-                        var n = e.replace("page", "");
+                        var a = e.replace("page", "");
                         self.loading = true;
-                        this.getPageData(n)
+                        this.getPageData(a)
                     }
                 }
             },
@@ -3894,7 +3894,7 @@ function testClick() {
                 this.trigger("pages:change", [])
             }
         });
-        return a
+        return n
     });
     define("tui/switchTab", ["tui/event"], function(e) {
         var t = function(t) {
@@ -3903,7 +3903,7 @@ function testClick() {
             this.op.linktab = t.linktab || false;
             this.op.clicktab = t.clicktab || false;
             if (!t.box) return;
-            var a = this;
+            var n = this;
             var o = this.box = $(t.box);
             var r = this.tab = $(t.tab || ".tab li", o);
             var s = this.panel = $(t.panel || ".c", o);
@@ -3925,26 +3925,26 @@ function testClick() {
             if (this.size < 2) return;
             if (t.clicktab) r.click(function(e) {
                 e.preventDefault();
-                a.go(i(this))
+                n.go(i(this))
             });
             else {
                 if (!t.linktab) r.click(function(e) {
                     e.preventDefault()
                 });
                 r.mouseenter(function() {
-                    n(a.timer, a.looptimer);
+                    a(n.timer, n.looptimer);
                     var e = this;
-                    a.timer = setTimeout(function() {
-                        a.go(i(e))
+                    n.timer = setTimeout(function() {
+                        n.go(i(e))
                     }, 200)
                 }).mouseleave(function() {
-                    n(a.timer, a.looptimer);
-                    a.start()
+                    a(n.timer, n.looptimer);
+                    n.start()
                 })
             }
-            if (a.loop) {
-                a.check(t.clicktab ? r : null);
-                a.start()
+            if (n.loop) {
+                n.check(t.clicktab ? r : null);
+                n.start()
             }
         };
         t.prototype = {
@@ -3984,7 +3984,7 @@ function testClick() {
             start: function(e) {
                 var t = this;
                 if (t.loop) {
-                    n(t.looptimer);
+                    a(t.looptimer);
                     if (e) t.start();
                     t.looptimer = setTimeout(function() {
                         t.start();
@@ -3993,28 +3993,28 @@ function testClick() {
                 }
             },
             stop: function() {
-                n(this.looptimer)
+                a(this.looptimer)
             },
             check: function(e) {
                 var t = this;
                 (e || t.panel).mouseenter(function() {
-                    n(t.looptimer)
+                    a(t.looptimer)
                 }).mouseleave(function() {
-                    n(t.looptimer);
+                    a(t.looptimer);
                     t.start()
                 })
             },
             animate: function(e, t) {
                 var i = this;
-                var a = i.current;
-                if (i.anilock || a == e) return;
-                n(i.looptimer);
+                var n = i.current;
+                if (i.anilock || n == e) return;
+                a(i.looptimer);
                 var o = i.size,
                     r = i.width,
                     s = i.panel,
                     l = i.scroll;
-                var d = a > e ? 0 : r;
-                var c = a > e ? r : 0;
+                var d = n > e ? 0 : r;
+                var c = n > e ? r : 0;
                 e %= t ? o + 1 : o;
                 s.eq(e).show().find(".lazyImg").loadImgSrc();
                 l.scrollLeft(c);
@@ -4022,7 +4022,7 @@ function testClick() {
                 l.animate({
                     scrollLeft: d
                 }, i.delay, "easeInOutQuad", function() {
-                    s.eq(a).hide();
+                    s.eq(n).hide();
                     if (t && e == o) {
                         e %= o;
                         s.eq(0).show().find(".lazyImg").loadImgSrc();
@@ -4050,9 +4050,9 @@ function testClick() {
             } else return 0
         }
 
-        function n(e) {
+        function a(e) {
             var t = arguments;
-            for (var i = 0, n = t.length; i < n; i++) {
+            for (var i = 0, a = t.length; i < a; i++) {
                 var e = t[i];
                 if (e) clearTimeout(e)
             }
@@ -4060,11 +4060,11 @@ function testClick() {
         }
         return t
     });
-    define("page/find/player/view/playlist", ["tui/view", "tui/cookie", "tui/switchTab", "tui/scrollbar2", "module/responsive", "page/find/player/view/pages"], function(e, t, i, n, a, o) {
+    define("page/find/player/view/playlist", ["tui/view", "tui/cookie", "tui/switchTab", "tui/scrollbar2", "module/responsive", "page/find/player/view/pages"], function(e, t, i, a, n, o) {
         var r = e.extend({
             initialize: function() {
                 var e = this;
-                this.scroll = new n($(".scroller", this.el));
+                this.scroll = new a($(".scroller", this.el));
                 this._resizeScroll();
                 var t = $("#Dramalist_wrap .current", this.el);
                 if (t.length) this.scroll.scrollToElement(t, {
@@ -4076,7 +4076,7 @@ function testClick() {
                     e.loadScrollImage()
                 });
                 ykPlyr.bind("player:onPlayerStart", this.initOnPlayerStart.bind(this));
-                a.bind("responsed", function(t) {
+                n.bind("responsed", function(t) {
                     e._resizeScroll()
                 });
                 this.$el.bind("list:update", function() {
@@ -4092,12 +4092,12 @@ function testClick() {
                             if (PageConfig.folderId)
                                 if (0 == PageConfig.folderId) i = i;
                                 else i += "?f=" + PageConfig.folderId;
-                            var n = {
+                            var a = {
                                 url: i
                             };
-                            history.replaceState(n, "", i)
+                            history.replaceState(a, "", i)
                         }
-                    } catch (a) {}
+                    } catch (n) {}
                 } else {
                     var o = t("u");
                     if ("__LOGOUT__" == o && (0 == PageConfig.DuboLoginLimitTime || !PageConfig.DuboLoginLimitTime) && (0 == PageConfig.SubscribeLoginLimitTime || !PageConfig.SubscribeLoginLimitTime)) {
@@ -4125,14 +4125,14 @@ function testClick() {
                 var e = PageConfig.videoId2;
                 var t = "item_";
                 var i = $('[item-id="' + t + e + '"]');
-                var n = i.attr("title");
-                var a = $("#subtitle");
+                var a = i.attr("title");
+                var n = $("#subtitle");
                 $(".item.current", this.el).removeClass("current");
                 i.addClass("current");
-                if (a.length && "" != n && a.html() != n) {
-                    a.html(n);
-                    a.parent().attr("title", n);
-                    document.title = n
+                if (n.length && "" != a && n.html() != a) {
+                    n.html(a);
+                    n.parent().attr("title", a);
+                    document.title = a
                 }
             },
             _resizeScroll: function() {
@@ -4145,13 +4145,13 @@ function testClick() {
                 var e = this;
                 var t = $(".scroller", this.el);
                 var i = t.find("img[_src]");
-                var n = [];
-                var a = t.height();
+                var a = [];
+                var n = t.height();
                 setTimeout(function() {
                     o(0)
                 }, 50);
                 if (i.length) $.each(i, function(e, t) {
-                    n.push([$(t).closest(".item").position().top, i.eq(e)])
+                    a.push([$(t).closest(".item").position().top, i.eq(e)])
                 });
                 this.scroll.bind("scroll", function(e) {
                     setTimeout(function() {
@@ -4161,11 +4161,11 @@ function testClick() {
 
                 function o(e) {
                     var t = 0;
-                    while (n.length) {
-                        if (n[0][0] < e + a + 200) {
-                            var i = n[0][1];
+                    while (a.length) {
+                        if (a[0][0] < e + n + 200) {
+                            var i = a[0][1];
                             i.attr("src", i.attr("_src"));
-                            n.shift()
+                            a.shift()
                         } else break;
                         t++
                     }
@@ -4174,10 +4174,10 @@ function testClick() {
         });
         return r
     });
-    define("page/find/player/view/main", ["tui/view", "page/find/player/view/playlist", "page/find/player/view/feePaymentPro", "page/find/player/view/sideControl"], function(e, t, i, n) {
-        var a = e.extend({
+    define("page/find/player/view/main", ["tui/view", "page/find/player/view/playlist", "page/find/player/view/feePaymentPro", "page/find/player/view/sideControl"], function(e, t, i, a) {
+        var n = e.extend({
             initialize: function(e) {
-                a.superClass.initialize.call(this);
+                n.superClass.initialize.call(this);
                 var i = this;
                 this.Playlist = new t({
                     el: "#Drama"
@@ -4191,13 +4191,13 @@ function testClick() {
                 })
             }
         });
-        return a
+        return n
     });
     define("page/find/player/model/chest", ["tui/event", "tui/net", "tui/util/num"], function(e, t, i) {
-        var n = e.extend({
+        var a = e.extend({
             initialize: function() {
                 var e = this;
-                n.superClass.initialize.call(e);
+                a.superClass.initialize.call(e);
                 e.op = {
                     callbackName: "callback",
                     charset: "utf-8"
@@ -4235,14 +4235,14 @@ function testClick() {
             },
             getGoldBoxList: function(e) {
                 var i = this;
-                var n = _getUA && _getUA();
+                var a = _getUA && _getUA();
                 t.mtopRequest({
                     api: "mtop.youku.feed.service.promotion.getGoldBoxListPcweb",
                     type: "post",
                     v: "1.0",
                     data: {
                         asac: "1A17A20TQX3PBND6YEPS7X",
-                        ua: n
+                        ua: a
                     },
                     appKey: "23536927"
                 }).then(function(e) {
@@ -4259,9 +4259,9 @@ function testClick() {
                 })
             }
         });
-        return n
+        return a
     });
-    define("page/find/player/player/chest", ["tui/art", "tui/view", "tui/net", "tui/cookie", "module/login/login", "page/find/player/model/chest"], function(e, t, i, n, a, o) {
+    define("page/find/player/player/chest", ["tui/art", "tui/view", "tui/net", "tui/cookie", "module/login/login", "page/find/player/model/chest"], function(e, t, i, a, n, o) {
         var r = {};
         var s = new o;
         var l = t.extend({
@@ -4295,7 +4295,7 @@ function testClick() {
                             configId: "038af5d332901a43"
                         })
                     }
-                    a.login(function() {
+                    n.login(function() {
                         t.log("show", {
                             mid: "1008",
                             mname: "globboxlogin"
@@ -4335,21 +4335,21 @@ function testClick() {
                 s.bind("getGoldBox:fail", this.getGoldBoxFail.bind(this));
                 if (!$(".control-chest-icon", this.$el).length) {
                     var i = '<button data-tip="<%=data.name%>" class="control-icon control-chest-icon"><img src="<%=data.image%>" width=38 height=38 /></button>';
-                    var n = e.compile(i)({
+                    var a = e.compile(i)({
                         data: r.cms
                     });
                     this.log("show", {
                         mid: "1006",
                         mname: "magicbox"
                     });
-                    this.rightCtlPlane.prepend(n);
+                    this.rightCtlPlane.prepend(a);
                     this.$chestBtn = $(".control-chest-icon", this.$el)
                 }
                 s.getGoldBoxList()
             },
             initFeiMu: function(t) {
                 var i = '<a target="_blank" href="<%=data.actUrl%>" data-tip="<%=data.actTitle%>" class="control-icon control-feimu-icon"><img src="<%=data.actIcon%>" width=38 height=38 /></a>';
-                var n = e.compile(i)({
+                var a = e.compile(i)({
                     data: t
                 });
                 this.hasFeimu = true;
@@ -4357,16 +4357,16 @@ function testClick() {
                     mid: "1008",
                     mname: "rtpushopen"
                 });
-                this.rightCtlPlane.prepend(n)
+                this.rightCtlPlane.prepend(a)
             },
             initFeiMuPop: function(e) {
                 var t = this;
                 var i = 1 * new Date;
-                if (e.length) $.each(e, function(e, n) {
-                    if (i < n.end && i > n.start && n.isShow)
-                        if (t.cacheFeimu.indexOf(n.id) < 0) {
-                            t.cacheFeimu.push(n.id);
-                            t.showFeimuPop(n);
+                if (e.length) $.each(e, function(e, a) {
+                    if (i < a.end && i > a.start && a.isShow)
+                        if (t.cacheFeimu.indexOf(a.id) < 0) {
+                            t.cacheFeimu.push(a.id);
+                            t.showFeimuPop(a);
                             return false
                         }
                 })
@@ -4382,11 +4382,11 @@ function testClick() {
                 this.$chestBtn.remove()
             },
             getGoldBox: function(e) {
-                if (!n("ChestStatus") || e.pickedNum > 1) {
+                if (!a("ChestStatus") || e.pickedNum > 1) {
                     if (1 == e.pickedNum) this.popNoticeNum++;
                     r.mtop = e;
                     r.popType = "lingqu";
-                    n("ChestStatus", 1, {
+                    a("ChestStatus", 1, {
                         expires: this.getCookieTime()
                     });
                     this.showPop(e)
@@ -4437,8 +4437,8 @@ function testClick() {
                 t = r.cms.url + "?" + e;
                 if ($("#chestLayer").length) $("#chestFrame").attr("src", t);
                 else {
-                    var n = '<div id="chestLayer"><iframe id="chestFrame" src="' + t + '"></iframe><a class="chestLayerClose" href="javascript:void(0);">�ر�</a></div>';
-                    $("#module_basic_playlist").append(n)
+                    var a = '<div id="chestLayer"><iframe id="chestFrame" src="' + t + '"></iframe><a class="chestLayerClose" href="javascript:void(0);">关闭</a></div>';
+                    $("#module_basic_playlist").append(a)
                 }
             },
             closeChestLayer: function() {
@@ -4446,8 +4446,8 @@ function testClick() {
             },
             showFeimuPop: function(t) {
                 var i = this;
-                var n = '<a href="<%=data.url%>" target="_blank" style="display:none;" class="feimu-poplayer"> \n<em><%=data.content%></em>\n<%if(data.image){%>\n<img src="<%=data.image%>" width=66 height=62 />\n<%}%>\n</a>';
-                this.$pop = $(e.compile(n)({
+                var a = '<a href="<%=data.url%>" target="_blank" style="display:none;" class="feimu-poplayer"> \n<em><%=data.content%></em>\n<%if(data.image){%>\n<img src="<%=data.image%>" width=66 height=62 />\n<%}%>\n</a>';
+                this.$pop = $(e.compile(a)({
                     data: t
                 }));
                 if ($(".chest-poplayer ", this.$el).length) $(".chest-poplayer ", this.$el).remove();
@@ -4464,7 +4464,7 @@ function testClick() {
             },
             showPop: function(t) {
                 var i = this,
-                    n;
+                    a;
                 if (r.mtop.nextCallTime) i.countdown = setTimeout(function() {
                     s.getGoldBoxList()
                 }, 1e3 * 60 * r.mtop.nextCallTime);
@@ -4481,8 +4481,8 @@ function testClick() {
                     mid: "1005",
                     mname: "win"
                 });
-                n = '<a href="javascript:void(0);" style="display:none;" class="chest-poplayer <%=data.popType%>"> \n<%if(data.popType==\'yugao\'){%>\n<%=data.cms.noticeBubble.text1%><%=data.mtop.nextCallTime%>����<%=data.cms.noticeBubble.text2%>\n<%}else{%>\n<%if(data.mtop.pickedNum==1){%>\n�ѻ��1�����䣬�������\n<%}else{%>\n<%=data.cms.receiveBubble%>\n<%}%>\n<%}%>\n<img src="<%=data.cms.image%>" width=38 height=38 />\n</a>';
-                this.$pop = $(e.compile(n)({
+                a = '<a href="javascript:void(0);" style="display:none;" class="chest-poplayer <%=data.popType%>"> \n<%if(data.popType==\'yugao\'){%>\n<%=data.cms.noticeBubble.text1%><%=data.mtop.nextCallTime%>分钟<%=data.cms.noticeBubble.text2%>\n<%}else{%>\n<%if(data.mtop.pickedNum==1){%>\n已获得1个宝箱，点击开启\n<%}else{%>\n<%=data.cms.receiveBubble%>\n<%}%>\n<%}%>\n<img src="<%=data.cms.image%>" width=38 height=38 />\n</a>';
+                this.$pop = $(e.compile(a)({
                     data: r
                 }));
                 this.layerContent.append(this.$pop);
@@ -4521,8 +4521,8 @@ function testClick() {
         };
         return l
     });
-    define("page/find/player/player/pipAd", ["tui/event", "tui/net", "tui/art", "module/ad/util"], function(e, t, i, n) {
-        var a = null;
+    define("page/find/player/player/pipAd", ["tui/event", "tui/net", "tui/art", "module/ad/util"], function(e, t, i, a) {
+        var n = null;
         var o = 1e3 * 10 * 60;
         var r = false;
         var s = false;
@@ -4539,11 +4539,11 @@ function testClick() {
             adInit: function(e, t) {
                 var i = this;
                 if (!e) return;
-                t += 1;
+                console.log(e);
                 for (; t < e.length; t++)
                     if (e[t]) {
-                        var n = e[t];
-                        if (d(n.F1) && d(n.CU)) {
+                        var a = e[t];
+                        if (d(a.F1)) {
                             r = true;
                             break
                         }
@@ -4563,21 +4563,21 @@ function testClick() {
                 }
             },
             analyzeContent: function(e) {
-                var n = e.F1;
-                var a = e.CU;
-                var o = /\.swf$/i.test(n);
-                var s = /<\/script>$/.test(n);
+                var a = e.F1;
+                var n = e.CU;
+                var o = /\.swf$/i.test(a);
+                var s = /<\/script>$/.test(a);
                 var l = '<div id="f1_ideaid" class="mod">\n<%if(isSwf){%>\n<object type="application/x-shockwave-flash" data="<%=data.flash%>" width="300" height="<%=data.F3%>">\n<param name="wmode" value="transparent">\n<param name="movie" value="<%=data.flash%>" width="300" height="<%=data.F3%>" />\n<embed src="<%=data.flash%>" width="300" height="<%=data.F3%>" border="0" align="center" wmode="transparent"/>\n</object>\n<%}else{%>\n<a href="<%=data.CU%>" target="_blank">\n<img src="<%=data.F1%>" border="0" id="bas_ideaid"/>\n</a>\n<%}%>\n</div>';
                 var c = s ? "script" : "html";
                 var u = Math.random();
                 t.getRequest("//count.atm.youku.com/msg?s=yth&k=6&msg=expose|" + c);
                 if (o) e.flash = e.F1 + "?url=" + escape(e.CU);
                 if (s) {
-                    $(document.body).append(n);
+                    $(document.body).append(a);
                     t.getRequest("//count.atm.youku.com/msg?s=yth&k=6&msg=script");
                     return
                 }
-                if (d(n) && d(a)) {
+                if (d(a) && d(n)) {
                     e.F3 = 50;
                     this.prePip.html(i.compile(l)({
                         data: e,
@@ -4601,55 +4601,55 @@ function testClick() {
             }
         });
         c.getInstance = function() {
-            if (a) return a;
-            else return a = new c
+            if (n) return n;
+            else return n = new c
         };
         return c.getInstance()
     });
-    define("page/find/player/player/playerCallbacks", ["tui/net", "tui/cookie", "tui/common", "tui/util/url", "tui/encrypt/macmd5", "module/login/login", "module/responsive", "page/find/player/player/pipAd", "page/find/player/view/iku"], function(e, t, i, n, a, o, r, s, l, d, c) {
+    define("page/find/player/player/playerCallbacks", ["tui/net", "tui/cookie", "tui/common", "tui/util/url", "tui/encrypt/macmd5", "module/login/login", "module/responsive", "page/find/player/player/pipAd", "page/find/player/view/iku"], function(e, t, i, a, n, o, r, s, l, d, c) {
         var u = i.empty;
         var f = window;
         var p;
         var h = {
-            func_referrer: v,
-            playerLogin: g,
+            func_referrer: m,
+            playerLogin: v,
             setDanmuStatus: y,
-            onPlayerStart: b,
+            onPlayerStart: w,
             PlayerPlayNext: k,
-            PlayerPlayPre: w,
-            onTrialEnd: x,
-            onPlayerSet: C,
-            onPlayerStageVideo: T,
+            PlayerPlayPre: _,
+            onTrialEnd: C,
+            onPlayerSet: P,
+            onPlayerStageVideo: x,
             onPlayerComplete: S,
-            onAddScriptContent: P,
-            getPlayerCNA: I,
-            onPlayerPreAdInit: A,
-            onPlayerLastAdInit: A,
-            onPlayerMidAdInit: L,
-            playerSubscribe: D,
-            playerToIku: R,
-            jumpToRegister: _
+            onAddScriptContent: T,
+            getPlayerCNA: D,
+            onPlayerPreAdInit: L,
+            onPlayerLastAdInit: L,
+            onPlayerMidAdInit: z,
+            playerSubscribe: A,
+            playerToIku: j,
+            jumpToRegister: b
         };
-        var m = {
+        var g = {
             setDanmuStatus: y,
-            onPlayerStart: b,
+            onPlayerStart: w,
             PlayerPlayNext: k,
-            onTrialEnd: x,
-            onPlayerSet: C,
+            onTrialEnd: C,
+            onPlayerSet: P,
             onPlayerComplete: S,
-            onAddScriptContent: P,
-            onPlayerPreAdInit: A,
-            onPlayerLastAdInit: A,
-            onPlayerMidAdInit: L,
-            playerSubscribe: D,
-            playerToIku: R
+            onAddScriptContent: T,
+            onPlayerPreAdInit: L,
+            onPlayerLastAdInit: L,
+            onPlayerMidAdInit: z,
+            playerSubscribe: A,
+            playerToIku: j
         };
 
-        function v() {
+        function m() {
             return document.referrer
         }
 
-        function g() {
+        function v() {
             o.login()
         }
 
@@ -4666,7 +4666,7 @@ function testClick() {
             $("#Drama").trigger("list:update")
         }
 
-        function _(e) {
+        function b(e) {
             var e = e || {};
             window.ykPlyr.trigger("authenPhone", ["authenFromPlayer", {
                 url: e.message || "https://id.youku.com/bindMobileView.htm",
@@ -4678,7 +4678,7 @@ function testClick() {
             }])
         }
 
-        function b(e) {
+        function w(e) {
             var t = this;
             t.playerStart = true;
             e.isFullScreen = e.vid && e.vidEncoded && "undefined" != e.vid && "undefined" != e.vidEncoded && e.vid != PageConfig.videoId && PageConfig.videoId2 != e.vidEncoded;
@@ -4695,16 +4695,16 @@ function testClick() {
                         if (PageConfig.folderId)
                             if (0 == PageConfig.folderId) i = i;
                             else i += "?f=" + PageConfig.folderId;
-                        var n = {
+                        var a = {
                             url: i
                         };
-                        history.replaceState(n, "", i)
+                        history.replaceState(a, "", i)
                     }
-                } catch (a) {}
+                } catch (n) {}
             }
             t.trigger("player:onPlayerStart", [e]);
             $("body").trigger("appearBspool");
-            if (e.next) C({
+            if (e.next) P({
                 continuous: e.next ? 1 : 0
             })
         }
@@ -4712,30 +4712,30 @@ function testClick() {
         function k(e) {
             if (e.isFullScreen) return true;
             var t = parseInt(PageConfig.playmode);
-            var i = n.params();
-            var a = "/v_show/id_";
+            var i = a.params();
+            var n = "/v_show/id_";
             var o = $('[item-id="item_' + e.vidEncoded + '"]>a')[0] || $("body")[0];
             if (window.g_SPM && o) i.spm = window.g_SPM.spm(o);
             if (2 == t) {
                 if (u(e.vidEncoded) || u(e.Fid)) return false;
                 if (0 == PageConfig.forder) i.o = 0;
                 i.f = e.Fid;
-                a += e.vidEncoded + ".html"
+                n += e.vidEncoded + ".html"
             } else {
                 var r = e.vidEncoded;
                 if (!r) return false;
-                if (4 == t) a += r + "_type_99" + ".html";
+                if (4 == t) n += r + "_type_99" + ".html";
                 else {
-                    a += r + ".html";
+                    n += r + ".html";
                     if (!!PageConfig.singerId && "0" != PageConfig.singerId) i.sid = PageConfig.singerId;
                     if (!!PageConfig.showid_en) i.s = PageConfig.showid_en
                 }
             }
-            f.location.href = a + "?" + $.param(i);
+            f.location.href = n + "?" + $.param(i);
             return true
         }
 
-        function w(e) {
+        function _(e) {
             if (e.isFullScreen) return true;
             var t = parseInt(PageConfig.playmode);
             if (2 == t) {
@@ -4752,17 +4752,17 @@ function testClick() {
             return true
         }
 
-        function x() {
+        function C() {
             f.trialEnd = true
         }
 
-        function C(e) {
+        function P(e) {
             t("P_F", e.continuous);
             var i = parseInt((new Date).getTime() / 1e3) + 3600 * 2;
             t("P_T", i)
         }
 
-        function T(e) {
+        function x(e) {
             if (true == e) t("stgvd", 1, 7);
             else t("stgvd", 1, -1);
             setTimeout(function() {
@@ -4774,12 +4774,12 @@ function testClick() {
             var e = e || {};
             var i = this;
             if (f.trialEnd || e && e.loop) return false;
-            var n = parseInt(PageConfig.playmode);
-            var a = 4 == n ? "W_P_L_M" : "P_L_M";
-            var o = t(a);
+            var a = parseInt(PageConfig.playmode);
+            var n = 4 == a ? "W_P_L_M" : "P_L_M";
+            var o = t(n);
             var r = t("P_F");
             var s = false;
-            if (2 == n && void 0 !== e.Pt) PageConfig.fpos = e.Pt;
+            if (2 == a && void 0 !== e.Pt) PageConfig.fpos = e.Pt;
             var l = parseInt((new Date).getTime() / 1e3);
             e.playNextType = "auto";
             if (1 == r) {
@@ -4804,12 +4804,12 @@ function testClick() {
             i.trigger("player:onPlayerComplete", [e])
         }
 
-        function E(e) {
+        function I(e) {
             var t = this;
             t.trigger("player:playerState", [e])
         }
 
-        function P(e) {
+        function T(e) {
             var t = unescape(e);
             var i = document.createElement("script");
             i.type = "text/javascript";
@@ -4817,41 +4817,41 @@ function testClick() {
             document.getElementsByTagName("head")[0].appendChild(i)
         }
 
-        function I() {
+        function D() {
             return t("cna") || ""
         }
 
-        function A(e, t) {
+        function L(e, t) {
             s.adInit(e, t)
         }
 
-        function L(e, t) {
+        function z(e, t) {
             s.midAdInit(e, t)
         }
 
-        function D(t, i, n) {
+        function A(t, i, a) {
             function r(e) {
                 var t, i = {},
-                    n = [];
-                for (t in e) e.hasOwnProperty(t) && n.push(t);
-                for (n.sort(), t = 0; t < n.length; t++) i[n[t]] = e[n[t]];
+                    a = [];
+                for (t in e) e.hasOwnProperty(t) && a.push(t);
+                for (a.sort(), t = 0; t < a.length; t++) i[a[t]] = e[a[t]];
                 return i
             }
 
             function s(e) {
                 var t = "6T7;!dATxQNnVz1R",
                     i = r(e),
-                    n = [],
+                    a = [],
                     o = "";
-                for (var s in i) i.hasOwnProperty(s) && "undefined" != typeof i[s] && null !== i[s] && "" !== i[s] && n.push(s + "=" + i[s]);
-                var l = n.join("&");
-                return o = a(String(l), t)
+                for (var s in i) i.hasOwnProperty(s) && "undefined" != typeof i[s] && null !== i[s] && "" !== i[s] && a.push(s + "=" + i[s]);
+                var l = a.join("&");
+                return o = n(String(l), t)
             }
             var l = this;
             var d = {
                 friend_uid: i,
                 user_type: 0,
-                addtion: n.stype || "9-2"
+                addtion: a.stype || "9-2"
             };
             var c = s(d);
             d.sign = c;
@@ -4864,7 +4864,7 @@ function testClick() {
                         "function" === typeof t && t(e);
                         window.ykPlyr.trigger("player:onPlayerStartUpdate")
                     } else {
-                        alert("����ʧ��");
+                        alert("订阅失败");
                         return false
                     }
                 }, {
@@ -4874,7 +4874,7 @@ function testClick() {
             })
         }
 
-        function R(e) {
+        function j(e) {
             e = !e ? "ywebplayererror" : e;
             var t = "ywebadddesktop" == e ? "adddesktop" : "play";
             try {
@@ -4884,21 +4884,21 @@ function testClick() {
                     secne: e
                 };
                 l.ikuExecuteFrompc(i)
-            } catch (n) {}
+            } catch (a) {}
         }
         return {
             h5Bind: function(e, t) {
                 p = e;
-                $.each(m, function(i, n) {
-                    e.on(i, n.bind(t))
+                $.each(g, function(i, a) {
+                    e.on(i, a.bind(t))
                 })
             },
             swfBind: function(e) {
                 var t = e;
                 p = document.getElementById("movie_player");
                 for (var i in h) {
-                    var n = h[i];
-                    n && (f[i] = n.bind(t))
+                    var a = h[i];
+                    a && (f[i] = a.bind(t))
                 }
             }
         }
@@ -4948,14 +4948,14 @@ function testClick() {
         };
         return t
     });
-    define("page/find/player/player/playerFixed", ["tui/event", "tui/net", "tui/cookie", "tui/browser", "tui/util/throttle"], function(e, t, i, n, a) {
+    define("page/find/player/player/playerFixed", ["tui/event", "tui/net", "tui/cookie", "tui/browser", "tui/util/throttle"], function(e, t, i, a, n) {
         var o = $(window);
         return e.extend({
             initialize: function(e) {
                 this.ID = e.ID || "#player";
                 this.dom = $(this.ID);
                 this.player = document.getElementById("player");
-                if (!this.dom.length || n.isMobile) return;
+                if (!this.dom.length || a.isMobile) return;
                 this.domparent = this.dom.parent();
                 this.domgrandparent = this.dom.closest(".playArea");
                 if (!this.domparent.length || !this.domgrandparent.length) return;
@@ -4971,13 +4971,13 @@ function testClick() {
                 var e = this;
                 var t = 20,
                     i = this.dom.offset().top + this.dom.height() + t,
-                    n = 0;
+                    a = 0;
                 this.createDOM();
 
                 function r() {
                     var t = null;
-                    n = o.scrollTop();
-                    if (n > i) {
+                    a = o.scrollTop();
+                    if (a > i) {
                         if ("fixed" == this.playerWin) return;
                         if (e.flashPlayer && 0 == e.status)
                             if (ykPlyr.check("showControlBar")) e.narrowPlayer();
@@ -4995,7 +4995,7 @@ function testClick() {
                     return false
                 }
                 r();
-                o.bind("scroll", a(r, 300))
+                o.bind("scroll", n(r, 300))
             },
             createDOM: function() {
                 this.playerDiv = $("<div>").addClass("player");
@@ -5036,7 +5036,7 @@ function testClick() {
                 });
                 this.domgrandparent[0].style.cssText = "z-index:1280;";
                 this.dom.addClass("player-fixed");
-                var t = '<div id="dragHead" style="cursor:move;z-index:2;position:absolute;top:50%;margin-top:-12px;text-align:center;left:0;padding:0 10px;width:290px;height:24px;line-height:24px;background:#222;opacity:0.9;filter:alpha(opacity=90);color:#909090;font-size:16px;font-family:Microsoft YaHei,΢���ź�,helvetica,arial,verdana,tahoma,sans-serif;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;">�����ס��Ƶ���϶�</div>',
+                var t = '<div id="dragHead" style="cursor:move;z-index:2;position:absolute;top:50%;margin-top:-12px;text-align:center;left:0;padding:0 10px;width:290px;height:24px;line-height:24px;background:#222;opacity:0.9;filter:alpha(opacity=90);color:#909090;font-size:16px;font-family:Microsoft YaHei,微软雅黑,helvetica,arial,verdana,tahoma,sans-serif;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;">点击按住视频可拖动</div>',
                     i = '<div id="dragHand" style="cursor:move;position:absolute;top:0;left:0;width:100%;height:100%;background:#222;"></div>';
                 this.$dragDiv.attr("style", "z-index:2;position:absolute;top:0;left:0;width:310px;height:" + this.sfh + "px;margin:10px;display:none");
                 this.$dragDiv.html(t + i);
@@ -5068,8 +5068,8 @@ function testClick() {
                 if (!e.length) return false;
                 var t = this,
                     i = false,
-                    n = false,
-                    a, o, e = e[0],
+                    a = false,
+                    n, o, e = e[0],
                     r = document.getElementById("dragDIV");
                 e.onmouseover = function(e) {
                     if (r) r.style.display = "block";
@@ -5078,17 +5078,17 @@ function testClick() {
                 e.onmouseout = function(e) {
                     if (r) r.style.display = "none";
                     ykPlyr.show();
-                    if (false === n) i = false
+                    if (false === a) i = false
                 };
                 e.onmousedown = function(e) {
                     var e = e || window.event;
                     i = true;
-                    n = true;
+                    a = true;
                     if (e.screenX) {
-                        a = e.screenX;
+                        n = e.screenX;
                         o = e.screenY
                     } else if (e.screenLeft) {
-                        a = e.screenLeft;
+                        n = e.screenLeft;
                         o = e.screenTop
                     }
                     document.onmousemove = s
@@ -5096,7 +5096,7 @@ function testClick() {
                 document.onmouseup = function(e) {
                     var e = e || window.event;
                     i = false;
-                    n = false;
+                    a = false;
                     t._setPosition();
                     document.onmousemove = null
                 };
@@ -5104,17 +5104,17 @@ function testClick() {
                 function s(e) {
                     var e = e || window.event;
                     if (false == i) return true;
-                    var n, r;
+                    var a, r;
                     if (e.screenX) {
-                        n = e.screenX;
+                        a = e.screenX;
                         r = e.screenY
                     } else if (e.screenLeft) {
-                        n = e.screenLeft;
+                        a = e.screenLeft;
                         r = e.screenTop
                     }
-                    var s = n - a,
+                    var s = a - n,
                         l = r - o;
-                    a = n;
+                    n = a;
                     o = r;
                     var d = parseInt(t.player.style.left) + s,
                         c = parseInt(t.player.style.bottom) - l;
@@ -5131,12 +5131,12 @@ function testClick() {
                 ykPlyr.show()
             },
             moveElement: function(e, t, i) {
-                var n = this._getClientWidth() - this.sfw - 20,
-                    a = this._getClientHeight() - this.sfh - 20 - 80;
+                var a = this._getClientWidth() - this.sfw - 20,
+                    n = this._getClientHeight() - this.sfh - 20 - 80;
                 if (t < 0) t = 0;
-                if (t > n) t = n;
+                if (t > a) t = a;
                 if (i < 0) i = 0;
-                if (i > a) i = a;
+                if (i > n) i = n;
                 e[0].style.left = t + "px";
                 e[0].style.bottom = i + "px"
             },
@@ -5178,7 +5178,7 @@ function testClick() {
             getckey: i
         }
     });
-    define("page/find/player/player/h5player", ["tui/view", "tui/cookie", "tui/net", "tui/util/url", "page/find/play/util/util", "module/login/login", "tui/util/codec", "module/responsive"], function(e, t, i, n, a, o, r, s) {
+    define("page/find/player/player/h5player", ["tui/view", "tui/cookie", "tui/net", "tui/util/url", "page/find/play/util/util", "module/login/login", "tui/util/codec", "module/responsive"], function(e, t, i, a, n, o, r, s) {
         var l = null;
         var d = e.extend({
             events: {
@@ -5188,16 +5188,16 @@ function testClick() {
                 d.superClass.initialize.call(this);
                 this.$el.append('<div class="h5-wrap"><div id="ykPlayer"></div></div>');
                 var t = this,
-                    n;
-                n = this.getCfg();
+                    a;
+                a = this.getCfg();
                 i.getScript("//g.alicdn.com/player/ykplayer/0.5.21/youku-player.min.js", function() {
                     require("YoukuPlayer", function(e) {
-                        var i = $.extend(n, {
+                        var i = $.extend(a, {
                             vid: PageConfig.videoId2,
                             currentShowId: PageConfig.showid,
                             ccode: "0502",
                             autoplay: true,
-                            ckey: a.getckey(),
+                            ckey: n.getckey(),
                             events: {
                                 onReady: function() {
                                     t.trigger("player:loaded", [l])
@@ -5211,9 +5211,9 @@ function testClick() {
             getCfg: function() {
                 var e = {},
                     i = {},
-                    a = n.params() || {};
-                if (void 0 != a.adext) e.adext = a.adext;
-                if (void 0 != a.hotPreview) e.hotPreview = a.hotPreview;
+                    n = a.params() || {};
+                if (void 0 != n.adext) e.adext = n.adext;
+                if (void 0 != n.hotPreview) e.hotPreview = n.hotPreview;
                 if (window.PageConfig) {
                     e.playmode = PageConfig.playmode;
                     e.abtest = "b";
@@ -5254,7 +5254,7 @@ function testClick() {
                 return e
             },
             switchToFlash: function() {
-                var e = n.params();
+                var e = a.params();
                 e.debug = "flv";
                 goldlog && goldlog.record("/yt/youkuplayer.fdl.page_error", "CLK", "degradetype=2&vid=" + PageConfig.videoId, "H1505507054");
                 location.href = "//" + location.host + location.pathname + "?" + $.param(e)
@@ -5309,17 +5309,17 @@ function testClick() {
         var e = "undefined",
             t = "object",
             i = "Shockwave Flash",
-            n = "ShockwaveFlash.ShockwaveFlash",
-            a = "application/x-shockwave-flash",
+            a = "ShockwaveFlash.ShockwaveFlash",
+            n = "application/x-shockwave-flash",
             o = window,
             r = document,
             s = navigator,
             l = function() {
                 var t = typeof r.getElementById != e && typeof r.getElementsByTagName != e && typeof r.createElement != e,
                     i = s.userAgent.toLowerCase(),
-                    n = s.platform.toLowerCase(),
-                    a = n ? /win/.test(n) : /win/.test(i),
-                    o = n ? /mac/.test(n) : /mac/.test(i),
+                    a = s.platform.toLowerCase(),
+                    n = a ? /win/.test(a) : /win/.test(i),
+                    o = a ? /mac/.test(a) : /mac/.test(i),
                     l = /webkit/.test(i) ? parseFloat(i.replace(/^.*webkit\/(\d+(\.\d+)?).*$/, "$1")) : false,
                     d = [0, 0, 0],
                     c = false,
@@ -5327,22 +5327,22 @@ function testClick() {
                     f = false,
                     p = false,
                     h = false,
-                    m = null;
-                var v;
-                (v = i.match(/msie ([\d.]+)/)) ? c = v[1]: (v = i.match(/firefox\/([\d.]+)/)) ? u = v[1] : (v = i.match(/chrome\/([\d.]+)/)) ? f = v[1] : (v = i.match(/opera.([\d.]+)/)) ? p = v[1] : (v = i.match(/version\/([\d.]+).*safari/)) ? h = v[1] : 0;
+                    g = null;
+                var m;
+                (m = i.match(/msie ([\d.]+)/)) ? c = m[1]: (m = i.match(/firefox\/([\d.]+)/)) ? u = m[1] : (m = i.match(/chrome\/([\d.]+)/)) ? f = m[1] : (m = i.match(/opera.([\d.]+)/)) ? p = m[1] : (m = i.match(/version\/([\d.]+).*safari/)) ? h = m[1] : 0;
                 return {
                     ie: c,
-                    win: a,
+                    win: n,
                     mac: o,
                     safari: h,
                     chrome: f
                 }
             }();
 
-        function d(t, i, n, a) {
-            var o = document.getElementById(n);
+        function d(t, i, a, n) {
+            var o = document.getElementById(a);
             if (o) {
-                if (typeof t.id == e) t.id = n;
+                if (typeof t.id == e) t.id = a;
                 var r = "";
                 for (var s in t)
                     if (t[s] != Object.prototype[s])
@@ -5355,11 +5355,11 @@ function testClick() {
                 var u = "";
                 if (l.ie && l.win) {
                     u = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" ' + r + ">" + d;
-                    if (a) u += '<div class="player_html5"><div class="picture"style="height:100%"><div style="line-height:460px;"><span style="font-size:18px">����û�а�װflash������,����<a href="https://get.adobe.com/flashplayer/" target="_blank">����</a>��װ</span></div></div></div>';
+                    if (n) u += '<div class="player_html5"><div class="picture"style="height:100%"><div style="line-height:460px;"><span style="font-size:18px">您还没有安装flash播放器,请点击<a href="https://get.adobe.com/flashplayer/" target="_blank">这里</a>安装</span></div></div></div>';
                     u += "</object>"
                 } else {
                     u = '<object type="application/x-shockwave-flash" data="' + i.movie + '" ' + r + ">" + d;
-                    if (a) u += '<div class="player_html5"><div class="picture"style="height:100%"><div style="line-height:460px;"><span style="font-size:18px">����û�а�װflash������,����<a href="https://get.adobe.com/flashplayer/" target="_blank">����</a>��װ</span></div></div></div>';
+                    if (n) u += '<div class="player_html5"><div class="picture"style="height:100%"><div style="line-height:460px;"><span style="font-size:18px">您还没有安装flash播放器,请点击<a href="https://get.adobe.com/flashplayer/" target="_blank">这里</a>安装</span></div></div></div>';
                     u += "</object>"
                 }
                 o.innerHTML = u;
@@ -5368,19 +5368,19 @@ function testClick() {
         }
         return {
             ua: l,
-            createSWF: function(i, n, a, o, r, s) {
+            createSWF: function(i, a, n, o, r, s) {
                 var l = {};
-                if (n && typeof n === t)
-                    for (var c in n) l[c] = n[c];
                 if (a && typeof a === t)
-                    for (var u in a)
-                        if (typeof l.flashvars != e) l.flashvars += "&" + u + "=" + a[u];
-                        else l.flashvars = u + "=" + a[u];
+                    for (var c in a) l[c] = a[c];
+                if (n && typeof n === t)
+                    for (var u in n)
+                        if (typeof l.flashvars != e) l.flashvars += "&" + u + "=" + n[u];
+                        else l.flashvars = u + "=" + n[u];
                 return d(i, l, o, s)
             }
         }
     }());
-    define("page/find/player/player/flashplayer", ["tui/view", "tui/cookie", "tui/net", "tui/util/url", "page/find/play/util/util", "tui/util/codec", "tui/browser", "module/login/login", "page/find/play/util/swfobject"], function(e, t, i, n, a, o, r, s, l) {
+    define("page/find/player/player/flashplayer", ["tui/view", "tui/cookie", "tui/net", "tui/util/url", "page/find/play/util/util", "tui/util/codec", "tui/browser", "module/login/login", "page/find/play/util/swfobject"], function(e, t, i, a, n, o, r, s, l) {
         var d = null;
         var c = e.extend({
             playlistVids: [],
@@ -5515,11 +5515,11 @@ function testClick() {
                 var t = this;
                 e.push({
                     action: "goldlog.aplus_pubsub.subscribe",
-                    arguments: ["sendPV", function(e, i, n) {
+                    arguments: ["sendPV", function(e, i, a) {
                         if ("complete" === e)
-                            if (t.check()) d.setPlayerCNA && d.setPlayerCNA(n.cna);
+                            if (t.check()) d.setPlayerCNA && d.setPlayerCNA(a.cna);
                             else t.bind("player:loaded", function() {
-                                d.setPlayerCNA && d.setPlayerCNA(n.cna)
+                                d.setPlayerCNA && d.setPlayerCNA(a.cna)
                             })
                     }]
                 })
@@ -5564,7 +5564,7 @@ function testClick() {
                 }
                 if (PageConfig.catId && "95" == PageConfig.catId && 5 != PageConfig.playmode) i.showloop = true;
                 try {
-                    var c = n.params();
+                    var c = a.params();
                     if (c.firsttime) i.firsttime = c.firsttime;
                     if (c.ev) i.ev = c.ev;
                     if (c.lang) i.lang = c.lang;
@@ -5599,28 +5599,28 @@ function testClick() {
                 i.embedid = embedid;
                 if (navigator.userAgent.indexOf("MSIE") != -1) i.ikuison = "1";
                 i.ysuid = t("__ysuid") || "";
-                var m;
-                var v = t("_bc") || "";
-                m = "bc=" + v + "&pid=" + PageConfig.logPvid + "&unCookie=" + PageConfig.logUnCookie + "&frame=" + PageConfig.logFrame;
-                if (PageConfig.folderId) m += "&type=1&fob=" + PageConfig.forder + "&fpo=" + PageConfig.fpos;
-                else m += "&type=0";
-                if ("��Ƭ" == PageConfig.showtype) m += "&svt=1&stg=" + PageConfig.stage;
-                else if (PageConfig.showid) m += "&svt=0";
-                var g = encodeURIComponent(t("cna") || "");
-                m += "&cna=" + g;
-                if ("" == g) this._bindCNAEvent();
-                m += "&emb=" + embedid + "&dn=��ҳ&hwc=1";
-                if (navigator.userAgent.indexOf("Android") !== -1) m += "&mtype=adr";
-                else m += "&mtype=oth";
-                i.vext = encodeURIComponent(m);
-                i.cna = g;
-                i.ckey = encodeURIComponent(a.getckey());
+                var g;
+                var m = t("_bc") || "";
+                g = "bc=" + m + "&pid=" + PageConfig.logPvid + "&unCookie=" + PageConfig.logUnCookie + "&frame=" + PageConfig.logFrame;
+                if (PageConfig.folderId) g += "&type=1&fob=" + PageConfig.forder + "&fpo=" + PageConfig.fpos;
+                else g += "&type=0";
+                if ("正片" == PageConfig.showtype) g += "&svt=1&stg=" + PageConfig.stage;
+                else if (PageConfig.showid) g += "&svt=0";
+                var v = encodeURIComponent(t("cna") || "");
+                g += "&cna=" + v;
+                if ("" == v) this._bindCNAEvent();
+                g += "&emb=" + embedid + "&dn=网页&hwc=1";
+                if (navigator.userAgent.indexOf("Android") !== -1) g += "&mtype=adr";
+                else g += "&mtype=oth";
+                i.vext = encodeURIComponent(g);
+                i.cna = v;
+                i.ckey = encodeURIComponent(n.getckey());
                 if (5 == PageConfig.playmode || 4 == PageConfig.playmode) {
                     var y = 4 == PageConfig.playmode ? "W_P_L_M" : "P_L_M";
-                    var _ = t(y);
-                    var b = t("P_F");
-                    if (1 == b) {
-                        switch (_) {
+                    var b = t(y);
+                    var w = t("P_F");
+                    if (1 == w) {
+                        switch (b) {
                             case "1":
                                 var k = 12;
                                 break;
@@ -5634,19 +5634,19 @@ function testClick() {
                     }
                 }
                 i.pageStartTime = window.logPageStartTime || (new Date).getTime();
-                if (r.mac && r.chrome >= 54 && r.chrome < 55) var w = {
+                if (r.mac && r.chrome >= 54 && r.chrome < 55) var _ = {
                     data: PageConfig.playerUrl,
                     width: "1",
                     height: "1",
                     id: this.playerId
                 };
-                else var w = {
+                else var _ = {
                     data: PageConfig.playerUrl,
                     width: "100%",
                     height: "100%",
                     id: this.playerId
                 };
-                l.createSWF(w, e, i, "player", "6.0", true);
+                l.createSWF(_, e, i, "player", "6.0", true);
                 if (r.mac && r.chrome >= 54 && r.chrome < 55) setTimeout(function() {
                     d.style.width = "100%";
                     d.style.height = "100%"
@@ -5655,18 +5655,18 @@ function testClick() {
         });
         return c
     });
-    define("page/find/player/player/load", ["page/find/player/player/flashplayer", "page/find/player/player/h5player", "tui/browser", "tui/cookie", "tui/art", "tui/event", "tui/util/url", "page/find/player/player/playerFixed", "page/find/player/player/h5playerdanmu", "page/find/player/player/playerCallbacks", "page/find/player/player/chest"], function(e, t, i, n, a, o, r, s, l, d, c, u, f) {
+    define("page/find/player/player/load", ["page/find/player/player/flashplayer", "page/find/player/player/h5player", "tui/browser", "tui/cookie", "tui/art", "tui/event", "tui/util/url", "page/find/player/player/playerFixed", "page/find/player/player/h5playerdanmu", "page/find/player/player/playerCallbacks", "page/find/player/player/chest"], function(e, t, i, a, n, o, r, s, l, d, c, u, f) {
         f.load = function() {
-            var i, n;
-            var a = location.href;
+            var i, a;
+            var n = location.href;
             var o = r.params();
             var c = !!document.createElement("video").canPlayType;
-            var n = "flv" === o.debug;
+            var a = "flv" === o.debug;
             var u = navigator.userAgent.toLowerCase();
             var f = u.match(/msie ([\d.]+)/);
             (window.goldlog_queue || (window.goldlog_queue = [])).push({
                 action: "goldlog.record",
-                arguments: ["/yt/youkuplayer.fdl.ykplayer_pv", "EXP", n ? "isflash=1" : "", "H1506430579"]
+                arguments: ["/yt/youkuplayer.fdl.ykplayer_pv", "EXP", a ? "isflash=1" : "", "H1506430579"]
             });
             try {
                 if ("undefined" != typeof window.ActiveXObject) i = !!new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
@@ -5674,23 +5674,23 @@ function testClick() {
             } catch (p) {
                 i = false
             }
-            if (f && 1 * f[1] < 10) n = true;
-            if ((!n && c || !i) && 1 != PageConfig.panorama) v();
-            else g();
+            if (f && 1 * f[1] < 10) a = true;
+            if ((!a && c || !i) && 1 != PageConfig.panorama) m();
+            else v();
             ykPlyr.bind("player:loaded", function() {
                 var e = $(".player-container .player-title");
                 var t = $(window);
                 var i = e.offset().top;
-                var n = i + e.outerHeight();
-                var a = t.scrollTop();
-                var o = a + $(window).height();
-                if (!(i > a && n < o) && a < 70) $("body,html").animate({
+                var a = i + e.outerHeight();
+                var n = t.scrollTop();
+                var o = n + $(window).height();
+                if (!(i > n && a < o) && n < 70) $("body,html").animate({
                     scrollTop: 60
                 }, 500)
             });
             if (window.performance && window.performance.now) {
                 var h = window.performance.now();
-                var m = {
+                var g = {
                     loading_step: 1,
                     request_time: 0,
                     abtest: "b",
@@ -5700,7 +5700,7 @@ function testClick() {
                 };
                 (window.goldlog_queue || (window.goldlog_queue = [])).push({
                     action: "goldlog.record",
-                    arguments: ["/yt/playpage.playpage.ykplaypage_process", "EXP", $.param(m), "H1534136206"]
+                    arguments: ["/yt/playpage.playpage.ykplaypage_process", "EXP", $.param(g), "H1534136206"]
                 })
             }
             if (i && 1 != PageConfig.panorama && c) {
@@ -5723,7 +5723,7 @@ function testClick() {
                 })
             }
 
-            function v() {
+            function m() {
                 window.ykPlyr = new t({
                     el: "#player"
                 });
@@ -5738,7 +5738,7 @@ function testClick() {
                 $("#module_basic_playarea").addClass("spv-player")
             }
 
-            function g() {
+            function v() {
                 window.ykPlyr = new e;
                 ykPlyr.type = "flash";
                 d.swfBind(ykPlyr);
@@ -5747,12 +5747,12 @@ function testClick() {
             }
         }
     });
-    require(["page/find/g", "tui/cookie", "module/responsive", "module/login/login", "page/find/player/player/load", "page/find/player/view/main", "page/find/player/view/sideTool", "page/find/player/view/advertisement", "page/find/player/view/listall", "page/find/player/view/cms", "page/find/player/view/interactionBottom", "page/find/player/view/sub", "page/find/player/dmpool/dmpoolLoad", "page/find/player/view/statistics", "page/find/player/view/stars", "page/find/player/view/intro"], function(e, t, i, n, a, o, r, s, l, d, c, u, f, p, h, m) {
+    require(["page/find/g", "tui/cookie", "module/responsive", "module/login/login", "page/find/player/player/load", "page/find/player/view/main", "page/find/player/view/sideTool", "page/find/player/view/advertisement", "page/find/player/view/listall", "page/find/player/view/cms", "page/find/player/view/interactionBottom", "page/find/player/view/sub", "page/find/player/dmpool/dmpoolLoad", "page/find/player/view/statistics", "page/find/player/view/stars", "page/find/player/view/intro"], function(e, t, i, a, n, o, r, s, l, d, c, u, f, p, h, g) {
         e.init();
         window.catId = PageConfig.catId;
         if (window.cateStr) {
-            var v = 1 * PageConfig.folderId || 1 * PageConfig.showid;
-            cateStr = cateStr + "-" + v + "-" + PageConfig.videoId
+            var m = 1 * PageConfig.folderId || 1 * PageConfig.showid;
+            cateStr = cateStr + "-" + m + "-" + PageConfig.videoId
         }
         $(document.body).addClass("danmuoff");
         window.getVvlogextplay = function() {
@@ -5765,18 +5765,18 @@ function testClick() {
             i.trigger("player:responsive", [e]);
             $("body").trigger("responsive", [e])
         });
-        a.load();
+        n.load();
         new o;
-        new m;
-        n.one("checklogin", function() {
+        new g;
+        a.one("checklogin", function() {
             f();
             new u
         });
         new r;
-        var g = new s;
+        var v = new s;
         var y = new l;
         y.bind("relationlist:loaded", function() {
-            g.addrelationListAd()
+            v.addrelationListAd()
         });
         new d;
         new c;
@@ -5798,7 +5798,7 @@ function testClick() {
             }
         });
 
-        function _() {
+        function b() {
             var e = true;
 
             function t() {
@@ -5811,12 +5811,12 @@ function testClick() {
             function i(e) {
                 return [e.getFullYear(), e.getMonth() + 1, e.getDate(), e.getHours()].join("")
             }
-            var n = function() {
+            var a = function() {
                 var e = document.getElementById("movie_player");
                 if (e && "DIV" !== e.tagName) return "flash";
                 return true
             };
-            var a = function() {
+            var n = function() {
                 if ("undefined" === typeof videoPlayer) return "beforeInit";
                 if ("function" === typeof videoPlayer.getProcessState) return videoPlayer.getProcessState();
                 return "initError"
@@ -5824,8 +5824,8 @@ function testClick() {
             var o = function() {
                 var i = t();
                 if (!e) i = 1;
-                for (var n = 0; n < i.length; n++)
-                    if ("undefined" !== typeof goldlog) goldlog.record("/yt/youkuplayer.fdl.page_error", "EXP", "degradetype=4&errortype=2&vid=" + PageConfig.videoId + "&timestr=" + i[n].time + "&date=" + i[n].date + "&state=" + (i[n].state || ""), "H1505507054");
+                for (var a = 0; a < i.length; a++)
+                    if ("undefined" !== typeof goldlog) goldlog.record("/yt/youkuplayer.fdl.page_error", "EXP", "degradetype=4&errortype=2&vid=" + PageConfig.videoId + "&timestr=" + i[a].time + "&date=" + i[a].date + "&state=" + (i[a].state || ""), "H1505507054");
                 localStorage.setItem("PAGE_QUIT", "");
                 return null
             };
@@ -5838,10 +5838,10 @@ function testClick() {
                     }
                     var s = t();
                     var l = new Date;
-                    var d = n();
+                    var d = a();
                     var c = "";
                     if ("flash" === d) c = "flash";
-                    else c = a();
+                    else c = n();
                     s.push({
                         time: l.getTime(),
                         date: i(l),
@@ -5854,9 +5854,9 @@ function testClick() {
                 console.log(r)
             }
         }
-        _();
+        b();
         $(window).bind("beforeunload", function() {
-            if (n.isLogin()) return;
+            if (a.isLogin()) return;
             var e = t("u_l_v_t");
             try {
                 var i = ykPlyr.PlayerInfo() || 0;
@@ -5866,10 +5866,10 @@ function testClick() {
                     if (i > 60 * 6 * 60) i = 60 * 6 * 60;
                     t("u_l_v_t", parseInt(i), 1)
                 }
-            } catch (a) {}
+            } catch (n) {}
         })
     })
-}(window.jQuery, window.oz.require, window.oz.define);;
+}(window.jQuery, window.oz.require, window.oz.define);
 }
 
 function checkvideo(callback) {
@@ -5879,7 +5879,7 @@ function checkvideo(callback) {
   } else {
       setTimeout(function() {
           checkvideo(callback)
-      }, 100)
+      }, 1000)
   }
 }
 var loopcount = 0;
